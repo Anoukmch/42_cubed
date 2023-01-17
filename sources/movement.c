@@ -1,89 +1,84 @@
 #include "../includes/cub3d.h"
 
-void	playerright(t_vars *vars)
+void rotate_left(t_vars *vars)
 {
-	int	w;
-	int	h;
+	int i;
 
-	w = vars->p_width;
-	h = vars->p_height;
-	if (vars->map[h][w + 1] != '1' && (vars->map[h][w + 1] != 'E'
-			|| vars->coll_no == vars->coll_counter))
+	i = 1;
+	vars->rotation = -0.0174533;
+	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2 && vars->p_height_pos + (vars->dir_y * i) > 0
+		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2 && vars->p_width_pos + (vars->dir_x * i) > 0)
 	{
-		vars->player_img->instances[0].x += 32;
-		vars->p_width = w + 1;
-		vars->p_height = h;
-		exit_and_collectible(vars);
+		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i), vars->p_height_pos + (vars->dir_y * i), 0);
+		i++;
+	}
+	// SKALARPRODUKT
+	double olddir_x  =  vars->dir_x;
+	vars->dir_x = vars->dir_x * cos(vars->rotation) - vars->dir_y * sin(vars->rotation);
+	vars->dir_y = olddir_x * sin(vars->rotation) + vars->dir_y * cos(vars->rotation);
+	i = 1;
+	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2 && vars->p_height_pos + (vars->dir_y * i) > 0
+		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2 && vars->p_width_pos + (vars->dir_x * i) > 0)
+	{
+		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i), vars->p_height_pos + (vars->dir_y * i), 255);
+		i++;
 	}
 }
 
-void	playerleft(t_vars *vars)
+void rotate_right(t_vars *vars)
 {
-	int	w;
-	int	h;
+	int i;
 
-	w = vars->p_width;
-	h = vars->p_height;
-	if (vars->map[h][w - 1] != '1' && (vars->map[h][w - 1] != 'E'
-			|| vars->coll_no == vars->coll_counter))
+	i = 1;
+	vars->rotation = 0.0174533;
+	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2 && vars->p_height_pos + (vars->dir_y * i) > 0
+		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2 && vars->p_width_pos + (vars->dir_x * i) > 0)
 	{
-		vars->player_img->instances[0].x -= 32;
-		vars->p_width = w - 1;
-		vars->p_height = h;
-		exit_and_collectible(vars);
+		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i), vars->p_height_pos + (vars->dir_y * i), 0);
+		i++;
+	}
+	// SKALARPRODUKT
+	double olddir_x  =  vars->dir_x;
+	vars->dir_x = vars->dir_x * cos(vars->rotation) - vars->dir_y * sin(vars->rotation);
+	vars->dir_y = olddir_x * sin(vars->rotation) + vars->dir_y * cos(vars->rotation);
+	i = 1;
+	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2 && vars->p_height_pos + (vars->dir_y * i) > 0
+		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2 && vars->p_width_pos + (vars->dir_x * i) > 0)
+	{
+		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i), vars->p_height_pos + (vars->dir_y * i), 255);
+		i++;
 	}
 }
 
-void	playerup(t_vars *vars)
+void	key_hook(mlx_key_data_t keydata, void *param)
 {
-	int	w;
-	int	h;
+	t_vars	*vars;
 
-	w = vars->p_width;
-	h = vars->p_height;
-	if (vars->map[h - 1][w] != '1' && (vars->map[h - 1][w] != 'E'
-			|| vars->coll_no == vars->coll_counter))
+	vars = param;
+	if (keydata.key == MLX_KEY_ESCAPE)
+		mlx_close_window(vars->mlx);
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{
 		vars->player_img->instances[0].y -= 32;
-		vars->p_width = w;
-		vars->p_height = h - 1;
-		exit_and_collectible(vars);
+		vars->view_img->instances[0].y -= 32;
 	}
-}
-
-void	playerdown(t_vars *vars)
-{
-	int	w;
-	int	h;
-
-	w = vars->p_width;
-	h = vars->p_height;
-	if (vars->map[h + 1][w] != '1' && (vars->map[h + 1][w] != 'E'
-			|| vars->coll_no == vars->coll_counter))
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
 		vars->player_img->instances[0].y += 32;
-		vars->p_width = w;
-		vars->p_height = h + 1;
-		exit_and_collectible(vars);
+		vars->view_img->instances[0].y += 32;
 	}
-}
-
-void	exit_and_collectible(t_vars *vars)
-{
-	if (vars->map[vars->p_height][vars->p_width] == 'E')
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
-		vars->steps++;
-		mlx_close_window(vars->mlx);
-		ft_printf("\nCongrats, you won with %i steps!\n\n", vars->steps);
-		exit_and_free(vars, 0);
+		vars->player_img->instances[0].x -= 32;
+		vars->view_img->instances[0].x -= 32;
 	}
-	if (vars->map[vars->p_height][vars->p_width] == 'C')
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
-		vars->coll_counter++;
-		mlx_draw_texture(vars->map_img, vars->textures[SPACES],
-			vars->p_width * 32, vars->p_height * 32);
-		vars->map[vars->p_height][vars->p_width] = '0';
+		vars->player_img->instances[0].x += 32;
+		vars->view_img->instances[0].x += 32;
 	}
-	vars->steps++;
-	ft_printf("step: %d\n", vars->steps);
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
+		rotate_right(vars);
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
+		rotate_left(vars);
 }

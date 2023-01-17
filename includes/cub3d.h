@@ -9,29 +9,9 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
-# define TEXTURES			13
-
-# define PLAYER				0
-# define SPACES				1
-# define CORNER_LEFT_UP		2
-# define CORNER_LEFT_DOWN 	3
-# define CORNER_RIGHT_UP 	4
-# define CORNER_RIGHT_DOWN 	5
-# define WALL_LEFT 			6
-# define WALL_RIGHT 		7
-# define WALL_DOWN 			8
-# define WALL_UP 			9
-# define COLLECTS 			10
-# define EXIT 				11
-# define BOX 				12
-
 typedef struct s_vars
 {
 	mlx_t			*mlx;
-
-	mlx_texture_t	*textures[TEXTURES];
-
-	mlx_image_t		*bg_img;
 
 	mlx_image_t		*map_img;
 	char			**map;
@@ -39,38 +19,23 @@ typedef struct s_vars
 	int				m_height;
 
 	mlx_image_t		*player_img;
-	int				p_width;
-	int				p_height;
+	int				p_width_pos;
+	int				p_height_pos;
 
-	int				coll_counter;
-	int				steps;
+	mlx_image_t		*view_img;
+	double				dir_x;
+	double				dir_y;
+	double				rotation;
 
-	int				coll_no;
-	int				player_no;
-	int				exit_no;
+	mlx_image_t		*test;
 
 }				t_vars;
 
-void	ft_init_textures(t_vars *vars);
-void	check_texturesize(t_vars *vars);
-int		countinglines(char **argv);
-void	readingmap(char **argv, t_vars *vars);
-void	set_player_pos(t_vars *vars);
+// movement.c
+void	key_hook(mlx_key_data_t keydata, void *param);
 
-void	paintingmap(t_vars *vars);
-void	paintingwalls(t_vars *vars, int height, int width);
-void	paintingcorners(t_vars *vars, int height, int width);
-
-void	playermovement(t_vars *vars);
-void	playerright(t_vars *vars);
-void	playerleft(t_vars *vars);
-void	playerdown(t_vars *vars);
-void	playerup(t_vars *vars);
-void	exit_and_collectible(t_vars *vars);
-
-void	counting_character(t_vars *vars, int w, int h);
-void	rectangle_check(t_vars *vars);
-void	errorhandling(t_vars *vars, int w, int h);
-void	exit_and_free(t_vars *vars, int status);
-
+// init.c
+void init_window(t_vars *vars);
+void init_player(t_vars *vars);
+void view_starting_direction(t_vars *vars);
 #endif

@@ -25,6 +25,22 @@
 # define EXIT 				11
 # define BOX 				12
 
+typedef struct s_map
+{
+	int	fd;
+	char	*read_line;
+
+	char	*north_path;
+	char	*south_path;
+	char	*west_path;
+	char	*east_path;
+
+	char	*rgb_f;
+	char	*rgb_c;
+
+}			t_map;
+
+
 typedef struct s_vars
 {
 	mlx_t			*mlx;
@@ -72,5 +88,7 @@ void	counting_character(t_vars *vars, int w, int h);
 void	rectangle_check(t_vars *vars);
 void	errorhandling(t_vars *vars, int w, int h);
 void	exit_and_free(t_vars *vars, int status);
+
+int	check_extension(char *mapfile);
 
 #endif

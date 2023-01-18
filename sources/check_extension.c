@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_extension.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 16:55:21 by amechain          #+#    #+#             */
-/*   Updated: 2023/01/16 16:17:56 by amechain         ###   ########.fr       */
+/*   Updated: 2023/01/18 09:46:06 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d.h"
 
 int	check_extension(char *mapfile)
 {

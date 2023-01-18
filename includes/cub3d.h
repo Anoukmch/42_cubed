@@ -49,4 +49,11 @@ typedef struct s_vars
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
 
+// init.c
+void init_window(t_vars *vars);
+void init_player(t_vars *vars);
+void view_starting_direction(t_vars *vars);
+
+// Check_extenstion.c
+int	check_extension(char *mapfile);
 #endif

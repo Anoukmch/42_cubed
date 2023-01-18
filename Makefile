@@ -1,12 +1,14 @@
 NAME 		= cub3D
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -fsanitize=address
 MLX			= $(LIBS_NAME) ./includes/libs/libmlx/libmlx42.a ./includes/libs/libmlx/libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit
 M_SRC		= main.c \
 				init.c \
 				movement.c \
-				check_extension.c
-				# parsing.c \
+				check_extension.c \
+				parsing.c \
+				check_map.c \
+				read_map.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 

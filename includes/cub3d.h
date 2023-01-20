@@ -11,7 +11,7 @@
 
 typedef struct s_map
 {
-	int	fd;
+	int		fd;
 	char	*read_line;
 
 	char	*north_path;
@@ -21,6 +21,12 @@ typedef struct s_map
 
 	char	*rgb_f;
 	char	*rgb_c;
+
+	char	*m_argv;
+	char	**cmap;
+	int		maplines;
+	int		mapstart;
+	int		player;
 
 }			t_map;
 
@@ -46,9 +52,31 @@ typedef struct s_vars
 
 }				t_vars;
 
+// parsing.c
+void	initialize(char *mapfile, t_map **map);
+void	parsing(t_map *map);
+void	map_pars(t_map *map);
+
+// read_map.c
+void	get_finalmap(t_map *map, char *lastline);
+void	countinglines(t_map *map, char *lastline);
+void	getmap_content(t_map *map);
+
+// check_map.c
+
+// check_extenstion.c
+int	check_extension(char *mapfile);
+
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
 
+<<<<<<< HEAD
 int	check_extension(char *mapfile);
+=======
+// init.c
+void init_window(t_vars *vars);
+void init_player(t_vars *vars);
+void view_starting_direction(t_vars *vars);
+>>>>>>> 6fbaadda1bb3b833a5be862d9c4914eb4603e29f
 
 #endif

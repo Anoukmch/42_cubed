@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 16:07:31 by amechain          #+#    #+#             */
-/*   Updated: 2023/01/18 18:40:30 by amechain         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d.h"
 
 void	check_texture_path(char *line) // How is the path formated ? Can it be in another folder ? (like ../../)
 {
@@ -199,27 +188,28 @@ int	check_identifier(char *line, t_map *map)
 	return (-1);
 }
 
-void	texture_and_colors_pars(t_map *map) /* Rework this function */
+char	*texture_and_colors_pars(t_map *map) /* Rework this function */
 {
 	char	*line;
 	int		i;
 
 	i = 0;
+	map->mapstart = 0;
 	line = get_next_line(map->fd);
 	if (!line)
 	{
 		printf("Error\nGet next line fail\n");
 		exit(1);
 	}
-	while (!map->south_path || !map->north_path
-		|| !map->east_path || !map->west_path
-		|| !map->rgb_f || !map->rgb_c || line)
+	while (!map->north_path || !map->south_path || !map->west_path
+		|| !map->east_path || !map->rgb_f || !map->rgb_c)
 	{
 		i = check_identifier(line, map);
 		if (i >= 0)
 			fill_var(line + i, map);
 		free(line);
 		line = get_next_line(map->fd);
+		map->mapstart++;
 	}
 	printf("north_path :%s\n", map->north_path);
 	printf("south_path :%s\n", map->south_path);
@@ -227,12 +217,15 @@ void	texture_and_colors_pars(t_map *map) /* Rework this function */
 	printf("west_path :%s\n", map->west_path);
 	printf("rgb_f :%s\n", map->rgb_f);
 	printf("rgb_c :%s\n", map->rgb_c);
+	return (line);
 }
 
 void	parsing(t_map *map)
 {
-	texture_and_colors_pars(map);
-	//map_pars(map);
+	char *line;
+
+	line = texture_and_colors_pars(map);
+	get_finalmap(map, line);
 }
 
 void	initialize(char *mapfile, t_map **map)
@@ -256,27 +249,6 @@ void	initialize(char *mapfile, t_map **map)
 	(*map)->east_path = NULL;
 	(*map)->rgb_f = NULL;
 	(*map)->rgb_c = NULL;
-}
-
-int main(int argc, char **argv)
-{
-	t_map	*map;
-
-	if (argc == 2)
-	{
-		if (check_extension(argv[1]) == 0)
-		{
-			printf("Error\nWrong input file extension\n");
-			exit(1);
-		}
-			//error_exit(NULL, "Error\nWrong input file extension\n");
-		initialize(argv[1], &map);
-		parsing(map);
-	}
-	else
-	{
-		printf("Error\nmissing or too much arg\n");
-		exit(1);
-	}
-		//error_exit(NULL, "Error\n./cub3d only takes one arg input\n");
+	(*map)->m_argv = mapfile;
+	(*map)->player = 0;
 }

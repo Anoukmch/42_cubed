@@ -7,6 +7,7 @@ M_SRC		= main.c \
 				movement.c \
 				check_extension.c \
 				parsing.c \
+				get_map.c \
 				check_map.c \
 				read_map.c
 

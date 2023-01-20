@@ -55,7 +55,7 @@ typedef struct s_vars
 // parsing.c
 void	initialize(char *mapfile, t_map **map);
 void	parsing(t_map *map);
-void	map_pars(t_map *map, char *lastline);
+void	map_pars(t_map *map);
 
 // read_map.c
 void	get_finalmap(t_map *map, char *lastline);

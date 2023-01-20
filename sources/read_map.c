@@ -1,33 +1,5 @@
 #include "../includes/cub3d.h"
 
-// NEW LINES AFTER MAP IS OK --> CHECK THAT
-
-void	check_restoffile(t_map *map)
-{
-	int read;
-	int	count;
-	char *tmp;
-	int	i;
-
-	read = open(map->m_argv, O_RDONLY);
-	count = 0;
-	if (read == -1)
-		exit (printf("reading map = impossible!\n"));
-	while (count < map->mapstart)
-	{
-		tmp = get_next_line(read);
-		free (tmp);
-		count++;
-	}
-	count = 0;
-	i = map->maplines;
-	while (count <= i)
-	{
-		tmp = get_next_line(read);
-		count++;
-	}
-}
-
 char	*ft_free_strtrim(char *s1, char const *set)
 {
 	size_t	len;
@@ -71,6 +43,21 @@ void	checkemptylines(t_map *map, char *lastline)
 	}
 }
 
+void	check_lines_after_map(t_map *map, char *gnl)
+{
+	int	i;
+
+	while (gnl)
+	{
+		gnl = get_next_line(map->fd);
+		i = 0;
+		while (gnl && gnl[i] == ' ')
+			i++;
+		if (ft_strcmp(&gnl[i], "\n") && gnl && ft_strcmp(&gnl[i], "\0"))
+			exit(printf("ERROR BECAUSE OF OTHER THINGS AFTER MAP\n"));
+	}
+}
+
 void	countinglines(t_map *map, char *lastline)
 {
 	char	*gnl;
@@ -86,12 +73,7 @@ void	countinglines(t_map *map, char *lastline)
 		free (gnl);
 		map->maplines++;
 	}
-	while (gnl)
-	{
-		gnl = get_next_line(map->fd);
-		if (ft_strcmp(gnl, "\n\n"))
-			exit(printf("ERROR BECAUSE OF OTHER THINGS AFTER MAP\n"));
-	}
+	check_lines_after_map(map, gnl);
 	close(map->fd);
 	if (!map->maplines)
 		exit (printf("Map error: No existing map!\n"));
@@ -104,7 +86,6 @@ void	getmap_content(t_map *map)
 	char	*tmp;
 
 	count = 0;
-	check_restoffile(map);
 	map->cmap = malloc((map->maplines + 2) * sizeof(char *));
 	if (!map->cmap)
 		exit (printf("allocation error\n"));
@@ -120,23 +101,9 @@ void	getmap_content(t_map *map)
 	count = 0;
 	while (count <= map->maplines)
 	{
-		map->cmap[count] = get_next_line(read);
+		map->cmap[count] = ft_strtrim(get_next_line(read), "\n");
 		count++;
 	}
 	map->cmap[count] = NULL;
 	close (read);
-}
-
-void get_finalmap(t_map *map, char *lastline)
-{
-	int	i;
-
-	i = 0;
-	countinglines(map, lastline);
-	getmap_content(map);
-	while (map->cmap[i])
-	{
-		map->cmap[i] = ft_free_strtrim(map->cmap[i], "\n");
-		i++;
-	}
 }

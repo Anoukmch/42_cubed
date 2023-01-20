@@ -99,27 +99,10 @@ void	check_first_and_last(char *str)
 	}
 }
 
-// HELPER FUNCTION
-void	printmap(t_map *map)
+void	map_pars(t_map *map)
 {
 	int	i;
 
-	i = 0;
-	printf("+++++ MAP +++++\n");
-	while (map->cmap[i])
-	{
-		printf("%s\n", map->cmap[i]);
-		i++;
-	}
-	printf("\n");
-}
-
-void	map_pars(t_map *map, char *lastline)
-{
-	int	i;
-
-	get_finalmap(map, lastline);
-	printmap(map);
 	i = 0;
 	while (map->cmap[i])
 	{

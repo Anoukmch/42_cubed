@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:07:31 by amechain          #+#    #+#             */
-/*   Updated: 2023/01/18 12:34:33 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/01/20 08:36:12 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ void	parsing(t_map *map)
 	char *line;
 
 	line = texture_and_colors_pars(map);
-	map_pars(map, line);
+	get_finalmap(map, line);
 }
 
 void	initialize(char *mapfile, t_map **map)

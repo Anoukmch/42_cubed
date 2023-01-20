@@ -6,7 +6,7 @@
 /*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:07:31 by amechain          #+#    #+#             */
-/*   Updated: 2023/01/17 19:21:34 by amechain         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:40:30 by amechain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,9 @@ void	texture_and_colors_pars(t_map *map) /* Rework this function */
 		printf("Error\nGet next line fail\n");
 		exit(1);
 	}
-	while (line)
+	while (!map->south_path || !map->north_path
+		|| !map->east_path || !map->west_path
+		|| !map->rgb_f || !map->rgb_c || line)
 	{
 		i = check_identifier(line, map);
 		if (i >= 0)

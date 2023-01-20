@@ -49,4 +49,6 @@ typedef struct s_vars
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
 
+int	check_extension(char *mapfile);
+
 #endif

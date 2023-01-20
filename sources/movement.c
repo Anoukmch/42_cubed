@@ -34,14 +34,14 @@ void	rotate_left(t_vars *vars)
 	}
 }
 
-	// SKALARPRODUKT
+// SKALARPRODUKT
 void	rotate_right(t_vars *vars)
 {
 	int		i;
 	double	olddir_x;
 
 	i = 1;
-	vars->rotation = 0.0174533;
+		vars->rotation = 0.0174533;
 	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
 		&& vars->p_height_pos + (vars->dir_y * i) > 0
 		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
@@ -61,7 +61,7 @@ void	rotate_right(t_vars *vars)
 		&& vars->p_height_pos + (vars->dir_y * i) > 0
 		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
 		&& vars->p_width_pos + (vars->dir_x * i) > 0)
-	{
+{
 		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
 			vars->p_height_pos + (vars->dir_y * i), 255);
 		i++;

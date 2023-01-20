@@ -69,6 +69,7 @@ int	check_extension(char *mapfile);
 
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
+void	get_view(t_vars *vars, int color);
 
 // init.c
 void init_window(t_vars *vars);

@@ -28,16 +28,18 @@ void	view_starting_direction(t_vars *vars)
 	// CHANGE VECTORS TO START IN ANOTHER DIRECTION
 	vars->dir_x = 0;
 	vars->dir_y = -1;
+	// EAST
+	// vars->dir_x = 1;
+	// vars->dir_y = 0;
+	// SOUTH
+	// vars->dir_x = 0;
+	// vars->dir_y = 1;
+	// WEST
+	// vars->dir_x = -1;
+	// vars->dir_y = 0;
 	vars->view_img = mlx_new_image(vars->mlx,
 			vars->m_width * 2, vars->m_height * 2);
-	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
-		&& vars->p_height_pos + (vars->dir_y * i) > 0
-		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
-		&& vars->p_width_pos + (vars->dir_x * i) > 0)
-	{
-		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
-			vars->p_height_pos + (vars->dir_y * i), 255);
-		i++;
-	}
+	get_view(vars, 255);
 	mlx_image_to_window(vars->mlx, vars->view_img, 0, 0);
+	// mlx_put_pixel(vars->view_img, 20, 30, 255);
 }

@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 char	*ft_free_strtrim(char *s1, char const *set)
 {

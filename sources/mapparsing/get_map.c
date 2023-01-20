@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 // HELPER FUNCTION
 void	printmap(t_map *map)

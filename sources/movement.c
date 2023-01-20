@@ -1,71 +1,42 @@
 #include "../includes/cub3d.h"
 
-	// SKALARPRODUKT
-void	rotate_left(t_vars *vars)
+void	get_view(t_vars *vars, int color)
 {
-	int		i;
-	double	olddir_x;
+	int	i;
 
 	i = 1;
-	vars->rotation = -0.0174533;
 	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
 		&& vars->p_height_pos + (vars->dir_y * i) > 0
 		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
 		&& vars->p_width_pos + (vars->dir_x * i) > 0)
 	{
 		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
-			vars->p_height_pos + (vars->dir_y * i), 0);
+			vars->p_height_pos + (vars->dir_y * i), color);
 		i++;
-	}
+	}	
+}
+
+void rotate_calculation(t_vars *vars)
+{
+	double	olddir_x;
+
 	olddir_x = vars->dir_x;
 	vars->dir_x = vars->dir_x * cos(vars->rotation)
 		- vars->dir_y * sin(vars->rotation);
 	vars->dir_y = olddir_x * sin(vars->rotation)
-		+ vars->dir_y * cos(vars->rotation);
-	i = 1;
-	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
-		&& vars->p_height_pos + (vars->dir_y * i) > 0
-		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
-		&& vars->p_width_pos + (vars->dir_x * i) > 0)
-	{
-		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
-			vars->p_height_pos + (vars->dir_y * i), 255);
-		i++;
-	}
+		+ vars->dir_y * cos(vars->rotation);	
 }
 
 // SKALARPRODUKT
-void	rotate_right(t_vars *vars)
+void	rotation(t_vars *vars, char *str)
 {
-	int		i;
-	double	olddir_x;
-
-	i = 1;
+	if (!ft_strcmp(str, "right"))
 		vars->rotation = 0.0174533;
-	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
-		&& vars->p_height_pos + (vars->dir_y * i) > 0
-		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
-		&& vars->p_width_pos + (vars->dir_x * i) > 0)
-	{
-		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
-			vars->p_height_pos + (vars->dir_y * i), 0);
-		i++;
-	}
-	olddir_x = vars->dir_x;
-	vars->dir_x = vars->dir_x * cos(vars->rotation)
-		- vars->dir_y * sin(vars->rotation);
-	vars->dir_y = olddir_x * sin(vars->rotation)
-		+ vars->dir_y * cos(vars->rotation);
-	i = 1;
-	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
-		&& vars->p_height_pos + (vars->dir_y * i) > 0
-		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
-		&& vars->p_width_pos + (vars->dir_x * i) > 0)
-{
-		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
-			vars->p_height_pos + (vars->dir_y * i), 255);
-		i++;
-	}
+	else if (!ft_strcmp(str, "left"))
+		vars->rotation = -0.0174533;
+	get_view(vars, 0);
+	rotate_calculation(vars);
+	get_view(vars, 255);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)
@@ -96,7 +67,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		vars->view_img->instances[0].x += 32;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-		rotate_right(vars);
+		rotation(vars, "right");
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-		rotate_left(vars);
+		rotation(vars, "left");
 }

@@ -48,6 +48,12 @@ typedef struct s_vars
 	double				dir_y;
 	double				rotation;
 
+	// SIDE VIEWS
+	double			fov;
+	double			left_x;
+	double			left_y;
+	double			right_x;
+	double			right_y;
 	mlx_image_t		*test;
 
 }				t_vars;
@@ -56,6 +62,7 @@ typedef struct s_vars
 void	init_window(t_vars *vars);
 void	init_player(t_vars *vars);
 void	view_starting_direction(t_vars *vars);
+void	sidesofview(t_vars *vars);
 
 // parsing.c
 void	initialize(char *mapfile, t_map **map);
@@ -74,6 +81,7 @@ int	check_extension(char *mapfile);
 
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
-void	get_view(t_vars *vars, int color);
+void	get_view(t_vars *vars, int color, double x, double y);
+
 
 #endif

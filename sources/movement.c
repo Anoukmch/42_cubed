@@ -1,17 +1,17 @@
 #include "../includes/cub3d.h"
 
-void	get_view(t_vars *vars, int color)
+void	get_view(t_vars *vars, int color, double x, double y)
 {
 	int	i;
 
 	i = 1;
-	while (vars->p_height_pos + (vars->dir_y * i) < vars->m_height * 2
-		&& vars->p_height_pos + (vars->dir_y * i) > 0
-		&& vars->p_width_pos + (vars->dir_x * i) < vars->m_width * 2
-		&& vars->p_width_pos + (vars->dir_x * i) > 0)
+	while (vars->p_height_pos + (y * i) < vars->m_height * 2
+		&& vars->p_height_pos + (y * i) > 0
+		&& vars->p_width_pos + (x * i) < vars->m_width * 2
+		&& vars->p_width_pos + (x * i) > 0)
 	{
-		mlx_put_pixel(vars->view_img, vars->p_width_pos + (vars->dir_x * i),
-			vars->p_height_pos + (vars->dir_y * i), color);
+		mlx_put_pixel(vars->view_img, vars->p_width_pos + (x * i),
+			vars->p_height_pos + (y * i), color);
 		i++;
 	}	
 }
@@ -34,9 +34,14 @@ void	rotation(t_vars *vars, char *str)
 		vars->rotation = 0.0174533;
 	else if (!ft_strcmp(str, "left"))
 		vars->rotation = -0.0174533;
-	get_view(vars, 0);
+	get_view(vars, 0, vars->dir_x, vars->dir_y);
+	get_view(vars, 0, vars->left_x, vars->left_y);
+	get_view(vars, 0, vars->right_x, vars->right_y);
 	rotate_calculation(vars);
-	get_view(vars, 255);
+	sidesofview(vars);
+	get_view(vars, 255, vars->dir_x, vars->dir_y);
+	get_view(vars, 255, vars->left_x, vars->left_y);
+	get_view(vars, 255, vars->right_x, vars->right_y);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)

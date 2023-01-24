@@ -9,6 +9,9 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
+# define TEXTURES			1
+# define WALL				0
+
 typedef struct s_map
 {
 	int		fd;
@@ -34,6 +37,7 @@ typedef struct s_vars
 {
 	mlx_t			*mlx;
 
+	mlx_texture_t	*textures[TEXTURES];
 	mlx_image_t		*map_img;
 	char			**map;
 	int				m_width;
@@ -75,6 +79,9 @@ void	countinglines(t_map *map, char *lastline);
 void	getmap_content(t_map *map);
 
 // check_map.c
+
+// put_map_to_window.c
+void	init_map(t_vars *vars, t_map *map);
 
 // check_extenstion.c
 int	check_extension(char *mapfile);

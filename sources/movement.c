@@ -5,26 +5,30 @@ void	get_view(t_vars *vars, int color, double x, double y)
 	int	i;
 
 	i = 1;
-	while (vars->p_height_pos + (y * i) < vars->m_height * 2
-		&& vars->p_height_pos + (y * i) > 0
-		&& vars->p_width_pos + (x * i) < vars->m_width * 2
-		&& vars->p_width_pos + (x * i) > 0)
+	while ((vars->p_height_pos * 32) + 16 + (y * i) < vars->m_height * 32
+		&& (vars->p_height_pos * 32) + 16 + (y * i) > 0
+		&& (vars->p_width_pos * 32) + 16 + (x * i) < vars->m_width * 32
+		&& (vars->p_width_pos * 32) + 16 + (x * i) > 0)
 	{
-		mlx_put_pixel(vars->view_img, vars->p_width_pos + (x * i),
-			vars->p_height_pos + (y * i), color);
+		mlx_put_pixel(vars->view_img, (vars->p_width_pos * 32) + 16 + (x * i),
+			(vars->p_height_pos * 32) + 16 + (y * i), color);
 		i++;
 	}	
 }
+	// while (16 + (y * i) < vars->m_height * 32
+	// 	&& 16 + (y * i) > 0
+	// 	&& 16 + (x * i) < vars->m_width * 32
+	// 	&& 16 + (x * i) > 0)
 
 void rotate_calculation(t_vars *vars)
 {
-	double	olddir_x;
+	double	old;
 
-	olddir_x = vars->dir_x;
+	old = vars->dir_x;
 	vars->dir_x = vars->dir_x * cos(vars->rotation)
 		- vars->dir_y * sin(vars->rotation);
-	vars->dir_y = olddir_x * sin(vars->rotation)
-		+ vars->dir_y * cos(vars->rotation);	
+	vars->dir_y = old * sin(vars->rotation)
+		+ vars->dir_y * cos(vars->rotation);
 }
 
 // SKALARPRODUKT

@@ -60,6 +60,8 @@ typedef struct s_vars
 	double			right_y;
 	mlx_image_t		*test;
 
+	char			**finalmap;
+
 }				t_vars;
 
 // init.c

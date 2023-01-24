@@ -2,17 +2,15 @@
 
 void	init_window(t_vars *vars)
 {
-	vars->m_width = 30;
-	vars->m_height = 30;
-	vars->mlx = mlx_init(vars->m_width * 32, vars->m_height * 32, "MLX42", true); //opening a window
+	vars->m_width = 40;
+	vars->m_height = 40;
+	vars->mlx = mlx_init(vars->m_width * 32, vars->m_height * 32, "Cub3D", true); //opening a window
 	if (!vars->mlx)
 		exit(EXIT_FAILURE);
 }
 
 void	init_player(t_vars *vars)
 {
-	// vars->p_width_pos = 128;
-	// vars->p_height_pos = 128;
 	vars->player_img = mlx_new_image(vars->mlx, 1, 1); //Change size of cube here
 	ft_memset(vars->player_img->pixels, 255,
 		vars->player_img->width * vars->player_img->height * sizeof(int));

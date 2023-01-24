@@ -57,23 +57,39 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{
-		vars->player_img->instances[0].y -= 32;
-		vars->view_img->instances[0].y -= 32;
+		if (vars->finalmap[vars->p_height_pos - 1][vars->p_width_pos] != '1')
+		{
+			vars->player_img->instances[0].y -= 32;
+			vars->p_height_pos--;
+			vars->view_img->instances[0].y -= 32;
+		}
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
-		vars->player_img->instances[0].y += 32;
-		vars->view_img->instances[0].y += 32;
+		if (vars->finalmap[vars->p_height_pos + 1][vars->p_width_pos] != '1')
+		{
+			vars->player_img->instances[0].y += 32;
+			vars->p_height_pos++;
+			vars->view_img->instances[0].y += 32;
+		}
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
-		vars->player_img->instances[0].x -= 32;
-		vars->view_img->instances[0].x -= 32;
+		if (vars->finalmap[vars->p_height_pos][vars->p_width_pos - 1] != '1')
+		{
+			vars->player_img->instances[0].x -= 32;
+			vars->p_width_pos--;
+			vars->view_img->instances[0].x -= 32;
+		}
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
-		vars->player_img->instances[0].x += 32;
-		vars->view_img->instances[0].x += 32;
+		if (vars->finalmap[vars->p_height_pos][vars->p_width_pos + 1] != '1')
+		{
+			vars->player_img->instances[0].x += 32;
+			vars->p_width_pos++;
+			vars->view_img->instances[0].x += 32;
+		}
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 		rotation(vars, "right");

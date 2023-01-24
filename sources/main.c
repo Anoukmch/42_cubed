@@ -15,6 +15,7 @@ int	main(int argc, char **argv)
 		//error_exit(NULL, "Error\nWrong input file extension\n");
 		initialize(argv[1], &map);
 		parsing(map);
+		vars.finalmap = map->cmap;
 	}
 	else
 	{

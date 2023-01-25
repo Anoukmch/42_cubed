@@ -75,6 +75,9 @@ void	initialize(char *mapfile, t_map **map);
 void	parsing(t_map *map);
 void	map_pars(t_map *map);
 
+// error_exit.c
+int error_exit(char *s);
+
 // read_map.c
 void	get_finalmap(t_map *map, char *lastline);
 void	countinglines(t_map *map, char *lastline);

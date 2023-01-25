@@ -1,16 +1,12 @@
 #include <math.h>
 #include "../includes/cub3d.h"
 
-void	dda(t_vars vars)
+void	dda(t_vars *vars)
 {
 	int x;
 	double w;
 	double posX;
 	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
 	double cameraX;
 	double rayDirX;
 	double rayDirY;
@@ -20,7 +16,6 @@ void	dda(t_vars vars)
 	double sideDistY;
 	double deltaDistX;
 	double deltaDistY;
-	double perpWallDist;
 	int stepX;
 	int stepY;
 	int hit;
@@ -30,17 +25,14 @@ void	dda(t_vars vars)
 	w = 32;
 	posX = 22;
 	posY = 12;
-	dirX = -1;
 	dirY = 0;
-	planeX = 0;
-	planeY = 0.66;
 	mapX = (int)posX;
 	mapY = (int)posY;
 	while (x < w)
 	{
 		cameraX = 2 * x / w - 1;
-		rayDirX = dirX + planeX * cameraX;
-		rayDirY = dirY + planeY * cameraX;
+		rayDirX = vars->dir_x + vars->planex * cameraX;
+		rayDirY = vars->dir_y + vars->planey * cameraX;
 		x++;
 	}
 	if (rayDirX == 0)
@@ -49,6 +41,8 @@ void	dda(t_vars vars)
 		rayDirY = INFINITY;
 	deltaDistX = fabs(1 / rayDirX);
 	deltaDistY = fabs(1 / rayDirY);
+	hit = 0;
+	side = 0;
 	if (rayDirX < 0)
     {
     	stepX = -1;

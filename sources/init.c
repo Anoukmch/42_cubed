@@ -85,7 +85,7 @@ void	init_player_and_views(t_vars *vars)
 	// vars->camerax = 0;
 	// vars->cameray = 0.66;
 	vars->player_img = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
-	mlx_put_pixel(vars->player_img, vars->p_width_pos * 32 + 16, vars->p_height_pos * 32 + 16, 0xA6C0);
+	mlx_put_pixel(vars->player_img, vars->player_x * 32 + 16, vars->player_y * 32 + 16, 0xA6C0);
 	get_view(vars, 255, vars->dir_x, vars->dir_y);
 	// GET SIDES OF FOV
 	sidesofview(vars);

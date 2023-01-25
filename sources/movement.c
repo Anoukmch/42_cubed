@@ -10,7 +10,7 @@ void	get_view(t_vars *vars, int color, double x, double y)
 		&& (vars->p_width_pos * 32) + 16 + (x * i) < vars->m_width * 32
 		&& (vars->p_width_pos * 32) + 16 + (x * i) > 0)
 	{
-		mlx_put_pixel(vars->view_img, (vars->p_width_pos * 32) + 16 + (x * i),
+		mlx_put_pixel(vars->player_img, (vars->p_width_pos * 32) + 16 + (x * i),
 			(vars->p_height_pos * 32) + 16 + (y * i), color);
 		i++;
 	}	
@@ -60,23 +60,19 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{
-		vars->player_img->instances[0].y -= 32;
-		vars->view_img->instances[0].y -= 32;
+		vars->player_img->instances[0].y -= 3;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
-		vars->player_img->instances[0].y += 32;
-		vars->view_img->instances[0].y += 32;
+		vars->player_img->instances[0].y += 3;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
-		vars->player_img->instances[0].x -= 32;
-		vars->view_img->instances[0].x -= 32;
+		vars->player_img->instances[0].x -= 3;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
-		vars->player_img->instances[0].x += 32;
-		vars->view_img->instances[0].x += 32;
+		vars->player_img->instances[0].x += 3;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 		rotation(vars, "right");

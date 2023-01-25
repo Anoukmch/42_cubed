@@ -58,15 +58,15 @@ typedef struct s_vars
 	double			left_y;
 	double			right_x;
 	double			right_y;
-	mlx_image_t		*test;
-
+	double			camerax;
+	double			cameray;
 	char			**finalmap;
 
 }				t_vars;
 
 // init.c
-void	init_window(t_vars *vars);
-void	init_player(t_vars *vars);
+void	init_window(t_vars *vars, t_map *map);
+void	init_player_and_views(t_vars *vars);
 void	view_starting_direction(t_vars *vars);
 void	sidesofview(t_vars *vars);
 
@@ -74,6 +74,9 @@ void	sidesofview(t_vars *vars);
 void	initialize(char *mapfile, t_map **map);
 void	parsing(t_map *map);
 void	map_pars(t_map *map);
+
+// error_exit.c
+int error_exit(char *s);
 
 // read_map.c
 void	get_finalmap(t_map *map, char *lastline);

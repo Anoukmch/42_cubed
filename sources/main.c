@@ -24,14 +24,13 @@ int	main(int argc, char **argv)
 	}
 	// error_exit(NULL, "Error\n./cub3d only takes one arg input\n");
 	// CREATE WINDOW
-	init_window(&vars);
+	init_window(&vars, map);
 	// PUT MAP IN WINDOW
 	init_map(&vars, map);
 	// PLAYER ITSELF
-	init_player(&vars);
 	// VIEW OF PLAYER (NO, EA, SO, WE)
-	view_starting_direction(&vars);
-	vars.test = NULL;
+	init_player_and_views(&vars);
+	// view_starting_direction(&vars);
 	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (EXIT_SUCCESS);

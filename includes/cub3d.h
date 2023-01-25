@@ -58,8 +58,8 @@ typedef struct s_vars
 	double			left_y;
 	double			right_x;
 	double			right_y;
-	double			camerax;
-	double			cameray;
+	double			planex;
+	double			planey;
 	char			**finalmap;
 
 }				t_vars;

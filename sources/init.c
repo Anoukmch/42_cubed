@@ -46,6 +46,20 @@ void	sidesofview(t_vars *vars)
 		+ vars->dir_y * cos(right_rot);
 }
 
+// void	get_view_until(t_vars *vars, int color, double x, double y)
+// {
+// 	int	i;
+
+// 	i = 1;
+// 	while ((vars->p_height_pos * 32) + 16 + (y * i) < ((vars->p_height_pos + 0.66) * 32) + 16
+// 		&& (vars->p_height_pos * 32) + 16 + (y * i) > ((vars->p_height_pos + 0.66) * 32) + 16)
+// 	{
+// 		mlx_put_pixel(vars->player_img, (vars->p_width_pos * 32) + 16 + (x * i),
+// 			(vars->p_height_pos * 32) + 16 + (y * i), color);
+// 		i++;
+// 	}	
+// }
+
 void	init_player_and_views(t_vars *vars)
 {
 	vars->fov = 1.15192; //angle of 66 degrees
@@ -53,8 +67,8 @@ void	init_player_and_views(t_vars *vars)
 	// NORTH
 	vars->dir_x = 0;
 	vars->dir_y = -1;
-	vars->camerax = 0.66;
-	vars->cameray = 0;
+	vars->planex = 0.66;
+	vars->planey = 0;
 	// EAST
 	// vars->dir_x = 1;
 	// vars->dir_y = 0;
@@ -63,9 +77,13 @@ void	init_player_and_views(t_vars *vars)
 	// SOUTH
 	// vars->dir_x = 0;
 	// vars->dir_y = 1;
+	// vars->camerax = 0.66;
+	// vars->cameray = 0;
 	// WEST
 	// vars->dir_x = -1;
 	// vars->dir_y = 0;
+	// vars->camerax = 0;
+	// vars->cameray = 0.66;
 	vars->player_img = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
 	mlx_put_pixel(vars->player_img, vars->p_width_pos * 32 + 16, vars->p_height_pos * 32 + 16, 0xA6C0);
 	get_view(vars, 255, vars->dir_x, vars->dir_y);
@@ -73,5 +91,7 @@ void	init_player_and_views(t_vars *vars)
 	sidesofview(vars);
 	get_view(vars, 255, vars->left_x, vars->left_y);
 	get_view(vars, 255, vars->right_x, vars->right_y);
+	// get_view_until(vars, 0xA6C0, vars->planex, vars->planey);
+	// get_view_until(vars, 0xA6C0, vars->planex * (-1), vars->planey * (-1));
 	mlx_image_to_window(vars->mlx, vars->player_img, 0, 0);
 }

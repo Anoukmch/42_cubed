@@ -15,6 +15,7 @@ int	main(int argc, char **argv)
 		//error_exit(NULL, "Error\nWrong input file extension\n");
 		initialize(argv[1], &map);
 		parsing(map);
+		vars.finalmap = map->cmap;
 	}
 	else
 	{
@@ -24,6 +25,8 @@ int	main(int argc, char **argv)
 	// error_exit(NULL, "Error\n./cub3d only takes one arg input\n");
 	// CREATE WINDOW
 	init_window(&vars);
+	// PUT MAP IN WINDOW
+	init_map(&vars, map);
 	// PLAYER ITSELF
 	init_player(&vars);
 	// VIEW OF PLAYER (NO, EA, SO, WE)

@@ -9,6 +9,9 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
+# define TEXTURES			1
+# define WALL				0
+
 typedef struct s_map
 {
 	int		fd;
@@ -34,6 +37,7 @@ typedef struct s_vars
 {
 	mlx_t			*mlx;
 
+	mlx_texture_t	*textures[TEXTURES];
 	mlx_image_t		*map_img;
 	char			**map;
 	int				m_width;
@@ -48,9 +52,23 @@ typedef struct s_vars
 	double				dir_y;
 	double				rotation;
 
+	// SIDE VIEWS
+	double			fov;
+	double			left_x;
+	double			left_y;
+	double			right_x;
+	double			right_y;
 	mlx_image_t		*test;
 
+	char			**finalmap;
+
 }				t_vars;
+
+// init.c
+void	init_window(t_vars *vars);
+void	init_player(t_vars *vars);
+void	view_starting_direction(t_vars *vars);
+void	sidesofview(t_vars *vars);
 
 // parsing.c
 void	initialize(char *mapfile, t_map **map);
@@ -64,18 +82,15 @@ void	getmap_content(t_map *map);
 
 // check_map.c
 
+// put_map_to_window.c
+void	init_map(t_vars *vars, t_map *map);
+
 // check_extenstion.c
 int	check_extension(char *mapfile);
 
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
+void	get_view(t_vars *vars, int color, double x, double y);
 
-// init.c
-void init_window(t_vars *vars);
-void init_player(t_vars *vars);
-void view_starting_direction(t_vars *vars);
-
-// error
-int error_exit(char *s);
 
 #endif

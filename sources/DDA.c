@@ -25,9 +25,8 @@ void	dda(t_vars *vars)
 	w = 32;
 	posX = 22;
 	posY = 12;
-	dirY = 0;
-	mapX = (int)posX;
-	mapY = (int)posY;
+	mapX = (int)vars->player_x;
+	mapY = (int)vars->player_y;
 	while (x < w)
 	{
 		cameraX = 2 * x / w - 1;

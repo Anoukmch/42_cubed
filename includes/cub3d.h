@@ -44,8 +44,8 @@ typedef struct s_vars
 	int				m_height;
 
 	mlx_image_t		*player_img;
-	int				p_width_pos;
-	int				p_height_pos;
+	double				player_x;
+	double				player_y;
 
 	mlx_image_t		*view_img;
 	double				dir_x;

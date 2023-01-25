@@ -1,7 +1,7 @@
 
 #include "../includes/cub3d.h"
 
-void	check_texture_path(char *line) // How is the path formated ? Can it be in another folder ? (like ../../)
+int	check_texture_path(char *line, int indic) // How is the path formated ? Can it be in another folder ? (like ../../)
 {
 	int	i;
 
@@ -13,16 +13,11 @@ void	check_texture_path(char *line) // How is the path formated ? Can it be in a
 		else if (line[i] == '.' && line[i + 1] == '/' && line[i + 2]
 			&& line[i + 2] >= 33 && line[i + 2] <= 126
 			&& line[i + 2] != '.' && line[i + 2] != '/' && line[i + 2] != '\\')
-			return ;
+			return (indic);
 		else
-		{
-			printf("Error\nPlease check file path\n");
-			exit(1);
-		}
-			//error_exit(NULL, "Error\nPlease check file path\n");
+			error_exit("Error\nWrong file path : check input file");
 	}
-	printf("Error\nPlease add a path\n");
-	exit(1);
+	return(error_exit("Error\nNo file path : check input file"));
 }
 
 int	size_2Darray(char **array)
@@ -46,7 +41,7 @@ int	isdigit_string(char	*str)
 		return (0);
 	while (str[i] && str[i] != '\n')
 	{
-		if (!ft_isdigit(str[i]))
+		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
 			return (0); // not a digit
 		i++;
 	}
@@ -67,11 +62,7 @@ void	check_comma(char *line)
 		i++;
 	}
 	if (comma_nbr != 2)
-	{
-		printf("Error\nPlease check color code\n");
-		exit(1);
-	}
-
+		error_exit("Error\nColor code : check input file");
 }
 
 int	free_array(char **array, int ret_stat)
@@ -97,14 +88,12 @@ int	check_color_comb(char *line)
 	check_comma(line);
 	array = ft_split(line, ',');
 	if (!array)
-	{
-		printf("Error\nAllocation fail\n");
-		exit(1);
-	}
+		error_exit("Error\nAllocation fail");
 	if (size_2Darray(array) != 3)
 		return (free_array(array, 0));
 	while (array[i])
 	{
+		printf("array : %s\n", array[i]);
 		if (isdigit_string(array[i]))
 		{
 			nbr = ft_atoi(array[i]);
@@ -118,7 +107,7 @@ int	check_color_comb(char *line)
 	return (free_array(array, 1));
 }
 
-int	check_range_colors(char *line)
+int	check_range_colors(char *line, int indic)
 {
 	int	i;
 
@@ -130,29 +119,27 @@ int	check_range_colors(char *line)
 		else if (check_color_comb(line + i))
 			break ;
 		else
-		{
-			printf("Error\nPlease check color code\n");
-			exit(1);
-		}
-			//error_exit(NULL, "Error\nPlease check color code\n");
+			error_exit("Error\nColor code : check input file");
 	}
-	return (0);
+	return (indic);
 }
 
 void	fill_var(char *line, t_map *map)
 {
-	if (!ft_strncmp(line, "NO", 2))
+	if (!ft_strncmp(line, "NO", 2) && !map->north_path)
 		map->north_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "SO", 2))
+	else if (!ft_strncmp(line, "SO", 2) && !map->south_path)
 		map->south_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "WE", 2))
+	else if (!ft_strncmp(line, "WE", 2) && !map->west_path)
 		map->west_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "EA", 2))
+	else if (!ft_strncmp(line, "EA", 2) && !map->east_path)
 		map->east_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "F", 1))
+	else if (!ft_strncmp(line, "F", 1) && !map->rgb_f)
 		map->rgb_f = ft_strtrim((line + 1), "\t ");
-	else if (!ft_strncmp(line, "C", 1))
+	else if (!ft_strncmp(line, "C", 1) && !map->rgb_c)
 		map->rgb_c = ft_strtrim((line + 1), "\t ");
+	else
+		error_exit("Error\nDuplicate info : check input file");
 }
 
 int	check_identifier(char *line, t_map *map)
@@ -164,28 +151,21 @@ int	check_identifier(char *line, t_map *map)
 	{
 		if ((line[i] >= '\t' && line[i] <= '\r') || (line[i] == ' '))
 			i++;
-		else if ((!ft_strncmp(line + i, "NO", 2) && !map->north_path)
-			|| (!ft_strncmp(line + i, "SO", 2) && !map->south_path)
-			|| (!ft_strncmp(line + i, "WE", 2) && !map->west_path)
-			|| (!ft_strncmp(line + i, "EA", 2) && !map->east_path))
-		{
-			check_texture_path(line + i + 2);
-			return (i);
-		}
+		else if ((!ft_strncmp(line + i, "NO", 2))
+			|| (!ft_strncmp(line + i, "SO", 2))
+			|| (!ft_strncmp(line + i, "WE", 2))
+			|| (!ft_strncmp(line + i, "EA", 2)))
+				return(check_texture_path(line + i + 2, i));
 		else if ((!ft_strncmp(line + i, "F", 1) && !map->rgb_f)
 			|| (!ft_strncmp(line + i, "C", 1) && !map->rgb_c))
-		{
-			check_range_colors(line + i + 1);
-			return (i);
-		}
+			return(check_range_colors(line + i + 1, i));
+		else if ((line[i] == '1' || line[i] == '0') && map->north_path
+			&& map->south_path && map->east_path && map->rgb_f && map->rgb_c)
+			return (-1);
 		else
-		{
-			printf("Error\nPlease check input file\n");
-			exit(1);
-		}
-			//error_exit(NULL, "Error\nPlease check identifier\n");
+			error_exit("Error\nMissing info or wrong character : check input file");
 	}
-	return (-1);
+	return (-2);
 }
 
 char	*texture_and_colors_pars(t_map *map) /* Rework this function */
@@ -194,36 +174,27 @@ char	*texture_and_colors_pars(t_map *map) /* Rework this function */
 	int		i;
 
 	i = 0;
-	map->mapstart = 0;
-	line = get_next_line(map->fd);
-	if (!line)
+	while (1)
 	{
-		printf("Error\nGet next line fail\n");
-		exit(1);
-	}
-	while (!map->north_path || !map->south_path || !map->west_path
-		|| !map->east_path || !map->rgb_f || !map->rgb_c)
-	{
+		line = get_next_line(map->fd);
+		if (!line)
+			error_exit("Error\nNo map : check input file");
 		i = check_identifier(line, map);
 		if (i >= 0)
 			fill_var(line + i, map);
+		else if (i == -1)
+			return (line);
 		free(line);
-		line = get_next_line(map->fd);
 		map->mapstart++;
 	}
-	printf("north_path :%s\n", map->north_path);
-	printf("south_path :%s\n", map->south_path);
-	printf("east_path :%s\n", map->east_path);
-	printf("west_path :%s\n", map->west_path);
-	printf("rgb_f :%s\n", map->rgb_f);
-	printf("rgb_c :%s\n", map->rgb_c);
-	return (line);
+	return (NULL);
 }
 
 void	parsing(t_map *map)
 {
 	char *line;
 
+	map->mapstart = 0;
 	line = texture_and_colors_pars(map);
 	get_finalmap(map, line);
 }
@@ -232,17 +203,11 @@ void	initialize(char *mapfile, t_map **map)
 {
 	*map = ft_calloc(1, sizeof(t_map));
 	if (!*map)
-	{
-		printf("Error\nAllocation fail\n");
-		exit(1);
-	}
+		error_exit("Error\nAllocation fail");
 		//error_exit(NULL, "Error\nAllocation fail\n");
 	(*map)->fd = open(mapfile, O_RDONLY);
 	if ((*map)->fd < 0)
-	{
-		printf("Error\nOpen fail\n");
-		exit(1);
-	}
+		error_exit("Error\nOpen fail");
 	(*map)->north_path = NULL;
 	(*map)->south_path = NULL;
 	(*map)->west_path = NULL;

@@ -9,7 +9,8 @@ M_SRC		= main.c \
 				parsing.c \
 				mapparsing/get_map.c \
 				mapparsing/check_map.c \
-				mapparsing/read_map.c
+				mapparsing/read_map.c \
+				error_exit.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 

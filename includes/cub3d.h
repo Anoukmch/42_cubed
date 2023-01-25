@@ -70,13 +70,12 @@ int	check_extension(char *mapfile);
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
 
-<<<<<<< HEAD
-int	check_extension(char *mapfile);
-=======
 // init.c
 void init_window(t_vars *vars);
 void init_player(t_vars *vars);
 void view_starting_direction(t_vars *vars);
->>>>>>> 6fbaadda1bb3b833a5be862d9c4914eb4603e29f
+
+// error
+int error_exit(char *s);
 
 #endif

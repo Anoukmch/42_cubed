@@ -49,7 +49,7 @@ void	sidesofview(t_vars *vars)
 void    get_view_until(t_vars *vars, int color, double x, double y)
 {
     int i;
-    i = 1;
+    i = 0;
     while ((x * i) < 0.66 * 32 && (x * i) > -0.66 * 32
         && (y * i) < 0.66 * 32 && (y * i) > -0.66 * 32)
     {
@@ -88,7 +88,7 @@ void	init_player_and_views(t_vars *vars)
 	get_view(vars, 255, vars->dir_x, vars->dir_y);
 	// GET SIDES OF FOV
 	sidesofview(vars);
-	get_view(vars, 255, vars->left_x, vars->left_y);
+	// get_view(vars, 255, vars->left_x, vars->left_y);
 	get_view(vars, 255, vars->right_x, vars->right_y);
 	get_view_until(vars, 0xA6C0, vars->planex, vars->planey);
 	get_view_until(vars, 0xA6C0, vars->planex * (-1), vars->planey * (-1));

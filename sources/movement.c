@@ -5,15 +5,15 @@ void	get_view(t_vars *vars, int color, double x, double y)
 	int	i;
 
 	i = 1;
-	while ((vars->p_height_pos * 32) + 16 + (y * i) < vars->m_height * 32
-		&& (vars->p_height_pos * 32) + 16 + (y * i) > 0
-		&& (vars->p_width_pos * 32) + 16 + (x * i) < vars->m_width * 32
-		&& (vars->p_width_pos * 32) + 16 + (x * i) > 0)
+	while ((vars->player_y * 32) + 16 + (y * i) < vars->m_height * 32
+		&& (vars->player_y * 32) + 16 + (y * i) > 0
+		&& (vars->player_x * 32) + 16 + (x * i) < vars->m_width * 32
+		&& (vars->player_x * 32) + 16 + (x * i) > 0)
 	{
-		mlx_put_pixel(vars->player_img, (vars->p_width_pos * 32) + 16 + (x * i),
-			(vars->p_height_pos * 32) + 16 + (y * i), color);
+		mlx_put_pixel(vars->player_img, (vars->player_x * 32) + 16 + (x * i),
+			(vars->player_y * 32) + 16 + (y * i), color);
 		i++;
-	}	
+	}
 }
 	// while (16 + (y * i) < vars->m_height * 32
 	// 	&& 16 + (y * i) > 0

@@ -22,7 +22,7 @@ void	dda(t_vars *vars)
 	int side;
 
 	x = 0;
-	w = 32;
+	w = 1000000;
 	posX = 22;
 	posY = 12;
 	while (x < w)
@@ -32,6 +32,7 @@ void	dda(t_vars *vars)
 		cameraX = 2 * x / w - 1;
 		rayDirX = vars->dir_x + vars->planex * cameraX;
 		rayDirY = vars->dir_y + vars->planey * cameraX;
+		get_view(vars, 255, rayDirX, rayDirY);
 		if (rayDirX == 0)
 			rayDirX = INFINITY;
 		if (rayDirY == 0)
@@ -60,23 +61,23 @@ void	dda(t_vars *vars)
     		stepY = 1;
     		sideDistY = (mapY + 1.0 - posY) * deltaDistY;
     	}
-		while (hit == 0)
-		{
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			if (vars->finalmap[mapX][mapY] > 0)
-				hit = 1;
-		}
+		// while (hit == 0)
+		// {
+		// 	if (sideDistX < sideDistY)
+		// 	{
+		// 		sideDistX += deltaDistX;
+		// 		mapX += stepX;
+		// 		side = 0;
+		// 	}
+		// 	else
+		// 	{
+		// 		sideDistY += deltaDistY;
+		// 		mapY += stepY;
+		// 		side = 1;
+		// 	}
+		// 	if (vars->finalmap[mapX][mapY] > 0)
+		// 		hit = 1;
+		// }
 		x++;
 	}
 }

@@ -46,19 +46,18 @@ void	sidesofview(t_vars *vars)
 		+ vars->dir_y * cos(right_rot);
 }
 
-void	get_view_until(t_vars *vars, int color, double x, double y)
+void    get_view_until(t_vars *vars, int color, double x, double y)
 {
-	int	i;
-
-// 	i = 1;
-// 	while ((vars->p_height_pos * 32) + 16 + (y * i) < ((vars->p_height_pos + 0.66) * 32) + 16
-// 		&& (vars->p_height_pos * 32) + 16 + (y * i) > ((vars->p_height_pos + 0.66) * 32) + 16)
-// 	{
-// 		mlx_put_pixel(vars->player_img, (vars->p_width_pos * 32) + 16 + (x * i),
-// 			(vars->p_height_pos * 32) + 16 + (y * i), color);
-// 		i++;
-// 	}
-// }
+    int i;
+    i = 1;
+    while ((x * i) < 0.66 * 32 && (x * i) > -0.66 * 32
+        && (y * i) < 0.66 * 32 && (y * i) > -0.66 * 32)
+    {
+        mlx_put_pixel(vars->player_img, (vars->player_x * 32) + 16 + (x * i),
+            (vars->player_y * 32) + 16 + (y * i), color);
+        i++;
+    }
+}
 
 void	init_player_and_views(t_vars *vars)
 {

@@ -23,10 +23,8 @@ void	paintingmap(t_vars *vars, t_map *map)
 			if (map->cmap[height][width] == 'N' || map->cmap[height][width] == 'E'
 				|| map->cmap[height][width] == 'S' || map->cmap[height][width] == 'W')
 			{
-				vars->p_width_pos = width;
-				vars->p_height_pos = height;
-				printf("vars->p_height_pos: %d\n", vars->p_height_pos);
-				printf("vars->p_width_pos: %d\n", vars->p_width_pos);
+				vars->player_x = width;
+				vars->player_y = height;
 			}
 			if (map->cmap[height][width] == '1')
 			{

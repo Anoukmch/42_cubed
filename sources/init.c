@@ -91,7 +91,6 @@ void	init_player_and_views(t_vars *vars)
 	sidesofview(vars);
 	get_view(vars, 255, vars->left_x, vars->left_y);
 	get_view(vars, 255, vars->right_x, vars->right_y);
-	// get_view_until(vars, 0xA6C0, vars->planex, vars->planey);
-	// get_view_until(vars, 0xA6C0, vars->planex * (-1), vars->planey * (-1));
+	dda(vars);
 	mlx_image_to_window(vars->mlx, vars->player_img, 0, 0);
 }

@@ -95,5 +95,6 @@ int	check_extension(char *mapfile);
 void	key_hook(mlx_key_data_t keydata, void *param);
 void	get_view(t_vars *vars, int color, double x, double y);
 
+void	dda(t_vars *vars);
 
 #endif

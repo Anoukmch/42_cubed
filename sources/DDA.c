@@ -66,7 +66,7 @@ void	dda(t_vars *vars, int color)
 	int i;
 
 	x = 0;
-	w = 1000;
+	w = vars->m_width * 32;
 	while (x < w)
 	{
 		i = 0;
@@ -172,27 +172,33 @@ void	dda(t_vars *vars, int color)
 			printf("drawEnd: %d\n", drawEnd);
 			if (drawEnd >= h)
 				drawEnd = h - 1;
-			
+
 			// PRINTING
 			//give x and y sides different brightness
 			int	k;
 
 			k = 0;
-			while (k < h)
+			while (drawStart + k < drawEnd)
 			{
 				uint32_t colors;
-				if (k <= drawStart)
-				{
-					colors = RGB_PINK;
-      				if (side == 1) {colors = colors / 2;}
-					mlx_put_pixel(vars->player_img, x, k, RGB_PINK);
-				}
-				if (k >= drawEnd)
-				{
-					colors = RGB_GREEN;
-      				if (side == 1) {colors = colors / 2;}
-					mlx_put_pixel(vars->player_img, x, k, RGB_GREEN);
-				}
+
+				colors = 0xff96c8ff;
+				// if (k <= drawStart)
+				// {
+					// colors = RGB_PINK;
+      				if (side == 1)
+						mlx_put_pixel(vars->player_img, x, drawStart + k, colors / 2);
+					else
+						mlx_put_pixel(vars->player_img, x, drawStart + k, colors);
+				// }
+				// if (k >= drawEnd)
+				// {
+					// colors = RGB_GREEN;
+      				// if (side == 1)
+					// 	mlx_put_pixel(vars->player_img, x, k, RGB_GREEN / 2);
+					// else
+					// 	mlx_put_pixel(vars->player_img, x, k, RGB_GREEN);
+				// }
 				k++;
 			}
 			color = 0;

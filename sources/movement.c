@@ -68,26 +68,30 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{
 		dda(vars, 0);
-		vars->player_img->instances[0].y -= 1;
+		//vars->player_img->instances[0].y -= 1;
+		vars->player_y -= 1/32;
 		dda(vars, 0xFFFFFFFF);
 
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
 		dda(vars, 0);
-		vars->player_img->instances[0].y += 1;
+		//vars->player_img->instances[0].y += 1;
+		vars->player_y += 1/32;
 		dda(vars, 0xFFFFFFFF);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
 		dda(vars, 0);
-		vars->player_img->instances[0].x -= 1;
+		//vars->player_img->instances[0].x -= 1;
+		vars->player_x -= 1/32;
 		dda(vars, 0xFFFFFFFF);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
 		dda(vars, 0);
-		vars->player_img->instances[0].x += 1;
+		//vars->player_img->instances[0].x += 1;
+		vars->player_x += 1/32;
 		dda(vars, 0xFFFFFFFF);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))

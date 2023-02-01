@@ -40,169 +40,171 @@ void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color)
 	}
 }
 
-
-
-void	dda(t_vars *vars, int color)
+void	starting_values(t_cast *t, t_vars *vars)
 {
-	int x;
-	double w;
-	double cameraX;
-	double rayDirX;
-	double rayDirY;
-	int		mapX;
-	int		mapY;
-	// double time = 0; //time of current frame
-  	// double oldTime = 0; //time of previous frame
-	//length of ray from current position to next x or y-side
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	//what direction to step in x or y-direction (either +1 or -1)
-	double stepX;
-	double stepY;
-	int hit;
-	int side;
-	int i;
+	t->i = 0;
+	t->hit = 0;
+	t->side = 0;
+	//calculate ray position and direction
+	t->cameraX = 2 * t->x / t->w - 1;
+	t->rayDirX = vars->dir_x + vars->planex * t->cameraX;
+	t->rayDirY = vars->dir_y + vars->planey * t->cameraX;
+	//which box of the map we're in
+	t->mapX = (int)vars->player_x;
+	t->mapY = (int)vars->player_y;
+	//length of ray from one x or y-side to next x or y-side
+	if (t->rayDirX == 0)
+		t->deltaDistX = INFINITY;
+	else
+		t->deltaDistX = fabs(1 / t->rayDirX);
+	if (t->rayDirY == 0)
+		t->deltaDistY = INFINITY;
+	else
+		t->deltaDistY = fabs(1 / t->rayDirY);
+}
 
-	x = 0;
-	w = vars->m_width * 32;
-	while (x < w)
+void	calc_step_and_sideDist(t_cast *t, t_vars *vars)
+{
+	//calculate step and initial sideDist
+	if (t->rayDirX < 0)
 	{
-		i = 0;
-		hit = 0;
-		side = 0;
-		//calculate ray position and direction
-		cameraX = 2 * x / w - 1;
-		rayDirX = vars->dir_x + vars->planex * cameraX;
-		rayDirY = vars->dir_y + vars->planey * cameraX;
-		//which box of the map we're in
-		mapX = (int)vars->player_x;
-		mapY = (int)vars->player_y;
-		//length of ray from one x or y-side to next x or y-side
-		if (rayDirX == 0)
-			deltaDistX = INFINITY;
-		else
-			deltaDistX = fabs(1 / rayDirX);
-		if (rayDirY == 0)
-			deltaDistY = INFINITY;
-		else
-			deltaDistY = fabs(1 / rayDirY);
-		//calculate step and initial sideDist
-		if (rayDirX < 0)
-    	{
-    		stepX = -1;
-			sideDistX = (vars->player_x - mapX) * deltaDistX;
-    	}
-    	else
-    	{
-    		stepX = 1;
-   			sideDistX = (mapX + 1.0 - vars->player_x) * deltaDistX;
-    	}
-    	if (rayDirY < 0)
-    	{
-    		stepY = -1;
-    		sideDistY = (vars->player_y - mapY) * deltaDistY;
-    	}
-    	else
-    	{
-    		stepY = 1;
-    		sideDistY = (mapY + 1.0 - vars->player_y) * deltaDistY;
-    	}
-		// perform DDA
-		int	is_negative;
-		while (hit == 0)
+		t->stepX = -1;
+		t->sideDistX = (vars->player_x - t->mapX) * t->deltaDistX;
+	}
+	else
+	{
+		t->stepX = 1;
+		t->sideDistX = (t->mapX + 1.0 - vars->player_x) * t->deltaDistX;
+	}
+	if (t->rayDirY < 0)
+	{
+		t->stepY = -1;
+		t->sideDistY = (vars->player_y - t->mapY) * t->deltaDistY;
+	}
+	else
+	{
+		t->stepY = 1;
+		t->sideDistY = (t->mapY + 1.0 - vars->player_y) * t->deltaDistY;
+	}
+}
+
+void	find_hitted_wall(t_cast *t, t_vars *vars)
+{
+	// perform DDA
+	while (t->hit == 0)
+	{
+		//jump to next map square, either in x-direction, or in y-direction
+		if (t->sideDistX < t->sideDistY)
 		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 1; //EA or WE
-				is_negative = rayDirX < 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 0; //NO or SO
-				is_negative = rayDirY < 0;
-			}
-			//Check if ray has hit a wall
-			if (vars->finalmap[(int)mapY][(int)mapX] > '0')
-				hit = 1;
+			t->sideDistX += t->deltaDistX;
+			t->mapX += t->stepX;
+			t->side = 1; //EA or WE
+			t->is_negative = t->rayDirX < 0;
 		}
-			double perpWallDist;
-			int side_2;
-			if (side)
+		else
+		{
+			t->sideDistY += t->deltaDistY;
+			t->mapY += t->stepY;
+			t->side = 0; //NO or SO
+			t->is_negative = t->rayDirY < 0;
+		}
+		//Check if ray has hit a wall
+		if (vars->finalmap[(int)t->mapY][(int)t->mapX] > '0')
+			t->hit = 1;
+	}
+}
+
+void	find_side_of_hitted_wall(t_cast *t)
+{
+	if (t->side)
+	{
+		if (t->is_negative)
+			t->side_2 = NO;
+		else
+			t->side_2 = SO;
+	}
+	else
+	{
+		if (t->is_negative)
+			t->side_2 = EA;
+		else
+			t->side_2 = WE;
+	}
+}
+
+void	calc_perpWall_drawthings(t_cast *t, t_vars *vars)
+{
+	if (t->side)
+		t->perpWallDist = t->sideDistX - t->deltaDistX;
+	else
+		t->perpWallDist = t->sideDistY - t->deltaDistY;
+	//Calculate height of line to draw on screen
+	t->h = vars->m_height * 32;
+	t->lineHeight = 0;
+	if (t->perpWallDist > 0)
+		t->lineHeight = (int)(t->h / t->perpWallDist);
+	//calculate lowest and highest pixel to fill in current stripe
+	t->drawStart = (t->h -t->lineHeight) / 2;
+	if (t->drawStart < 0)
+		t->drawStart = 0;
+	t->drawEnd = (t->h + t->lineHeight) / 2;
+	if (t->drawEnd >= t->h)
+		t->drawEnd = t->h - 1;
+}
+
+void	printing_walls(t_cast *t, t_vars *vars)
+{
+	// PRINTING
+	//give x and y sides different brightness	
+	t->k = 0;
+	while (t->drawStart + t->k < t->drawEnd)
+	{
+		uint32_t colors;
+
+		colors = 0xff96c8ff;
+		if (t->colorbool == 1)
+			colors = 0;
+		// if (k <= drawStart)
+		// {
+			// colors = RGB_PINK;
+			if (t->side == 1)
 			{
-				if (is_negative)
-					side_2 = NO;
+				if (t->colorbool == 1)
+					mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, 0);
 				else
-					side_2 = SO;
+					mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors / 2);
 			}
 			else
-			{
-				if (is_negative)
-					side_2 = EA;
-				else
-					side_2 = WE;
-			}
-			if (side)
-				perpWallDist = sideDistX - deltaDistX;
-			else
-				perpWallDist = sideDistY - deltaDistY;
-			//Calculate height of line to draw on screen
-			int lineHeight; // h = the height in pixels of the screen
-			double	h;
-			h = vars->m_height * 32;
-			lineHeight = 0;
-			if (perpWallDist > 0)
-				lineHeight = (int)(h / perpWallDist);
-			printf("h: %f\n", h);
-			printf("Lineheight: %d\n", lineHeight);
-			//calculate lowest and highest pixel to fill in current stripe
-			int drawStart;
-			drawStart = (h -lineHeight) / 2;
-			if (drawStart < 0)
-				drawStart = 0;
-			printf("drawSTART: %d\n", drawStart);
-			int drawEnd;
-			drawEnd = (h + lineHeight) / 2;
-			printf("drawEnd: %d\n", drawEnd);
-			if (drawEnd >= h)
-				drawEnd = h - 1;
+				mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors);
+		// }
+		// if (t->k >= t->drawEnd)
+		// {
+			// t->colors = RGB_GREEN;
+			// if (t->side == 1)
+			// 	mlx_put_pixel(vars->player_img, t->x, t->k, RGB_GREEN / 2);
+			// else
+			// 	mlx_put_pixel(vars->player_img, t->x, t->k, RGB_GREEN);
+		// }
+		t->k++;
+	}
+}
 
-			// PRINTING
-			//give x and y sides different brightness
-			int	k;
+void	dda(t_vars *vars, int overwriting)
+{
+	t_cast t;
 
-			k = 0;
-			while (drawStart + k < drawEnd)
-			{
-				uint32_t colors;
-
-				colors = 0xff96c8ff;
-				// if (k <= drawStart)
-				// {
-					// colors = RGB_PINK;
-      				if (side == 1)
-						mlx_put_pixel(vars->player_img, x, drawStart + k, colors / 2);
-					else
-						mlx_put_pixel(vars->player_img, x, drawStart + k, colors);
-				// }
-				// if (k >= drawEnd)
-				// {
-					// colors = RGB_GREEN;
-      				// if (side == 1)
-					// 	mlx_put_pixel(vars->player_img, x, k, RGB_GREEN / 2);
-					// else
-					// 	mlx_put_pixel(vars->player_img, x, k, RGB_GREEN);
-				// }
-				k++;
-			}
-			color = 0;
-		x++;
+	t.x = 0;
+	t.w = vars->m_width * 32;
+	t.colorbool = overwriting;
+	while (t.x < t.w)
+	{
+		starting_values(&t, vars);
+		calc_step_and_sideDist(&t, vars);
+		find_hitted_wall(&t, vars);
+		find_side_of_hitted_wall(&t);
+		calc_perpWall_drawthings(&t, vars);
+		printing_walls(&t, vars);
+		t.x++;
 	}
 }
 

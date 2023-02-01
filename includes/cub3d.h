@@ -87,7 +87,22 @@ typedef struct s_cast
 	int hit;
 	int side;
 	int i;
+	int	is_negative;
+
+	double perpWallDist;
+	int side_2;
+
+	int lineHeight; // h = the height in pixels of the screen
+	double	h;
+
+	int drawStart;
+	int drawEnd;
+
+	int	k;
+	int	colorbool; //if 1 --> overwriting
+	u_int32_t colors;
 }	t_cast;
+
 // init.c
 void	init_window(t_vars *vars, t_map *map);
 void	init_player_and_views(t_vars *vars);
@@ -120,7 +135,7 @@ void	key_hook(void *param);
 void    get_view(t_vars *vars, uint32_t color, double x, double y);
 void    get_view_until(t_vars *vars, uint32_t color, double x, double y);
 
-void	dda(t_vars *vars, int color);
+void	dda(t_vars *vars, int overwriting);
 void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color);
 
 #endif

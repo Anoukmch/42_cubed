@@ -131,11 +131,12 @@ void	init_map(t_vars *vars, t_map *map);
 int	check_extension(char *mapfile);
 
 // movement.c
-void	key_hook(void *param);
+void	key_hook(mlx_key_data_t keydata, void *param);
 void    get_view(t_vars *vars, uint32_t color, double x, double y);
 void    get_view_until(t_vars *vars, uint32_t color, double x, double y);
 
-void	dda(t_vars *vars, int overwriting);
+void	dda(void *param);
 void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color);
+void	dda_overwriting(t_vars *vars);
 
 #endif

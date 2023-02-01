@@ -162,17 +162,12 @@ void	printing_walls(t_cast *t, t_vars *vars)
 		uint32_t colors;
 
 		colors = 0xff96c8ff;
-		if (t->colorbool == 1)
-			colors = 0;
 		// if (k <= drawStart)
 		// {
 			// colors = RGB_PINK;
 			if (t->side == 1)
 			{
-				if (t->colorbool == 1)
-					mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, 0);
-				else
-					mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors / 2);
+				mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors / 2);
 			}
 			else
 				mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors);
@@ -189,13 +184,15 @@ void	printing_walls(t_cast *t, t_vars *vars)
 	}
 }
 
-void	dda(t_vars *vars, int overwriting)
+void	dda(void *param)
 {
+	t_vars	*vars;
+
+	vars = param;
 	t_cast t;
 
 	t.x = 0;
 	t.w = vars->m_width * 32;
-	t.colorbool = overwriting;
 	while (t.x < t.w)
 	{
 		starting_values(&t, vars);
@@ -216,3 +213,26 @@ void	dda(t_vars *vars, int overwriting)
 			// 	// case 4:  color = RGB_WHITE;  break; //white
 			// 	default: color = RGB_YELLOW; break; //yellow
     		// }
+
+void	dda_overwriting(t_vars *vars)
+{
+	t_cast t;
+
+	t.x = 0;
+	t.w = vars->m_width * 32;
+	while (t.x < t.w)
+	{
+		starting_values(&t, vars);
+		calc_step_and_sideDist(&t, vars);
+		find_hitted_wall(&t, vars);
+		find_side_of_hitted_wall(&t);
+		calc_perpWall_drawthings(&t, vars);
+	t.k = 0;
+	while (t.drawStart + t.k < t.drawEnd)
+	{
+		mlx_put_pixel(vars->player_img, t.x, t.drawStart + t.k, 0);
+		t.k++;
+	}
+	t.x++;
+	}
+}

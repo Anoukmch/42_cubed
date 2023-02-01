@@ -32,7 +32,8 @@ int	main(int argc, char **argv)
 	// VIEW OF PLAYER (NO, EA, SO, WE)
 	init_player_and_views(&vars);
 	// view_starting_direction(&vars);
-	mlx_loop_hook(vars.mlx, &key_hook, &vars);
+	mlx_loop_hook(vars.mlx, &dda, &vars);
+	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (EXIT_SUCCESS);
 }

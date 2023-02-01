@@ -1,24 +1,20 @@
 #include "../includes/cub3d.h"
 
-void	get_view(t_vars *vars, int color, double x, double y)
+void	get_view(t_vars *vars, uint32_t color, double x, double y)
 {
 	int	i;
 
 	i = 1;
-	while ((vars->player_y * 32) + 16 + (y * i) < vars->m_height * 32 * 2
-		&& (vars->player_y * 32) + 16 + (y * i) > 0
-		&& (vars->player_x * 32) + 16 + (x * i) < vars->m_width * 32 * 2
-		&& (vars->player_x * 32) + 16 + (x * i) > 0)
+	while ((vars->player_y * 32) + (y * i) < vars->m_height * 32 * 2
+		&& (vars->player_y * 32) + (y * i) > 0
+		&& (vars->player_x * 32) + (x * i) < vars->m_width * 32 * 2
+		&& (vars->player_x * 32) + (x * i) > 0)
 	{
-		mlx_put_pixel(vars->player_img, (vars->player_x * 32) + 16 + (x * i),
-			(vars->player_y * 32) + 16 + (y * i), color);
+		mlx_put_pixel(vars->player_img, (vars->player_x * 32) + (x * i),
+			(vars->player_y * 32) + (y * i), color);
 		i++;
 	}
 }
-	// while (16 + (y * i) < vars->m_height * 32
-	// 	&& 16 + (y * i) > 0
-	// 	&& 16 + (x * i) < vars->m_width * 32
-	// 	&& 16 + (x * i) > 0)
 
 void rotate_calculation(t_vars *vars)
 {
@@ -43,45 +39,56 @@ void	rotation(t_vars *vars, char *str)
 	// int tmp_y;
 
 	if (!ft_strcmp(str, "right"))
-		vars->rotation = 0.0174533;
+		vars->rotation = 0.0174533; //1 degree
 	else if (!ft_strcmp(str, "left"))
-		vars->rotation = -0.0174533;
+		vars->rotation = -0.0174533; //1 degree
+	dda(vars, 0);
 	get_view(vars, 0, vars->dir_x, vars->dir_y);
-	get_view(vars, 0, vars->left_x, vars->left_y);
-	get_view(vars, 0, vars->right_x, vars->right_y);
+	// get_view(vars, 0, vars->left_x, vars->left_y);
+	// get_view(vars, 0, vars->right_x, vars->right_y);
 	get_view_until(vars, 0, vars->planex, vars->planey);
 	get_view_until(vars, 0, vars->planex * (-1), vars->planey * (-1));
 	rotate_calculation(vars);
-	sidesofview(vars);
+	dda(vars, 0xFFFFFFFF);
+	// sidesofview(vars);
 	get_view(vars, 255, vars->dir_x, vars->dir_y);
-	get_view(vars, 255, vars->left_x, vars->left_y);
-	get_view(vars, 255, vars->right_x, vars->right_y);
-	get_view_until(vars, 0xA6C0, vars->planex, vars->planey);
-	get_view_until(vars, 0xA6C0, vars->planex * (-1), vars->planey * (-1));
+	// get_view(vars, 255, vars->left_x, vars->left_y);
+	// get_view(vars, 255, vars->right_x, vars->right_y);
+	get_view_until(vars, 0x00993366, vars->planex, vars->planey);
+	get_view_until(vars, 0x00993366, vars->planex * (-1), vars->planey * (-1));
 }
 
-void	key_hook(mlx_key_data_t keydata, void *param)
+void	key_hook(void *param)
 {
 	t_vars	*vars;
 
 	vars = param;
-	if (keydata.key == MLX_KEY_ESCAPE)
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W))
 	{
-		vars->player_img->instances[0].y -= 3;
+		dda(vars, 0);
+		vars->player_img->instances[0].y -= 1;
+		dda(vars, 0xFFFFFFFF);
+
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S))
 	{
-		vars->player_img->instances[0].y += 3;
+		dda(vars, 0);
+		vars->player_img->instances[0].y += 1;
+		dda(vars, 0xFFFFFFFF);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A))
 	{
-		vars->player_img->instances[0].x -= 3;
+		dda(vars, 0);
+		vars->player_img->instances[0].x -= 1;
+		dda(vars, 0xFFFFFFFF);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D))
 	{
-		vars->player_img->instances[0].x += 3;
+		dda(vars, 0);
+		vars->player_img->instances[0].x += 1;
+		dda(vars, 0xFFFFFFFF);
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 		rotation(vars, "right");

@@ -46,15 +46,15 @@ void	sidesofview(t_vars *vars)
 		+ vars->dir_y * cos(right_rot);
 }
 
-void    get_view_until(t_vars *vars, int color, double x, double y)
+void    get_view_until(t_vars *vars, uint32_t color, double x, double y)
 {
     int i;
     i = 0;
     while ((x * i) < 0.66 * 32 && (x * i) > -0.66 * 32
         && (y * i) < 0.66 * 32 && (y * i) > -0.66 * 32)
     {
-        mlx_put_pixel(vars->player_img, (vars->player_x * 32) + 16 + (x * i),
-            (vars->player_y * 32) + 16 + (y * i), color);
+        mlx_put_pixel(vars->player_img, (vars->player_x * 32) + (x * i),
+            (vars->player_y * 32) + (y * i), color);
         i++;
     }
 }
@@ -68,6 +68,8 @@ void	init_player_and_views(t_vars *vars)
 	vars->dir_y = -1;
 	vars->planex = 0.66;
 	vars->planey = 0;
+	vars->new_x = 0;
+	vars->new_y = 0;
 	// EAST
 	// vars->dir_x = 1;
 	// vars->dir_y = 0;
@@ -84,14 +86,45 @@ void	init_player_and_views(t_vars *vars)
 	// vars->camerax = 0;
 	// vars->cameray = 0.66;
 	vars->player_img = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
-	mlx_put_pixel(vars->player_img, vars->player_x * 32 + 16, vars->player_y * 32 + 16, 0xA6C0);
+	// vars->rays = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
+	// mlx_put_pixel(vars->player_img, vars->player_x * 32, vars->player_y * 32, 0xA6C0);
 	get_view(vars, 255, vars->dir_x, vars->dir_y);
 	// GET SIDES OF FOV
-	sidesofview(vars);
+	// sidesofview(vars);
 	// get_view(vars, 255, vars->left_x, vars->left_y);
-	get_view(vars, 255, vars->right_x, vars->right_y);
-	get_view_until(vars, 0xA6C0, vars->planex, vars->planey);
-	get_view_until(vars, 0xA6C0, vars->planex * (-1), vars->planey * (-1));
-	dda(vars);
+	// get_view(vars, 255, vars->right_x, vars->right_y);
+	get_view_until(vars, 0x00993366 , vars->planex, vars->planey);
+	get_view_until(vars, 0x00993366, vars->planex * (-1), vars->planey * (-1));
+	dda(vars, 0xFFFFFFFF);
 	mlx_image_to_window(vars->mlx, vars->player_img, 0, 0);
+	// mlx_image_to_window(vars->mlx, vars->rays, 0, 0);
 }
+
+// BLUE: 0xA6C0;
+// WHITE: 0xFFFFFFFF;
+// GREEN: 0x00993366;
+// ORANGE: 0xFF993366;
+// YELLOW: 0xFFFF007F;
+// PINK: 0xFF006699;
+// 0x00RRGGBB
+// 14474460 is the RGB value. 220 is 0xDC, and 14474460 is 0xDCDCDC ???
+/**
+ * Converts an RGBA value to a monochrome/grayscale value.
+ * It does so using specific weights for each channel.
+ * 
+ * @see https://goodcalculators.com/rgb-to-grayscale-conversion-calculator/
+ * 
+ * @param color The input RGBA value.
+ * @return The rgba value converted to a grayscale color.
+ */
+// uint32_t mlx_rgba_to_mono(uint32_t color)
+// {
+// 	const uint8_t r = 0.299f * ((color >> 24) & 0xFF);
+// 	const uint8_t g = 0.587f * ((color >> 16) & 0xFF);
+// 	const uint8_t b = 0.114f * ((color >> 8) & 0xFF);
+// 	const uint8_t y = r + g + b;
+
+// 	return (y << 24 | y << 16 | y << 8 | (color & 0xFF));
+// }
+
+// int rgb = grey * 0x00010101;

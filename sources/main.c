@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 		initialize(argv[1], &map);
 		parsing(map);
 		vars.finalmap = map->cmap;
+		vars.linesofmap = map->maplines;
 	}
 	else
 	{
@@ -31,7 +32,7 @@ int	main(int argc, char **argv)
 	// VIEW OF PLAYER (NO, EA, SO, WE)
 	init_player_and_views(&vars);
 	// view_starting_direction(&vars);
-	mlx_key_hook(vars.mlx, &key_hook, &vars);
+	mlx_loop_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);
 	return (EXIT_SUCCESS);
 }

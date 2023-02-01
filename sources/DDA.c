@@ -1,63 +1,94 @@
 #include <math.h>
 #include "../includes/cub3d.h"
 
-void	get_view_wall(t_vars *vars, int color, double x, double y)
-{
-	int	i;
+#define	RGB_BLUE	0xA6C0
+#define RGB_WHITE	0xFFFFFFFF
+#define RGB_GREEN	0x00993366
+#define RGB_YELLOW	0xFFFF007F
+#define RGB_PINK	0xFF006699
 
-	i = 1;
-	while ((vars->player_y * 32) + 16 + (y * i) < vars->m_height * 32 * 2
-		&& (vars->player_y * 32) + 16 + (y * i) > 0
-		&& (vars->player_x * 32) + 16 + (x * i) < vars->m_width * 32 * 2
-		&& (vars->player_x * 32) + 16 + (x * i) > 0)
+#define NO	0
+#define EA	1
+#define SO	2
+#define WE	3
+// BLUE: 0xA6C0;
+// WHITE: 0xFFFFFFFF;
+// GREEN: 0x00993366;
+// ORANGE: 0xFF993366;
+// YELLOW: 0xFFFF007F;
+// PINK: 0xFF006699;
+
+//choose wall color
+
+void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color)
+{
+	double deltaX = endX - beginX; // 10
+	double deltaY = endY - beginY; // 0
+	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
+
+	deltaX /= pixels; // 1
+	deltaY /= pixels; // 0
+
+	double pixelX = beginX;
+	double pixelY = beginY;
+	while (pixels)
 	{
-		mlx_put_pixel(vars->player_img, (vars->player_x * 32) + 16 + (x * i),
-			(vars->player_y * 32) + 16 + (y * i), color);
-		i++;
+		mlx_put_pixel(win, pixelX, pixelY, color);
+		pixelX += deltaX;
+		pixelY += deltaY;
+		--pixels;
 	}
 }
 
-void	dda(t_vars *vars)
+
+
+void	dda(t_vars *vars, int color)
 {
 	int x;
 	double w;
 	double cameraX;
 	double rayDirX;
 	double rayDirY;
-	int mapX;
-	int mapY;
+	int		mapX;
+	int		mapY;
+	// double time = 0; //time of current frame
+  	// double oldTime = 0; //time of previous frame
+	//length of ray from current position to next x or y-side
 	double sideDistX;
 	double sideDistY;
 	double deltaDistX;
 	double deltaDistY;
-	int stepX;
-	int stepY;
+	//what direction to step in x or y-direction (either +1 or -1)
+	double stepX;
+	double stepY;
 	int hit;
 	int side;
 	int i;
 
 	x = 0;
-	w = 32;
-	// while (x < w)
-	// {
+	w = 1000;
+	while (x < w)
+	{
 		i = 0;
 		hit = 0;
 		side = 0;
-		cameraX = 2 * 1 / 32 - 1;
+		//calculate ray position and direction
+		cameraX = 2 * x / w - 1;
 		rayDirX = vars->dir_x + vars->planex * cameraX;
 		rayDirY = vars->dir_y + vars->planey * cameraX;
-		printf("rayDirX : %f\n", rayDirX);
-		printf("rayDirY : %f\n", rayDirY);
-		if (rayDirX == 0)
-			rayDirX = INFINITY;
-		if (rayDirY == 0)
-			rayDirY = INFINITY;
+		//which box of the map we're in
 		mapX = (int)vars->player_x;
 		mapY = (int)vars->player_y;
-		deltaDistX = fabs(1 / rayDirX);
-		deltaDistY = fabs(1 / rayDirY);
-		printf("deltaDistX : %f\n", deltaDistX);
-		printf("deltaDistY : %f\n", deltaDistY);
+		//length of ray from one x or y-side to next x or y-side
+		if (rayDirX == 0)
+			deltaDistX = INFINITY;
+		else
+			deltaDistX = fabs(1 / rayDirX);
+		if (rayDirY == 0)
+			deltaDistY = INFINITY;
+		else
+			deltaDistY = fabs(1 / rayDirY);
+		//calculate step and initial sideDist
 		if (rayDirX < 0)
     	{
     		stepX = -1;
@@ -78,45 +109,102 @@ void	dda(t_vars *vars)
     		stepY = 1;
     		sideDistY = (mapY + 1.0 - vars->player_y) * deltaDistY;
     	}
-		printf("sideDistX : %f\n", sideDistX);
-		printf("sideDistY : %f\n", sideDistY);
-		printf("posX : %d\n", mapX);
-		printf("posY : %d\n", mapY);
+		// perform DDA
+		int	is_negative;
 		while (hit == 0)
 		{
+			//jump to next map square, either in x-direction, or in y-direction
 			if (sideDistX < sideDistY)
 			{
-				//printf("char : %c\n", vars->finalmap[mapY][mapX]);
 				sideDistX += deltaDistX;
 				mapX += stepX;
-				side = 0;
+				side = 1; //EA or WE
+				is_negative = rayDirX < 0;
 			}
 			else
 			{
-				//printf("char : %c\n", vars->finalmap[mapY][mapX]);
 				sideDistY += deltaDistY;
 				mapY += stepY;
-				side = 1;
+				side = 0; //NO or SO
+				is_negative = rayDirY < 0;
 			}
-			printf("mapX : %d\n", mapX);
-			printf("mapY : %d\n", mapY);
-			printf("sideDistY : %f\n", sideDistY);
-			printf("sideDistX : %f\n", sideDistX);
-			printf("array : %c\n", vars->finalmap[mapY][mapX]);
-			if (vars->finalmap[mapY][mapX] == '1')
+			//Check if ray has hit a wall
+			if (vars->finalmap[(int)mapY][(int)mapX] > '0')
 				hit = 1;
-			i++;
 		}
-		while (i < sideDistX * 32)
-		{
-			mlx_put_pixel(vars->player_img, (vars->player_x * 32) + 16 + (rayDirX * i),
-			(vars->player_y * 32) + 16 + (rayDirY * i), 255);
-			i++;
-		}
-		// mlx_image_t *test = mlx_new_image(vars->mlx, 32, 32);
-		// ft_memset(test, 255, test->width * test->height * sizeof(int));
-		// // mlx_put_pixel(vars->player_img, mapX * 32, mapY * 32, 200);
-		// mlx_image_to_window(vars->mlx, test, mapX * 32, mapY * 32);
-		// x++;
+			double perpWallDist;
+			int side_2;
+			if (side)
+			{
+				if (is_negative)
+					side_2 = NO;
+				else
+					side_2 = SO;
+			}
+			else
+			{
+				if (is_negative)
+					side_2 = EA;
+				else
+					side_2 = WE;
+			}
+			if (side)
+				perpWallDist = sideDistX - deltaDistX;
+			else
+				perpWallDist = sideDistY - deltaDistY;
+			//Calculate height of line to draw on screen
+			int lineHeight; // h = the height in pixels of the screen
+			double	h;
+			h = vars->m_height * 32;
+			lineHeight = 0;
+			if (perpWallDist > 0)
+				lineHeight = (int)(h / perpWallDist);
+			printf("h: %f\n", h);
+			printf("Lineheight: %d\n", lineHeight);
+			//calculate lowest and highest pixel to fill in current stripe
+			int drawStart;
+			drawStart = (h -lineHeight) / 2;
+			if (drawStart < 0)
+				drawStart = 0;
+			printf("drawSTART: %d\n", drawStart);
+			int drawEnd;
+			drawEnd = (h + lineHeight) / 2;
+			printf("drawEnd: %d\n", drawEnd);
+			if (drawEnd >= h)
+				drawEnd = h - 1;
+			
+			// PRINTING
+			//give x and y sides different brightness
+			int	k;
+
+			k = 0;
+			while (k < h)
+			{
+				uint32_t colors;
+				if (k <= drawStart)
+				{
+					colors = RGB_PINK;
+      				if (side == 1) {colors = colors / 2;}
+					mlx_put_pixel(vars->player_img, x, k, RGB_PINK);
+				}
+				if (k >= drawEnd)
+				{
+					colors = RGB_GREEN;
+      				if (side == 1) {colors = colors / 2;}
+					mlx_put_pixel(vars->player_img, x, k, RGB_GREEN);
+				}
+				k++;
+			}
+			color = 0;
+		x++;
 	}
-// }
+}
+
+			// switch(vars->finalmap[(int)mapY][(int)mapX])
+			// {
+			// 	case 1:  color = RGB_PINK;  break; //red
+			// 	case 2:  color = RGB_GREEN;  break; //green
+			// 	// case 3:  color = RGB_BLUE;   break; //blue
+			// 	// case 4:  color = RGB_WHITE;  break; //white
+			// 	default: color = RGB_YELLOW; break; //yellow
+    		// }

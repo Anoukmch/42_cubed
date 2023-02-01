@@ -61,9 +61,33 @@ typedef struct s_vars
 	double			planex;
 	double			planey;
 	char			**finalmap;
+	
+	int				linesofmap;
+	int				new_x;
+	int				new_y;
 
+	mlx_image_t		*rays;
 }				t_vars;
 
+typedef struct s_cast
+{
+	int x;
+	double w;
+	double cameraX;
+	double rayDirX;
+	double rayDirY;
+	int		mapX;
+	int		mapY;
+	double sideDistX;
+	double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double stepX;
+	double stepY;
+	int hit;
+	int side;
+	int i;
+}	t_cast;
 // init.c
 void	init_window(t_vars *vars, t_map *map);
 void	init_player_and_views(t_vars *vars);
@@ -92,10 +116,11 @@ void	init_map(t_vars *vars, t_map *map);
 int	check_extension(char *mapfile);
 
 // movement.c
-void	key_hook(mlx_key_data_t keydata, void *param);
-void	get_view(t_vars *vars, int color, double x, double y);
-void    get_view_until(t_vars *vars, int color, double x, double y);
+void	key_hook(void *param);
+void    get_view(t_vars *vars, uint32_t color, double x, double y);
+void    get_view_until(t_vars *vars, uint32_t color, double x, double y);
 
-void	dda(t_vars *vars);
+void	dda(t_vars *vars, int color);
+void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color);
 
 #endif

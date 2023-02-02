@@ -9,7 +9,6 @@ M_SRC		= main.c \
 				parsing.c \
 				colors.c \
 				error_exit.c \
-				put_map_to_window.c \
 				mapparsing/get_map.c \
 				mapparsing/check_map.c \
 				mapparsing/read_map.c \

@@ -160,7 +160,6 @@ void	printing_walls(t_cast *t, t_vars *vars)
 	t->k = 0;
 	while (t->drawStart + t->k < t->drawEnd)
 	{
-
 		colors = 0xff96c8ff;
 		if (t->side == 1)
 			mlx_put_pixel(vars->image_3d, t->x, t->drawStart + t->k, colors / 2);
@@ -175,7 +174,7 @@ void	printing_walls(t_cast *t, t_vars *vars)
 		{
 			colors = RGB_YELLOW; //CEILING COLOR
 			// if (t->side == 1)
-			// 	mlx_put_pixel(vars->player_img, t->x, t->k, colors/2);
+			// 	mlx_put_pixel(vars->image_3d, t->x, t->k, colors/2);
 			// else
 				mlx_put_pixel(vars->image_3d, t->x, t->k, colors);
 		}
@@ -183,7 +182,7 @@ void	printing_walls(t_cast *t, t_vars *vars)
 		{
 			colors = RGB_BLUE; //FLOOR COLOR
 			// if (t->side == 1)
-			// 	mlx_put_pixel(vars->player_img, t->x, t->k, colors/2);
+			// 	mlx_put_pixel(vars->image_3d, t->x, t->k, colors/2);
 			// else
 				mlx_put_pixel(vars->image_3d, t->x, t->k, colors);
 		}

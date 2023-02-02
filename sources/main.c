@@ -24,16 +24,11 @@ int	main(int argc, char **argv)
 		exit(1);
 	}
 	// GET TRANSFORMED COLORS FOR FLOOR AND CEILING
-	transform_colors(&vars, map); //COLORS ARE NEGATIVE???
+	transform_colors(&vars, map);
 	// error_exit(NULL, "Error\n./cub3d only takes one arg input\n");
 	// CREATE WINDOW
 	init_window(&vars, map);
-	// PUT MAP IN WINDOW
-	// init_map(&vars, map);
-	// PLAYER ITSELF
-	// VIEW OF PLAYER (NO, EA, SO, WE)
 	init_player_and_views(&vars);
-	// view_starting_direction(&vars);
 	mlx_loop_hook(vars.mlx, &dda, &vars);
 	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);

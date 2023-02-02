@@ -108,20 +108,8 @@ void	init_player_and_views(t_vars *vars)
 	// vars->dir_y = 0;
 	// vars->camerax = 0;
 	// vars->cameray = 0.66;
-	// vars->player_img = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
 	vars->image_3d = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
-	// vars->rays = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
-	// mlx_put_pixel(vars->player_img, vars->player_x * 32, vars->player_y * 32, 0xA6C0);
-	// get_view(vars, 255, vars->dir_x, vars->dir_y);
-	// GET SIDES OF FOV
-	// sidesofview(vars);
-	// get_view(vars, 255, vars->left_x, vars->left_y);
-	// get_view(vars, 255, vars->right_x, vars->right_y);
-	// get_view_until(vars, 0x00993366 , vars->planex, vars->planey);
-	// get_view_until(vars, 0x00993366, vars->planex * (-1), vars->planey * (-1));
-	// mlx_image_to_window(vars->mlx, vars->player_img, 0, 0);
 	mlx_image_to_window(vars->mlx, vars->image_3d, 0, 0);
-	// mlx_image_to_window(vars->mlx, vars->rays, 0, 0);
 }
 
 // BLUE: 0xA6C0;
@@ -130,25 +118,3 @@ void	init_player_and_views(t_vars *vars)
 // ORANGE: 0xFF993366;
 // YELLOW: 0xFFFF007F;
 // PINK: 0xFF006699;
-// 0x00RRGGBB
-// 14474460 is the RGB value. 220 is 0xDC, and 14474460 is 0xDCDCDC ???
-/**
- * Converts an RGBA value to a monochrome/grayscale value.
- * It does so using specific weights for each channel.
- * 
- * @see https://goodcalculators.com/rgb-to-grayscale-conversion-calculator/
- * 
- * @param color The input RGBA value.
- * @return The rgba value converted to a grayscale color.
- */
-// uint32_t mlx_rgba_to_mono(uint32_t color)
-// {
-// 	const uint8_t r = 0.299f * ((color >> 24) & 0xFF);
-// 	const uint8_t g = 0.587f * ((color >> 16) & 0xFF);
-// 	const uint8_t b = 0.114f * ((color >> 8) & 0xFF);
-// 	const uint8_t y = r + g + b;
-
-// 	return (y << 24 | y << 16 | y << 8 | (color & 0xFF));
-// }
-
-// int rgb = grey * 0x00010101;

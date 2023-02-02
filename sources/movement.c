@@ -35,29 +35,12 @@ void rotate_calculation(t_vars *vars)
 // SKALARPRODUKT
 void	rotation(t_vars *vars, char *str)
 {
-	// int tmp_x;
-	// int tmp_y;
-
 	if (!ft_strcmp(str, "right"))
 		vars->rotation = 0.0872665; //1 degree
 	else if (!ft_strcmp(str, "left"))
 		vars->rotation = -0.0872665; //1 degree
-	
-	// dda(vars, 1);
-	// get_view(vars, 0, vars->dir_x, vars->dir_y);
-	// get_view(vars, 0, vars->left_x, vars->left_y);
-	// get_view(vars, 0, vars->right_x, vars->right_y);
-	// get_view_until(vars, 0, vars->planex, vars->planey);
-	// get_view_until(vars, 0, vars->planex * (-1), vars->planey * (-1));
 	dda_overwriting(vars);
 	rotate_calculation(vars);
-	// dda(vars, 0);
-	// sidesofview(vars);
-	// get_view(vars, 255, vars->dir_x, vars->dir_y);
-	// get_view(vars, 255, vars->left_x, vars->left_y);
-	// get_view(vars, 255, vars->right_x, vars->right_y);
-	// get_view_until(vars, 0x00993366, vars->planex, vars->planey);
-	// get_view_until(vars, 0x00993366, vars->planex * (-1), vars->planey * (-1));
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)

@@ -1,21 +1,5 @@
 #include "../includes/cub3d.h"
 
-void	get_view(t_vars *vars, uint32_t color, double x, double y)
-{
-	int	i;
-
-	i = 1;
-	while ((vars->player_y * 32) + (y * i) < vars->m_height * 32 * 2
-		&& (vars->player_y * 32) + (y * i) > 0
-		&& (vars->player_x * 32) + (x * i) < vars->m_width * 32 * 2
-		&& (vars->player_x * 32) + (x * i) > 0)
-	{
-		mlx_put_pixel(vars->player_img, (vars->player_x * 32) + (x * i),
-			(vars->player_y * 32) + (y * i), color);
-		i++;
-	}
-}
-
 void	rotate_calculation(t_vars *vars)
 {
 	double	old;

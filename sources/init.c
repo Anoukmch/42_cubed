@@ -59,8 +59,33 @@ void    get_view_until(t_vars *vars, uint32_t color, double x, double y)
     }
 }
 
+void	get_player_position(t_vars *vars)
+{
+	int	width;
+	int	height;
+
+	width = 0;
+	height = 0;
+	while (vars->finalmap[height])
+	{
+		while (vars->finalmap[height][width])
+		{
+			if (vars->finalmap[height][width] == 'N' || vars->finalmap[height][width] == 'E'
+				|| vars->finalmap[height][width] == 'S' || vars->finalmap[height][width] == 'W')
+			{
+				vars->player_x = width;
+				vars->player_y = height;
+			}
+			width++;
+		}
+		height++;
+		width = 0;
+	}
+}
+
 void	init_player_and_views(t_vars *vars)
 {
+	get_player_position(vars);
 	vars->fov = 1.15192; //angle of 66 degrees
 	// CHANGE VECTORS TO START IN ANOTHER DIRECTION
 	// NORTH
@@ -68,8 +93,6 @@ void	init_player_and_views(t_vars *vars)
 	vars->dir_y = -1;
 	vars->planex = 0.66;
 	vars->planey = 0;
-	vars->new_x = 0;
-	vars->new_y = 0;
 	// EAST
 	// vars->dir_x = 1;
 	// vars->dir_y = 0;
@@ -85,18 +108,19 @@ void	init_player_and_views(t_vars *vars)
 	// vars->dir_y = 0;
 	// vars->camerax = 0;
 	// vars->cameray = 0.66;
-	vars->player_img = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
+	// vars->player_img = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
+	vars->image_3d = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
 	// vars->rays = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
 	// mlx_put_pixel(vars->player_img, vars->player_x * 32, vars->player_y * 32, 0xA6C0);
-	get_view(vars, 255, vars->dir_x, vars->dir_y);
+	// get_view(vars, 255, vars->dir_x, vars->dir_y);
 	// GET SIDES OF FOV
 	// sidesofview(vars);
 	// get_view(vars, 255, vars->left_x, vars->left_y);
 	// get_view(vars, 255, vars->right_x, vars->right_y);
-	get_view_until(vars, 0x00993366 , vars->planex, vars->planey);
-	get_view_until(vars, 0x00993366, vars->planex * (-1), vars->planey * (-1));
-	dda(vars, 0xFFFFFFFF);
-	mlx_image_to_window(vars->mlx, vars->player_img, 0, 0);
+	// get_view_until(vars, 0x00993366 , vars->planex, vars->planey);
+	// get_view_until(vars, 0x00993366, vars->planex * (-1), vars->planey * (-1));
+	// mlx_image_to_window(vars->mlx, vars->player_img, 0, 0);
+	mlx_image_to_window(vars->mlx, vars->image_3d, 0, 0);
 	// mlx_image_to_window(vars->mlx, vars->rays, 0, 0);
 }
 

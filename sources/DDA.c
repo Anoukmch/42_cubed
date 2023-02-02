@@ -3,7 +3,7 @@
 
 #define	RGB_BLUE	0xA6C0
 #define RGB_WHITE	0xFFFFFFFF
-#define RGB_GREEN	0x00993366
+#define RGB_GREEN	0x00996699
 #define RGB_YELLOW	0xFFFF007F
 #define RGB_PINK	0xFF006699
 
@@ -156,30 +156,37 @@ void	printing_walls(t_cast *t, t_vars *vars)
 {
 	// PRINTING
 	//give x and y sides different brightness	
+	uint32_t colors;
 	t->k = 0;
 	while (t->drawStart + t->k < t->drawEnd)
 	{
-		uint32_t colors;
 
 		colors = 0xff96c8ff;
-		// if (k <= drawStart)
-		// {
-			// colors = RGB_PINK;
-			if (t->side == 1)
-			{
-				mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors / 2);
-			}
-			else
-				mlx_put_pixel(vars->player_img, t->x, t->drawStart + t->k, colors);
-		// }
-		// if (t->k >= t->drawEnd)
-		// {
-			// t->colors = RGB_GREEN;
+		if (t->side == 1)
+			mlx_put_pixel(vars->image_3d, t->x, t->drawStart + t->k, colors / 2);
+		else
+			mlx_put_pixel(vars->image_3d, t->x, t->drawStart + t->k, colors);
+		t->k++;
+	}
+	t->k = 0;
+	while (t->k < t->h)
+	{
+		if (t->k <= t->drawStart)
+		{
+			colors = RGB_YELLOW; //CEILING COLOR
 			// if (t->side == 1)
-			// 	mlx_put_pixel(vars->player_img, t->x, t->k, RGB_GREEN / 2);
+			// 	mlx_put_pixel(vars->player_img, t->x, t->k, colors/2);
 			// else
-			// 	mlx_put_pixel(vars->player_img, t->x, t->k, RGB_GREEN);
-		// }
+				mlx_put_pixel(vars->image_3d, t->x, t->k, colors);
+		}
+		if (t->k >= t->drawEnd)
+		{
+			colors = RGB_BLUE; //FLOOR COLOR
+			// if (t->side == 1)
+			// 	mlx_put_pixel(vars->player_img, t->x, t->k, colors/2);
+			// else
+				mlx_put_pixel(vars->image_3d, t->x, t->k, colors);
+		}
 		t->k++;
 	}
 }
@@ -205,14 +212,14 @@ void	dda(void *param)
 	}
 }
 
-			// switch(vars->finalmap[(int)mapY][(int)mapX])
-			// {
-			// 	case 1:  color = RGB_PINK;  break; //red
-			// 	case 2:  color = RGB_GREEN;  break; //green
-			// 	// case 3:  color = RGB_BLUE;   break; //blue
-			// 	// case 4:  color = RGB_WHITE;  break; //white
-			// 	default: color = RGB_YELLOW; break; //yellow
-    		// }
+// switch(vars->finalmap[(int)mapY][(int)mapX])
+// {
+// 	case 1:  color = RGB_PINK;  break; //red
+// 	case 2:  color = RGB_GREEN;  break; //green
+// 	// case 3:  color = RGB_BLUE;   break; //blue
+// 	// case 4:  color = RGB_WHITE;  break; //white
+// 	default: color = RGB_YELLOW; break; //yellow
+// }
 
 void	dda_overwriting(t_vars *vars)
 {
@@ -230,9 +237,18 @@ void	dda_overwriting(t_vars *vars)
 	t.k = 0;
 	while (t.drawStart + t.k < t.drawEnd)
 	{
-		mlx_put_pixel(vars->player_img, t.x, t.drawStart + t.k, 0);
+		mlx_put_pixel(vars->image_3d, t.x, t.drawStart + t.k, 0);
 		t.k++;
 	}
 	t.x++;
+	}
+	t.k = 0;
+	while (t.k < t.h)
+	{
+		if (t.k <= t.drawStart)
+			mlx_put_pixel(vars->image_3d, t.x, t.k, 0);
+		if (t.k >= t.drawEnd)
+			mlx_put_pixel(vars->image_3d, t.x, t.k, 0);
+		t.k++;
 	}
 }

@@ -52,6 +52,8 @@ typedef struct s_vars
 	double				dir_y;
 	double				rotation;
 
+	uint32_t		floorcolor;
+	uint32_t		ceilingcolor;
 	// SIDE VIEWS
 	double			fov;
 	double			left_x;
@@ -61,12 +63,10 @@ typedef struct s_vars
 	double			planex;
 	double			planey;
 	char			**finalmap;
-	
-	int				linesofmap;
-	int				new_x;
-	int				new_y;
 
-	mlx_image_t		*rays;
+	mlx_image_t		*image_3d;
+	int				linesofmap;
+
 }				t_vars;
 
 typedef struct s_cast
@@ -138,5 +138,11 @@ void    get_view_until(t_vars *vars, uint32_t color, double x, double y);
 void	dda(void *param);
 void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color);
 void	dda_overwriting(t_vars *vars);
+
+// colors.c
+void	transform_colors(t_vars *vars, t_map *map);
+
+// get_map.c
+char	*ft_free_strtrim(char *s1, char const *set);
 
 #endif

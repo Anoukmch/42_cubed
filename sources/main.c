@@ -23,11 +23,13 @@ int	main(int argc, char **argv)
 		printf("Error\nmissing or too much arg\n");
 		exit(1);
 	}
+	// GET TRANSFORMED COLORS FOR FLOOR AND CEILING
+	transform_colors(&vars, map); //COLORS ARE NEGATIVE???
 	// error_exit(NULL, "Error\n./cub3d only takes one arg input\n");
 	// CREATE WINDOW
 	init_window(&vars, map);
 	// PUT MAP IN WINDOW
-	init_map(&vars, map);
+	// init_map(&vars, map);
 	// PLAYER ITSELF
 	// VIEW OF PLAYER (NO, EA, SO, WE)
 	init_player_and_views(&vars);

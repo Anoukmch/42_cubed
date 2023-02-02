@@ -7,6 +7,7 @@ M_SRC		= main.c \
 				movement.c \
 				check_extension.c \
 				parsing.c \
+				colors.c \
 				error_exit.c \
 				put_map_to_window.c \
 				mapparsing/get_map.c \

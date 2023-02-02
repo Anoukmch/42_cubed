@@ -78,8 +78,8 @@ void	check_horizontal_spaces(char **str, int i)
 	{
 		if (str[i][j] == ' ')
 		{
-			if ((str[i - 1][j] != '1' && str[i - 1][j] != ' ')
-				|| (str[i + 1][j] != '1' && str[i + 1][j] != ' '))
+			if ((i > 0 && str[i - 1][j] != '1' && str[i - 1][j] != ' ')
+				|| (str[i + 1] && str[i + 1][j] != '1' && str[i + 1][j] != ' '))
 				exit(printf("ERROR horizontal\n"));
 		}
 		j++;
@@ -112,8 +112,8 @@ void	map_pars(t_map *map)
 		else
 		{
 			check_vertical_rendering(map->cmap[i]);
-			check_horizontal_spaces(map->cmap, i);
 		}
+		check_horizontal_spaces(map->cmap, i);
 		i++;
 	}
 	if (map->player != 1)

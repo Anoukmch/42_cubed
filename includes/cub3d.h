@@ -111,8 +111,6 @@ typedef struct s_cast
 // init.c
 void	init_window(t_vars *vars, t_map *map);
 void	init_player_and_views(t_vars *vars);
-void	view_starting_direction(t_vars *vars);
-void	sidesofview(t_vars *vars);
 
 // parsing.c
 void	initialize(char *mapfile, t_map **map);
@@ -129,19 +127,13 @@ void	getmap_content(t_map *map);
 
 // check_map.c
 
-// put_map_to_window.c
-void	init_map(t_vars *vars, t_map *map);
-
-// check_extenstion.c
+// check_extension.c
 int	check_extension(char *mapfile);
 
 // movement.c
 void	key_hook(mlx_key_data_t keydata, void *param);
-void    get_view(t_vars *vars, uint32_t color, double x, double y);
-void    get_view_until(t_vars *vars, uint32_t color, double x, double y);
 
 void	dda(void *param);
-void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color);
 void	dda_overwriting(t_vars *vars);
 
 // colors.c

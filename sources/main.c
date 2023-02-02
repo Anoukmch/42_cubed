@@ -29,6 +29,8 @@ int	main(int argc, char **argv)
 	// CREATE WINDOW
 	init_window(&vars, map);
 	init_player_and_views(&vars);
+	// WINDOW RESIZING
+	mlx_resize_hook(vars.mlx, &windowresize, &vars);
 	mlx_loop_hook(vars.mlx, &dda, &vars);
 	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);

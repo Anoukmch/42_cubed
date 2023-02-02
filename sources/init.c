@@ -108,7 +108,7 @@ void	init_player_and_views(t_vars *vars)
 	// vars->dir_y = 0;
 	// vars->camerax = 0;
 	// vars->cameray = 0.66;
-	vars->image_3d = mlx_new_image(vars->mlx, vars->m_width * 32 * 2, vars->m_height * 32 * 2);
+	vars->image_3d = mlx_new_image(vars->mlx, vars->m_width * 32, vars->m_height * 32);
 	mlx_image_to_window(vars->mlx, vars->image_3d, 0, 0);
 }
 

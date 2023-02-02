@@ -1,44 +1,18 @@
 #include <math.h>
 #include "../includes/cub3d.h"
 
-#define	RGB_BLUE	0xA6C0
+#define RGB_BLUE	0xA6C0
 #define RGB_WHITE	0xFFFFFFFF
 #define RGB_GREEN	0x00996699
 #define RGB_YELLOW	0xFFFF007F
 #define RGB_PINK	0xFF006699
 
-#define NO	0
-#define EA	1
-#define SO	2
-#define WE	3
 // BLUE: 0xA6C0;
 // WHITE: 0xFFFFFFFF;
 // GREEN: 0x00993366;
 // ORANGE: 0xFF993366;
 // YELLOW: 0xFFFF007F;
 // PINK: 0xFF006699;
-
-//choose wall color
-
-void	draw_line(void *win, int beginX, int beginY, int endX, int endY, int color)
-{
-	double deltaX = endX - beginX; // 10
-	double deltaY = endY - beginY; // 0
-	int pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-
-	deltaX /= pixels; // 1
-	deltaY /= pixels; // 0
-
-	double pixelX = beginX;
-	double pixelY = beginY;
-	while (pixels)
-	{
-		mlx_put_pixel(win, pixelX, pixelY, color);
-		pixelX += deltaX;
-		pixelY += deltaY;
-		--pixels;
-	}
-}
 
 void	starting_values(t_cast *t, t_vars *vars)
 {
@@ -63,7 +37,7 @@ void	starting_values(t_cast *t, t_vars *vars)
 		t->deltaDistY = fabs(1 / t->rayDirY);
 }
 
-void	calc_step_and_sideDist(t_cast *t, t_vars *vars)
+void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 {
 	//calculate step and initial sideDist
 	if (t->rayDirX < 0)
@@ -132,7 +106,7 @@ void	find_side_of_hitted_wall(t_cast *t)
 	}
 }
 
-void	calc_perpWall_drawthings(t_cast *t, t_vars *vars)
+void	calc_perp_wall_drawthings(t_cast *t, t_vars *vars)
 {
 	if (t->side)
 		t->perpWallDist = t->sideDistX - t->deltaDistX;
@@ -144,7 +118,7 @@ void	calc_perpWall_drawthings(t_cast *t, t_vars *vars)
 	if (t->perpWallDist > 0)
 		t->lineHeight = (int)(t->h / t->perpWallDist);
 	//calculate lowest and highest pixel to fill in current stripe
-	t->drawStart = (t->h -t->lineHeight) / 2;
+	t->drawStart = (t->h - t->lineHeight) / 2;
 	if (t->drawStart < 0)
 		t->drawStart = 0;
 	t->drawEnd = (t->h + t->lineHeight) / 2;
@@ -155,12 +129,14 @@ void	calc_perpWall_drawthings(t_cast *t, t_vars *vars)
 void	printing_walls(t_cast *t, t_vars *vars)
 {
 	// PRINTING
-	//give x and y sides different brightness	
-	uint32_t colors;
+	//give x and y sides different brightness
+	vars = (t_vars *)vars;	
+	uint32_t	colors;
+
 	t->k = 0;
 	while (t->drawStart + t->k < t->drawEnd)
 	{
-		colors = 0xff96c8ff;
+		colors = RGB_GREEN;
 		if (t->side == 1)
 			mlx_put_pixel(vars->image_3d, t->x, t->drawStart + t->k, colors / 2);
 		else
@@ -170,22 +146,10 @@ void	printing_walls(t_cast *t, t_vars *vars)
 	t->k = 0;
 	while (t->k < t->h)
 	{
-		if (t->k <= t->drawStart)
-		{
-			colors = RGB_YELLOW; //CEILING COLOR
-			// if (t->side == 1)
-			// 	mlx_put_pixel(vars->image_3d, t->x, t->k, colors/2);
-			// else
-				mlx_put_pixel(vars->image_3d, t->x, t->k, colors);
-		}
-		if (t->k >= t->drawEnd)
-		{
-			colors = RGB_BLUE; //FLOOR COLOR
-			// if (t->side == 1)
-			// 	mlx_put_pixel(vars->image_3d, t->x, t->k, colors/2);
-			// else
-				mlx_put_pixel(vars->image_3d, t->x, t->k, colors);
-		}
+		if (t->k <= t->drawStart) //CEILING COLOR
+			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->ceilingcolor);
+		if (t->k >= t->drawEnd) //FLOOR COLOR
+			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->floorcolor);
 		t->k++;
 	}
 }
@@ -202,10 +166,10 @@ void	dda(void *param)
 	while (t.x < t.w)
 	{
 		starting_values(&t, vars);
-		calc_step_and_sideDist(&t, vars);
+		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
 		find_side_of_hitted_wall(&t);
-		calc_perpWall_drawthings(&t, vars);
+		calc_perp_wall_drawthings(&t, vars);
 		printing_walls(&t, vars);
 		t.x++;
 	}
@@ -229,10 +193,10 @@ void	dda_overwriting(t_vars *vars)
 	while (t.x < t.w)
 	{
 		starting_values(&t, vars);
-		calc_step_and_sideDist(&t, vars);
+		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
 		find_side_of_hitted_wall(&t);
-		calc_perpWall_drawthings(&t, vars);
+		calc_perp_wall_drawthings(&t, vars);
 	t.k = 0;
 	while (t.drawStart + t.k < t.drawEnd)
 	{

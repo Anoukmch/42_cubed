@@ -12,6 +12,11 @@
 # define TEXTURES			1
 # define WALL				0
 
+#define NO	0
+#define EA	1
+#define SO	2
+#define WE	3
+
 typedef struct s_map
 {
 	int		fd;
@@ -144,5 +149,8 @@ void	transform_colors(t_vars *vars, t_map *map);
 
 // get_map.c
 char	*ft_free_strtrim(char *s1, char const *set);
+
+// windowresize.c
+void	windowresize(int32_t height, int32_t width, void *param);
 
 #endif

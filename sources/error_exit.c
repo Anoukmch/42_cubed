@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:04 by amechain          #+#    #+#             */
-/*   Updated: 2023/01/20 16:52:01 by amechain         ###   ########.fr       */
+/*   Updated: 2023/02/02 15:00:01 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int error_exit(char *s)
+int	error_exit(char *s)
 {
 	printf("%s\n", s);
 	exit(1);

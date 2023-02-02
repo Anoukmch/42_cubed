@@ -77,7 +77,6 @@ void	countinglines(t_map *map, char *lastline)
 	close(map->fd);
 	if (!map->maplines)
 		exit (printf("Map error: No existing map!\n"));
-	// vars->m_map->maplines
 }
 
 void	getmap_content(t_map *map)

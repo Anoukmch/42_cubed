@@ -16,7 +16,7 @@ void	get_view(t_vars *vars, uint32_t color, double x, double y)
 	}
 }
 
-void rotate_calculation(t_vars *vars)
+void	rotate_calculation(t_vars *vars)
 {
 	double	old;
 
@@ -33,20 +33,21 @@ void rotate_calculation(t_vars *vars)
 }
 
 // SKALARPRODUKT
+// 0.0872665 --> 5 degrees
 void	rotation(t_vars *vars, char *str)
 {
 	if (!ft_strcmp(str, "right"))
-		vars->rotation = 0.0872665; //1 degree
+		vars->rotation = 0.0872665;
 	else if (!ft_strcmp(str, "left"))
-		vars->rotation = -0.0872665; //1 degree
+		vars->rotation = -0.0872665;
 	dda_overwriting(vars);
 	rotate_calculation(vars);
 }
 
 bool	movement_hit_wall(t_vars *vars, int direction)
 {
-	double x;
-	double y;
+	double	x;
+	double	y;
 
 	if (direction == NO)
 	{

@@ -1,7 +1,8 @@
 
 #include "../includes/cub3d.h"
 
-int	check_texture_path(char *line, int indic) // How is the path formated ? Can it be in another folder ? (like ../../)
+// How is the path formated ? Can it be in another folder ? (like ../../)
+int	check_texture_path(char *line, int indic)
 {
 	int	i;
 
@@ -17,10 +18,10 @@ int	check_texture_path(char *line, int indic) // How is the path formated ? Can 
 		else
 			error_exit("Error\nWrong file path : check input file");
 	}
-	return(error_exit("Error\nNo file path : check input file"));
+	return (error_exit("Error\nNo file path : check input file"));
 }
 
-int	size_2Darray(char **array)
+int	size_2d_array(char **array)
 {
 	int	len;
 
@@ -80,16 +81,16 @@ int	free_array(char **array, int ret_stat)
 
 int	check_color_comb(char *line)
 {
-	char **array;
-	int	i;
-	int nbr;
+	char	**array;
+	int		i;
+	int		nbr;
 
 	i = 0;
 	check_comma(line);
 	array = ft_split(line, ',');
 	if (!array)
 		error_exit("Error\nAllocation fail");
-	if (size_2Darray(array) != 3)
+	if (size_2d_array(array) != 3)
 		return (free_array(array, 0));
 	while (array[i])
 	{
@@ -147,7 +148,7 @@ int	check_identifier(char *line, t_map *map)
 	int	i;
 
 	i = 0;
-	while(line[i] != '\n')
+	while (line[i] != '\n')
 	{
 		if ((line[i] >= '\t' && line[i] <= '\r') || (line[i] == ' '))
 			i++;
@@ -155,20 +156,21 @@ int	check_identifier(char *line, t_map *map)
 			|| (!ft_strncmp(line + i, "SO", 2))
 			|| (!ft_strncmp(line + i, "WE", 2))
 			|| (!ft_strncmp(line + i, "EA", 2)))
-				return(check_texture_path(line + i + 2, i));
+			return (check_texture_path(line + i + 2, i));
 		else if ((!ft_strncmp(line + i, "F", 1) && !map->rgb_f)
 			|| (!ft_strncmp(line + i, "C", 1) && !map->rgb_c))
-			return(check_range_colors(line + i + 1, i));
+			return (check_range_colors(line + i + 1, i));
 		else if ((line[i] == '1' || line[i] == '0') && map->north_path
 			&& map->south_path && map->east_path && map->rgb_f && map->rgb_c)
 			return (-1);
 		else
-			error_exit("Error\nMissing info or wrong character : check input file");
+			error_exit("Error\nMissing info or wrong character: check input file");
 	}
 	return (-2);
 }
 
-char	*texture_and_colors_pars(t_map *map) /* Rework this function */
+/* Rework this function */
+char	*texture_and_colors_pars(t_map *map)
 {
 	char	*line;
 	int		i;
@@ -192,19 +194,19 @@ char	*texture_and_colors_pars(t_map *map) /* Rework this function */
 
 void	parsing(t_map *map)
 {
-	char *line;
+	char	*line;
 
 	map->mapstart = 0;
 	line = texture_and_colors_pars(map);
 	get_finalmap(map, line);
 }
 
+//error_exit(NULL, "Error\nAllocation fail\n");
 void	initialize(char *mapfile, t_map **map)
 {
 	*map = ft_calloc(1, sizeof(t_map));
 	if (!*map)
 		error_exit("Error\nAllocation fail");
-		//error_exit(NULL, "Error\nAllocation fail\n");
 	(*map)->fd = open(mapfile, O_RDONLY);
 	if ((*map)->fd < 0)
 		error_exit("Error\nOpen fail");

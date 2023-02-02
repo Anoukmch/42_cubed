@@ -22,7 +22,6 @@ static uint32_t	get_colour(char *s)
 	return ((uint32_t)(rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255));
 }
 
-
 void	transform_colors(t_vars *vars, t_map *map)
 {
 	vars->ceilingcolor = get_colour(map->rgb_c);

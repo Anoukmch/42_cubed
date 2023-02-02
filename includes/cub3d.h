@@ -9,8 +9,21 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
-# define TEXTURES			1
-# define WALL				0
+# define TEXTURES			13
+
+# define PLAYER				0
+# define SPACES				1
+# define CORNER_LEFT_UP		2
+# define CORNER_LEFT_DOWN 	3
+# define CORNER_RIGHT_UP 	4
+# define CORNER_RIGHT_DOWN 	5
+# define WALL_LEFT 			6
+# define WALL_RIGHT 		7
+# define WALL_DOWN 			8
+# define WALL_UP 			9
+# define COLLECTS 			10
+# define EXIT 				11
+# define BOX 				12
 
 #define NO	0
 #define EA	1

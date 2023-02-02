@@ -13,7 +13,8 @@ M_SRC		= main.c \
 				mapparsing/check_map.c \
 				mapparsing/read_map.c \
 				DDA.c \
-				windowresize.c
+				windowresize.c \
+				textures.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 

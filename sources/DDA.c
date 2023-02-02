@@ -7,6 +7,8 @@
 #define RGB_YELLOW	0xFFFF007F
 #define RGB_PINK	0xFF006699
 
+#define texWidth 32
+#define texHeight 32
 // BLUE: 0xA6C0;
 // WHITE: 0xFFFFFFFF;
 // GREEN: 0x00993366;
@@ -153,6 +155,36 @@ void	printing_walls(t_cast *t, t_vars *vars)
 	}
 }
 
+void	printing_textures(t_cast *t, t_vars *vars)
+{
+	//texturing calculations
+	int texNum = vars->finalmap[t->mapY][t->mapX] - 1;
+	double wallX;
+	if (t->side == 0)
+		wallX = vars->player_y + t->perpWallDist * t->rayDirY;
+	else
+		wallX = vars->player_x + t->perpWallDist * t->rayDirX;
+	wallX -= (int)wallX;
+	//x coordinate on the texture
+	int texX = (int)(wallX * (double)texWidth);
+	if(t->side == 0 && t->rayDirX > 0)
+		texX = texWidth - texX - 1;
+	if(t->side == 1 && t->rayDirY < 0)
+		texX = texWidth - texX - 1;
+	double step = 1.0 * texHeight / t->lineHeight;
+	double texPos = (t->drawStart - t->h / 2 + t->lineHeight / 2) * step;
+	int y = t->drawStart;
+	while (y < t->drawEnd)
+	{
+		int texY = (int)texPos & (texHeight - 1);
+		texPos += step;
+		// uint32_t color = vars->textures[texNum][texHeight * texY + texX];
+		// buffer[y][t->x] = color;
+		y++;
+	}
+{
+}
+
 void	dda(void *param)
 {
 	t_vars	*vars;
@@ -168,7 +200,8 @@ void	dda(void *param)
 		find_hitted_wall(&t, vars);
 		find_side_of_hitted_wall(&t);
 		calc_perp_wall_drawthings(&t, vars);
-		printing_walls(&t, vars);
+		// printing_walls(&t, vars);
+		printing_textures(&t, vars);
 		t.x++;
 	}
 }

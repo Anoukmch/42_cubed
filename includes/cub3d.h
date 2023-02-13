@@ -55,6 +55,7 @@ typedef struct s_vars
 {
 	mlx_t			*mlx;
 
+	mlx_image_t		*walls;
 	mlx_texture_t	*textures[TEXTURES];
 	mlx_image_t		*map_img;
 	char			**map;
@@ -160,5 +161,8 @@ void	windowresize(int32_t height, int32_t width, void *param);
 
 // texture.c
 void	init_textures(t_vars *vars);
+
+// trying_rendering.c
+void print_textures(t_cast *t, t_vars *vars, int color);
 
 #endif

@@ -127,30 +127,47 @@ int	texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 	return (texX);
 }
 
+// void	my_mlx_pixel_put(int x, int y, int color, t_vars *vars)
+// {
+// 	char	*dst;
+
+// 	dst = data()->img.addr + \
+// 		(y * data()->img.line_len + x * (
+// 			data()->img.bits_per_pixel / 8));
+// 	*(unsigned int *)dst = color;
+// }
+
 void	texture_2(t_cast *t, t_vars *vars)
 {
 	mlx_texture_t *tex;
 	int y;
 	double step;
 	int line_h;
+	unsigned int	color;
 
 	step = 0;
 	tex = vars->textures[WALL_DOWN];
-	line_h = t->drawEnd - t->drawStart;
-	t->drawStart = (t->h - line_h) / 2;
-	double texPos = (t->drawStart - (t->h + line_h) / 2) * step;
+	line_h = (t->drawEnd) - (t->drawStart);
+	t->drawStart = fmax(0, (t->h - line_h) / 2);
 	step = 1.0 * tex->height / line_h;
-	y = (t->drawStart * 32);
-	while (y < (t->drawEnd * 32))
+	y = (t->drawStart);
+	double texPos = (t->drawStart - (t->h + line_h) / 2) * step;
+	color = 0;
+	while (y < (t->drawEnd))
 	{
 		int texY = (int)texPos & (tex->height - 1);
 		texPos += step;
-		// ft_memset(&vars->image_3d->pixels[((y * vars->m_width + t->x) * 32)],
-		// tex->pixels[(texY * texHeight + texture_3(t, vars)) * 32], 32 * 32);
-		ft_memcpy(&vars->image_3d->pixels[((y * vars->m_width + t->x))],
-		&tex->pixels[texY * tex->height + texture_3(tex, t, vars)], 1);
+		unsigned int color;
+		color = (int)tex->pixels[(texY * tex->height + texture_3(tex, t, vars))];
+		// if (t->side == 1)
+		// 	color = (color >> 1) & 8355711;
+		mlx_put_pixel(vars->image_3d, t->x, y, 0xA6C0);
+		// my_mlx_pixel_put(t->x, y, color, vars);
+		// ft_memcpy(&vars->image_3d->pixels[((y * vars->m_width + t->x)) * 4],
+		// &tex->pixels[(texY * (tex->height + texture_3(tex, t, vars))) * 4], 4);
 		y++;
 	}
+	// print_textures(t, vars, color);
 }
 
 // void	printing_textures(t_cast *t, t_vars *vars)

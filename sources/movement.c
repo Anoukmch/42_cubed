@@ -24,7 +24,7 @@ void	rotation(t_vars *vars, char *str)
 		vars->rotation = 0.0872665;
 	else if (!ft_strcmp(str, "left"))
 		vars->rotation = -0.0872665;
-	//dda_overwriting(vars);
+	dda_overwriting(vars);
 	rotate_calculation(vars);
 }
 
@@ -68,28 +68,28 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
 		&& !movement_hit_wall(vars, NO))
 	{
-		//dda_overwriting(vars);
+		dda_overwriting(vars);
 		vars->player_x += vars->dir_x * 0.1;
 		vars->player_y += vars->dir_y * 0.1;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
 		&& !movement_hit_wall(vars, SO))
 	{
-		//dda_overwriting(vars);
+		dda_overwriting(vars);
 		vars->player_x -= vars->dir_x * 0.1;
 		vars->player_y -= vars->dir_y * 0.1;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
 		&& !movement_hit_wall(vars, EA))
 	{
-		//dda_overwriting(vars);
+		dda_overwriting(vars);
 		vars->player_x -= vars->dir_y * 0.1;
 		vars->player_y += vars->dir_x * 0.1;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
 		&& !movement_hit_wall(vars, WE))
 	{
-		//dda_overwriting(vars);
+		dda_overwriting(vars);
 		vars->player_x += vars->dir_y * 0.1;
 		vars->player_y -= vars->dir_x * 0.1;
 	}

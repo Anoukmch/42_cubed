@@ -110,6 +110,77 @@ void	find_side_of_hitted_wall(t_cast *t)
 	}
 }
 
+int	texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars)
+{
+	double wallX;
+
+	if (t->side == 0)
+		wallX = vars->player_y + t->perpWallDist * t->rayDirY;
+	else
+		wallX = vars->player_x + t->perpWallDist * t->rayDirX;
+	wallX -= (int)wallX;
+	int texX = (int)(wallX * (double)tex->width);
+	if(t->side == 0 && t->rayDirX > 0)
+		texX = tex->width - texX - 1;
+	if(t->side == 1 && t->rayDirY < 0)
+		texX = tex->width - texX - 1;
+	return (texX);
+}
+
+void	texture_2(t_cast *t, t_vars *vars)
+{
+	mlx_texture_t *tex;
+	int y;
+	double step;
+	int line_h;
+
+	step = 0;
+	tex = vars->textures[WALL_DOWN];
+	line_h = t->drawEnd - t->drawStart;
+	t->drawStart = (t->h - line_h) / 2;
+	double texPos = (t->drawStart - (t->h + line_h) / 2) * step;
+	step = 1.0 * tex->height / line_h;
+	y = (t->drawStart * 32);
+	while (y < (t->drawEnd * 32))
+	{
+		int texY = (int)texPos & (tex->height - 1);
+		texPos += step;
+		// ft_memset(&vars->image_3d->pixels[((y * vars->m_width + t->x) * 32)],
+		// tex->pixels[(texY * texHeight + texture_3(t, vars)) * 32], 32 * 32);
+		ft_memcpy(&vars->image_3d->pixels[((y * vars->m_width + t->x))],
+		&tex->pixels[texY * tex->height + texture_3(tex, t, vars)], 1);
+		y++;
+	}
+}
+
+// void	printing_textures(t_cast *t, t_vars *vars)
+// {
+	//texturing calculations
+	//int texNum = vars->finalmap[t->mapY][t->mapX] - 1;
+	// double wallX;
+	// if (t->side == 0)
+	// 	wallX = vars->player_y + t->perpWallDist * t->rayDirY;
+	// else
+	// 	wallX = vars->player_x + t->perpWallDist * t->rayDirX;
+	// wallX -= (int)wallX;
+	//x coordinate on the texture
+	// int texX = (int)(wallX * (double)texWidth);
+	// if(t->side == 0 && t->rayDirX > 0)
+	// 	texX = texWidth - texX - 1;
+	// if(t->side == 1 && t->rayDirY < 0)
+	// 	texX = texWidth - texX - 1;
+	//double step = 1.0 * texHeight / t->lineHeight;
+	//double texPos = (t->drawStart - t->h / 2 + t->lineHeight / 2) * step;
+	// while (y < t->drawEnd)
+	// {
+	// 	int texY = (int)texPos & (texHeight - 1);
+	// 	texPos += step;
+	// 	ft_memcpy(&vars->image_3d->pixels[((y * vars->m_width + t->x) * 4)],
+	// 	&tex->pixels[(texY * texHeight + texX) * 4], 4);
+	// 	y++;
+	// }
+// }
+
 //Calculate height of line to draw on screen
 //calculate lowest and highest pixel to fill in current stripe
 void	calc_perp_wall_drawthings(t_cast *t, t_vars *vars)
@@ -132,7 +203,7 @@ void	calc_perp_wall_drawthings(t_cast *t, t_vars *vars)
 
 void	printing_walls(t_cast *t, t_vars *vars)
 {
-	uint32_t	colors;
+	//uint32_t	colors;
 
 	t->k = 0;
 	while (t->k < t->h)
@@ -141,48 +212,18 @@ void	printing_walls(t_cast *t, t_vars *vars)
 			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->ceilingcolor);
 		if (t->k >= t->drawEnd)
 			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->floorcolor);
-		if (t->drawStart + t->k < t->drawEnd)
-		{
-			colors = RGB_GREEN;
-			if (t->side == 1)
-				mlx_put_pixel(vars->image_3d,
-					t->x, t->drawStart + t->k, colors / 2);
-			else
-				mlx_put_pixel(vars->image_3d,
-					t->x, t->drawStart + t->k, colors);
-		}
+		// if (t->drawStart + t->k < t->drawEnd)
+		// {
+		// 	colors = RGB_GREEN;
+		// 	if (t->side == 1)
+		// 		mlx_put_pixel(vars->image_3d,
+		// 			t->x, t->drawStart + t->k, colors / 2);
+		// 	else
+		// 		mlx_put_pixel(vars->image_3d,
+		// 			t->x, t->drawStart + t->k, colors);
+		// }
 		t->k++;
 	}
-}
-
-void	printing_textures(t_cast *t, t_vars *vars)
-{
-	//texturing calculations
-	int texNum = vars->finalmap[t->mapY][t->mapX] - 1;
-	double wallX;
-	if (t->side == 0)
-		wallX = vars->player_y + t->perpWallDist * t->rayDirY;
-	else
-		wallX = vars->player_x + t->perpWallDist * t->rayDirX;
-	wallX -= (int)wallX;
-	//x coordinate on the texture
-	int texX = (int)(wallX * (double)texWidth);
-	if(t->side == 0 && t->rayDirX > 0)
-		texX = texWidth - texX - 1;
-	if(t->side == 1 && t->rayDirY < 0)
-		texX = texWidth - texX - 1;
-	double step = 1.0 * texHeight / t->lineHeight;
-	double texPos = (t->drawStart - t->h / 2 + t->lineHeight / 2) * step;
-	int y = t->drawStart;
-	while (y < t->drawEnd)
-	{
-		int texY = (int)texPos & (texHeight - 1);
-		texPos += step;
-		// uint32_t color = vars->textures[texNum][texHeight * texY + texX];
-		// buffer[y][t->x] = color;
-		y++;
-	}
-{
 }
 
 void	dda(void *param)
@@ -200,8 +241,8 @@ void	dda(void *param)
 		find_hitted_wall(&t, vars);
 		find_side_of_hitted_wall(&t);
 		calc_perp_wall_drawthings(&t, vars);
-		// printing_walls(&t, vars);
-		printing_textures(&t, vars);
+		texture_2(&t, vars);
+		printing_walls(&t, vars);
 		t.x++;
 	}
 }

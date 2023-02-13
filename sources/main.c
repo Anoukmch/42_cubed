@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	// error_exit(NULL, "Error\n./cub3d only takes one arg input\n");
 	// CREATE WINDOW
 	init_window(&vars, map);
+	init_textures(&vars);
 	init_player_and_views(&vars);
 	// WINDOW RESIZING
 	mlx_resize_hook(vars.mlx, &windowresize, &vars);

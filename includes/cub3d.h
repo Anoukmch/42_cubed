@@ -158,4 +158,7 @@ char	*ft_free_strtrim(char *s1, char const *set);
 // windowresize.c
 void	windowresize(int32_t height, int32_t width, void *param);
 
+// texture.c
+void	init_textures(t_vars *vars);
+
 #endif

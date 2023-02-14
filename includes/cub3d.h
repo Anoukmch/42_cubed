@@ -30,6 +30,10 @@
 #define SO	2
 #define WE	3
 
+#define BPP				4
+#define X_SIDE_NO_S0	0
+#define Y_SIDE_EA_WE	1
+
 typedef struct s_map
 {
 	int		fd;
@@ -174,6 +178,11 @@ void	windowresize(int32_t height, int32_t width, void *param);
 // texture.c
 void	init_textures(t_vars *vars);
 int		check_texture_path(char *line, int indic);
+
+// draw_textures.c
+void	texture_2(t_cast *t, t_vars *vars);
+int		texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars);
+void	drawing_floor_and_ceiling(t_cast *t, t_vars *vars);
 
 // trying_rendering.c
 void print_textures(t_cast *t, t_vars *vars, int color);

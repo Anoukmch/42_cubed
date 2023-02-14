@@ -18,6 +18,7 @@ M_SRC		= main.c \
 				utils/utils_free.c \
 				utils/utils_parser.c \
 				trying_rendering.c
+				draw_textures.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 

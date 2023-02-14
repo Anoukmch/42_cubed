@@ -68,11 +68,11 @@ void	get_player_position(t_vars *vars)
 // vars->camerax = 0;
 // vars->cameray = 0.66;
 // 1.15192; //angle of 66 degrees
+// NORTH
 void	init_player_and_views(t_vars *vars)
 {
 	get_player_position(vars);
 	vars->fov = 1.15192;
-	// NORTH
 	vars->dir_x = 0;
 	vars->dir_y = -1;
 	vars->planex = 0.66;

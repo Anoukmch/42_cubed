@@ -7,12 +7,6 @@
 #define RGB_YELLOW	0xFFFF007F
 #define RGB_PINK	0xFF006699
 
-#define BPP			sizeof(int32_t)
-#define X_SIDE_NO_S0	0
-#define Y_SIDE_EA_WE	1
-#define texWidth 32
-#define texHeight 32
-
 //calculate ray position and direction
 //which box of the map we're in
 //length of ray from one x or y-side to next x or y-side
@@ -90,65 +84,23 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 	}
 }
 
-void	find_side_of_hitted_wall(t_cast *t)
-{
-	if (t->side)
-	{
-		if (t->is_negative)
-			t->side_2 = NO;
-		else
-			t->side_2 = SO;
-	}
-	else
-	{
-		if (t->is_negative)
-			t->side_2 = EA;
-		else
-			t->side_2 = WE;
-	}
-}
-
-int	texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars)
-{
-	double	wallX;
-	int		texX;
-
-	wallX = 0.0;
-	if (t->side == Y_SIDE_EA_WE)
-		wallX = vars->player_y + t->perpWallDist * t->rayDirY;
-	else if (t->side == X_SIDE_NO_S0)
-		wallX = vars->player_x + t->perpWallDist * t->rayDirX;
-	wallX -= floor(wallX);
-	texX = wallX * tex->width;
-	if((t->side == Y_SIDE_EA_WE && t->rayDirX > 0) ||
-		(t->side == X_SIDE_NO_S0 && t->rayDirY < 0))
-		texX = tex->width - texX - 1;
-	return (texX);
-}
-
-void	texture_2(t_cast *t, t_vars *vars)
-{
-	mlx_texture_t *tex;
-	int y;
-	double step;
-	int line_h;
-
-	step = 0;
-	tex = vars->textures[WALL_DOWN];
-	line_h = (t->drawEnd) - (t->drawStart);
-	t->drawStart = fmax(0, (t->h - line_h) / 2);
-	step = 1.0 * tex->height / line_h;
-	y = (t->drawStart);
-	double texPos = (t->drawStart - (t->h + line_h) / 2) * step;
-	while (y < (t->drawEnd))
-	{
-		int texY = (int)texPos & (tex->height - 1);
-		texPos += step;
-		ft_memcpy(&vars->image_3d->pixels[(y * (vars->m_width * 32) + t->x) * BPP],
-			&tex->pixels[(texY * tex->height + texture_3(tex, t, vars)) * BPP], BPP);
-		y++;
-	}
-}
+// void	find_side_of_hitted_wall(t_cast *t)
+// {
+// 	if (t->side)
+// 	{
+// 		if (t->is_negative)
+// 			t->side_2 = NO;
+// 		else
+// 			t->side_2 = SO;
+// 	}
+// 	else
+// 	{
+// 		if (t->is_negative)
+// 			t->side_2 = EA;
+// 		else
+// 			t->side_2 = WE;
+// 	}
+// }
 
 //Calculate height of line to draw on screen
 //calculate lowest and highest pixel to fill in current stripe
@@ -170,31 +122,7 @@ void	calc_perp_wall_drawthings(t_cast *t, t_vars *vars)
 		t->drawEnd = t->h - 1;
 }
 
-// PAINTING WALLS IN ONE COLOR
-//uint32_t	colors;
-// if (t->drawStart + t->k < t->drawEnd)
-// {
-// 	colors = RGB_GREEN;
-// 	if (t->side == 1)
-// 		mlx_put_pixel(vars->image_3d,
-// 			t->x, t->drawStart + t->k, colors / 2);
-// 	else
-// 		mlx_put_pixel(vars->image_3d,
-// 			t->x, t->drawStart + t->k, colors);
-// }
-void	printing_walls(t_cast *t, t_vars *vars)
-{
-	t->k = 0;
-	while (t->k < t->h)
-	{
-		if (t->k <= t->drawStart)
-			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->ceilingcolor);
-		if (t->k >= t->drawEnd)
-			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->floorcolor);
-		t->k++;
-	}
-}
-
+// find_side_of_hitted_wall(&t);
 void	dda(void *param)
 {
 	t_vars	*vars;
@@ -208,33 +136,32 @@ void	dda(void *param)
 		starting_values(&t, vars);
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
-		// find_side_of_hitted_wall(&t);
 		calc_perp_wall_drawthings(&t, vars);
 		texture_2(&t, vars);
-		printing_walls(&t, vars);
+		drawing_floor_and_ceiling(&t, vars);
 		t.x++;
 	}
 }
 
-void	dda_overwriting(t_vars *vars)
-{
-	t_cast	t;
+// find_side_of_hitted_wall(&t);
+// void	dda_overwriting(t_vars *vars)
+// {
+// 	t_cast	t;
 
-	t.x = 0;
-	t.w = vars->m_width * 32;
-	while (t.x < t.w)
-	{
-		starting_values(&t, vars);
-		calc_step_and_sidedist(&t, vars);
-		find_hitted_wall(&t, vars);
-		// find_side_of_hitted_wall(&t);
-		calc_perp_wall_drawthings(&t, vars);
-		t.k = 0;
-		while (t.k < t.h)
-		{
-			mlx_put_pixel(vars->image_3d, t.x, t.k, 0);
-			t.k++;
-		}
-	t.x++;
-	}
-}
+// 	t.x = 0;
+// 	t.w = vars->m_width * 32;
+// 	while (t.x < t.w)
+// 	{
+// 		starting_values(&t, vars);
+// 		calc_step_and_sidedist(&t, vars);
+// 		find_hitted_wall(&t, vars);
+// 		calc_perp_wall_drawthings(&t, vars);
+// 		t.k = 0;
+// 		while (t.k < t.h)
+// 		{
+// 			mlx_put_pixel(vars->image_3d, t.x, t.k, 0);
+// 			t.k++;
+// 		}
+// 	t.x++;
+// 	}
+// }

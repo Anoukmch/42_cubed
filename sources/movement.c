@@ -24,7 +24,6 @@ void	rotation(t_vars *vars, char *str)
 		vars->rotation = 0.0872665;
 	else if (!ft_strcmp(str, "left"))
 		vars->rotation = -0.0872665;
-	dda_overwriting(vars);
 	rotate_calculation(vars);
 }
 
@@ -58,6 +57,34 @@ bool	movement_hit_wall(t_vars *vars, int direction)
 	return (0);
 }
 
+void	walking_directions(t_vars *vars)
+{
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
+		&& !movement_hit_wall(vars, NO))
+	{
+		vars->player_x += vars->dir_x * 0.1;
+		vars->player_y += vars->dir_y * 0.1;
+	}
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
+		&& !movement_hit_wall(vars, SO))
+	{
+		vars->player_x -= vars->dir_x * 0.1;
+		vars->player_y -= vars->dir_y * 0.1;
+	}
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
+		&& !movement_hit_wall(vars, EA))
+	{
+		vars->player_x -= vars->dir_y * 0.1;
+		vars->player_y += vars->dir_x * 0.1;
+	}
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
+		&& !movement_hit_wall(vars, WE))
+	{
+		vars->player_x += vars->dir_y * 0.1;
+		vars->player_y -= vars->dir_x * 0.1;
+	}
+}
+
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_vars	*vars;
@@ -65,34 +92,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	vars = param;
 	if (keydata.key == MLX_KEY_ESCAPE)
 		mlx_close_window(vars->mlx);
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
-		&& !movement_hit_wall(vars, NO))
-	{
-		dda_overwriting(vars);
-		vars->player_x += vars->dir_x * 0.1;
-		vars->player_y += vars->dir_y * 0.1;
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
-		&& !movement_hit_wall(vars, SO))
-	{
-		dda_overwriting(vars);
-		vars->player_x -= vars->dir_x * 0.1;
-		vars->player_y -= vars->dir_y * 0.1;
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
-		&& !movement_hit_wall(vars, EA))
-	{
-		dda_overwriting(vars);
-		vars->player_x -= vars->dir_y * 0.1;
-		vars->player_y += vars->dir_x * 0.1;
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
-		&& !movement_hit_wall(vars, WE))
-	{
-		dda_overwriting(vars);
-		vars->player_x += vars->dir_y * 0.1;
-		vars->player_y -= vars->dir_x * 0.1;
-	}
+	walking_directions(vars);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 		rotation(vars, "right");
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))

@@ -15,7 +15,7 @@ M_SRC		= main.c \
 				DDA.c \
 				windowresize.c \
 				textures.c \
-				trying_rendering.c
+				draw_textures.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 

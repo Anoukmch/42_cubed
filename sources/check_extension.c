@@ -1,4 +1,3 @@
-
 #include "../includes/cub3d.h"
 
 int	check_extension(char *mapfile)

@@ -14,7 +14,7 @@ int	main(int argc, char **argv)
 		}
 		//error_exit(NULL, "Error\nWrong input file extension\n");
 		initialize(argv[1], &map);
-		parsing(map);
+		texture_and_colors_pars(map);
 		vars.finalmap = map->cmap;
 		vars.linesofmap = map->maplines;
 	}

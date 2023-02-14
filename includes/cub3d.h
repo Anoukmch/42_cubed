@@ -125,11 +125,22 @@ typedef struct s_cast
 // init.c
 void	init_window(t_vars *vars, t_map *map);
 void	init_player_and_views(t_vars *vars);
+void	initialize(char *mapfile, t_map **map);
 
 // parsing.c
-void	initialize(char *mapfile, t_map **map);
-void	parsing(t_map *map);
-void	map_pars(t_map *map);
+char	*texture_and_colors_pars(t_map *map);
+int		check_identifier(char *line, t_map *map);
+void	fill_var(char *line, t_map *map);
+int		check_range_colors(char *line, int indic);
+int		check_color_comb(char *line);
+
+// utils_free.c
+int	free_array(char **array, int ret_stat);
+
+// utils.parser.c
+void	check_comma(char *line);
+int	size_2d_array(char **array);
+int	isdigit_string(char	*str);
 
 // error_exit.c
 int error_exit(char *s);
@@ -162,6 +173,7 @@ void	windowresize(int32_t height, int32_t width, void *param);
 
 // texture.c
 void	init_textures(t_vars *vars);
+int		check_texture_path(char *line, int indic);
 
 // trying_rendering.c
 void print_textures(t_cast *t, t_vars *vars, int color);

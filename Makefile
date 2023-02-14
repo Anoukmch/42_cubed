@@ -6,15 +6,17 @@ M_SRC		= main.c \
 				init.c \
 				movement.c \
 				check_extension.c \
-				parsing.c \
 				colors.c \
 				error_exit.c \
 				parsing/get_map.c \
 				parsing/check_map.c \
 				parsing/read_map.c \
+				parsing/parsing.c \
 				DDA.c \
 				windowresize.c \
 				textures.c \
+				utils/utils_free.c \
+				utils/utils_parser.c \
 				trying_rendering.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))

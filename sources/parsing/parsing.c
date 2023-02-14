@@ -1,83 +1,4 @@
-
-#include "../includes/cub3d.h"
-
-// How is the path formated ? Can it be in another folder ? (like ../../)
-int	check_texture_path(char *line, int indic)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != '\n')
-	{
-		if (line[i] == '\t' || line[i] == ' ')
-			i++;
-		else if (line[i] == '.' && line[i + 1] == '/' && line[i + 2]
-			&& line[i + 2] >= 33 && line[i + 2] <= 126
-			&& line[i + 2] != '.' && line[i + 2] != '/' && line[i + 2] != '\\')
-			return (indic);
-		else
-			error_exit("Error\nWrong file path : check input file");
-	}
-	return (error_exit("Error\nNo file path : check input file"));
-}
-
-int	size_2d_array(char **array)
-{
-	int	len;
-
-	len = 0;
-	if (!array)
-		return (-1);
-	while (array[len])
-		len++;
-	return (len);
-}
-
-int	isdigit_string(char	*str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != '\n')
-	{
-		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
-			return (0); // not a digit
-		i++;
-	}
-	return (1);
-}
-
-void	check_comma(char *line)
-{
-	int	i;
-	int	comma_nbr;
-
-	i = 0;
-	comma_nbr = 0;
-	while (line[i])
-	{
-		if (line[i] == ',')
-			comma_nbr++;
-		i++;
-	}
-	if (comma_nbr != 2)
-		error_exit("Error\nColor code : check input file");
-}
-
-int	free_array(char **array, int ret_stat)
-{
-	int	i;
-
-	i = 0;
-	if (!array)
-		return (ret_stat);
-	while (array[i])
-		free(array[i++]);
-	free(array);
-	return (ret_stat);
-}
+#include "../../includes/cub3d.h"
 
 int	check_color_comb(char *line)
 {
@@ -169,53 +90,24 @@ int	check_identifier(char *line, t_map *map)
 	return (-2);
 }
 
-/* Rework this function */
 char	*texture_and_colors_pars(t_map *map)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
+	map->mapstart = 0;
 	while (1)
 	{
 		line = get_next_line(map->fd);
 		if (!line)
-			error_exit("Error\nNo map : check input file");
+			error_exit("Error\nInfos missing : check input file");
 		i = check_identifier(line, map);
 		if (i >= 0)
 			fill_var(line + i, map);
 		else if (i == -1)
-			return (line);
+			get_finalmap(map, line);
 		free(line);
 		map->mapstart++;
 	}
-	return (NULL);
-}
-
-void	parsing(t_map *map)
-{
-	char	*line;
-
-	map->mapstart = 0;
-	line = texture_and_colors_pars(map);
-	get_finalmap(map, line);
-}
-
-//error_exit(NULL, "Error\nAllocation fail\n");
-void	initialize(char *mapfile, t_map **map)
-{
-	*map = ft_calloc(1, sizeof(t_map));
-	if (!*map)
-		error_exit("Error\nAllocation fail");
-	(*map)->fd = open(mapfile, O_RDONLY);
-	if ((*map)->fd < 0)
-		error_exit("Error\nOpen fail");
-	(*map)->north_path = NULL;
-	(*map)->south_path = NULL;
-	(*map)->west_path = NULL;
-	(*map)->east_path = NULL;
-	(*map)->rgb_f = NULL;
-	(*map)->rgb_c = NULL;
-	(*map)->m_argv = mapfile;
-	(*map)->player = 0;
 }

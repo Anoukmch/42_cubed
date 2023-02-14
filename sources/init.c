@@ -88,3 +88,21 @@ void	init_player_and_views(t_vars *vars)
 // ORANGE: 0xFF993366;
 // YELLOW: 0xFFFF007F;
 // PINK: 0xFF006699;
+
+void	initialize(char *mapfile, t_map **map)
+{
+	*map = ft_calloc(1, sizeof(t_map));
+	if (!*map)
+		error_exit("Error\nAllocation fail");
+	(*map)->fd = open(mapfile, O_RDONLY);
+	if ((*map)->fd < 0)
+		error_exit("Error\nOpen fail");
+	(*map)->north_path = NULL;
+	(*map)->south_path = NULL;
+	(*map)->west_path = NULL;
+	(*map)->east_path = NULL;
+	(*map)->rgb_f = NULL;
+	(*map)->rgb_c = NULL;
+	(*map)->m_argv = mapfile;
+	(*map)->player = 0;
+}

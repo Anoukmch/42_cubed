@@ -113,6 +113,7 @@ int	texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 	double	wallX;
 	int		texX;
 
+	wallX = 0.0;
 	if (t->side == Y_SIDE_EA_WE)
 		wallX = vars->player_y + t->perpWallDist * t->rayDirY;
 	else if (t->side == X_SIDE_NO_S0)

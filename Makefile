@@ -9,9 +9,9 @@ M_SRC		= main.c \
 				parsing.c \
 				colors.c \
 				error_exit.c \
-				mapparsing/get_map.c \
-				mapparsing/check_map.c \
-				mapparsing/read_map.c \
+				parsing/get_map.c \
+				parsing/check_map.c \
+				parsing/read_map.c \
 				DDA.c \
 				windowresize.c \
 				textures.c \

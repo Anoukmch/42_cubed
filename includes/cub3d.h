@@ -152,6 +152,7 @@ void	dda_overwriting(t_vars *vars);
 
 // colors.c
 void	transform_colors(t_vars *vars, t_map *map);
+uint32_t	get_colour(char *s);
 
 // get_map.c
 char	*ft_free_strtrim(char *s1, char const *set);

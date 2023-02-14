@@ -11,6 +11,7 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_map	*map;
+	char	*line;
 
 	map = NULL;
 	if (argc == 2)
@@ -18,7 +19,8 @@ int	main(int argc, char **argv)
 		if (check_extension(argv[1]) == 0)
 			error_exit("Error\nWrong input file extension\n");
 		initialize(argv[1], &map);
-		texture_and_colors_pars(map);
+		line = texture_and_colors_pars(map);
+		get_finalmap(map, line);
 		vars.finalmap = map->cmap;
 		vars.linesofmap = map->maplines;
 	}

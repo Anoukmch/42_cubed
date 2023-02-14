@@ -106,7 +106,7 @@ char	*texture_and_colors_pars(t_map *map)
 		if (i >= 0)
 			fill_var(line + i, map);
 		else if (i == -1)
-			get_finalmap(map, line);
+			return (line);
 		free(line);
 		map->mapstart++;
 	}

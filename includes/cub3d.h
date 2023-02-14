@@ -155,6 +155,7 @@ void	countinglines(t_map *map, char *lastline);
 void	getmap_content(t_map *map);
 
 // check_map.c
+void	map_pars(t_map *map);
 
 // check_extension.c
 int	check_extension(char *mapfile);

@@ -13,7 +13,7 @@ void	init_textures(t_vars *vars)
 	vars->textures[WALL_LEFT] = mlx_load_png("./sources/pngfiles/wallleft.png");
 	vars->textures[WALL_RIGHT] = mlx_load_png("./sources/pngfiles/wallright.png");
 	vars->textures[WALL_DOWN] = mlx_load_png("./sources/pngfiles/color.png");
-	vars->textures[WALL_UP] = mlx_load_png("./sources/pngfiles/wallup.png");
+	vars->textures[WALL_UP] = mlx_load_png("./sources/pngfiles/cat.png");
 	vars->textures[COLLECTS] = mlx_load_png("./sources/pngfiles/collectible.png");
 	vars->textures[EXIT] = mlx_load_png("./sources/pngfiles/exit.png");
 	vars->textures[BOX] = mlx_load_png("./sources/pngfiles/box.png");

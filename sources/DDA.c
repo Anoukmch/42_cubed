@@ -115,17 +115,16 @@ void	find_side_of_hitted_wall(t_cast *t)
 int	texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 {
 	double wallX;
-
-	if (t->side == 0)
+	int	texX;
+	if (t->side == 1)
 		wallX = vars->player_y + t->perpWallDist * t->rayDirY;
 	else
 		wallX = vars->player_x + t->perpWallDist * t->rayDirX;
 	wallX -= floor(wallX);
-	printf("WallX: %f\n", wallX);
-	int texX = (int)(wallX * (double)tex->width);
-	if(t->side == 0 && t->rayDirX > 0)
+	texX = wallX * tex->width;
+	if(t->side == 1 && t->rayDirX > 0)
 		texX = tex->width - texX - 1;
-	if(t->side == 1 && t->rayDirY < 0)
+	if(t->side == 0 && t->rayDirY < 0)
 		texX = tex->width - texX - 1;
 	return (texX);
 }
@@ -138,7 +137,7 @@ void	texture_2(t_cast *t, t_vars *vars)
 	int line_h;
 
 	step = 0;
-	tex = vars->textures[WALL_DOWN];
+	tex = vars->textures[WALL_UP];
 	line_h = (t->drawEnd) - (t->drawStart);
 	t->drawStart = fmax(0, (t->h - line_h) / 2);
 	step = 1.0 * tex->height / line_h;
@@ -147,24 +146,7 @@ void	texture_2(t_cast *t, t_vars *vars)
 	while (y < (t->drawEnd))
 	{
 		int texY = (int)texPos & (tex->height - 1);
-		// printf("texY: %d\n", texY);
-		// printf("texPos: %f\n", texPos);
 		texPos += step;
-		// color = get_colour_from_int((int)tex->pixels[(texY * tex->height + texture_3(tex, t, vars))]);
-		// color = tex->pixels[(texY * tex->height + texture_3(tex, t, vars))];
-		// printf("color: %d\n", color);
-		// if (t->side == 1)
-		// 	color = (color >> 1) & 8355711;
-		// char *dst;
-		// dst = &tex->pixels + (y * tex->width + t->x * tex->bytes_per_pixel / 8);
-		// *(unsigned int*)dst = color;
-		// mlx_put_pixel(vars->image_3d, t->x, y, tex->pixels[(texY * tex->height + texture_3(tex, t, vars))]);
-		// printf("get_r: %d\n", get_r(tex->pixels[(texY * tex->height + texture_3(tex, t, vars))]));
-		// printf("get_g: %d\n", get_g(tex->pixels[(texY * tex->height + texture_3(tex, t, vars))]));
-		// printf("get_b: %d\n", get_b(tex->pixels[(texY * tex->height + texture_3(tex, t, vars))]));
-		// printf("get_a: %d\n", get_a(tex->pixels[(texY * tex->height + texture_3(tex, t, vars))]));
-		printf("texX: %d\n", texture_3(tex, t, vars));
-		// my_mlx_pixel_put(t->x, y, color, vars);
 		ft_memcpy(&vars->image_3d->pixels[(y * (vars->m_width * 32) + t->x) * BPP],
 			&tex->pixels[(texY * tex->height + texture_3(tex, t, vars)) * BPP], BPP);
 		y++;

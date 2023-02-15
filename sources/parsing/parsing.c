@@ -48,16 +48,16 @@ int	check_range_colors(char *line, int indic)
 
 void	fill_var(char *line, t_map *map)
 {
-	if (!ft_strncmp(line, "NO", 2) && !map->north_path)
-		map->north_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "SO", 2) && !map->south_path)
-		map->south_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "WE", 2) && !map->west_path)
-		map->west_path = ft_strtrim((line + 2), "\t ");
-	else if (!ft_strncmp(line, "EA", 2) && !map->east_path)
-		map->east_path = ft_strtrim((line + 2), "\t ");
+	if (!ft_strncmp(line, "NO", 2) && !map->text_path[0])
+		map->text_path[0] = ft_strtrim((line + 2), "\t \n");
+	else if (!ft_strncmp(line, "SO", 2) && !map->text_path[1])
+		map->text_path[1] = ft_strtrim((line + 2), "\t \n");
+	else if (!ft_strncmp(line, "WE", 2) && !map->text_path[2])
+		map->text_path[2] = ft_strtrim((line + 2), "\t \n");
+	else if (!ft_strncmp(line, "EA", 2) && !map->text_path[3])
+		map->text_path[3] = ft_strtrim((line + 2), "\t \n");
 	else if (!ft_strncmp(line, "F", 1) && !map->rgb_f)
-		map->rgb_f = ft_strtrim((line + 1), "\t ");
+		map->rgb_f = ft_strtrim((line + 1), "\t "); // if I had a \n, it segfault. why?
 	else if (!ft_strncmp(line, "C", 1) && !map->rgb_c)
 		map->rgb_c = ft_strtrim((line + 1), "\t ");
 	else
@@ -77,12 +77,13 @@ int	check_identifier(char *line, t_map *map)
 			|| (!ft_strncmp(line + i, "SO", 2))
 			|| (!ft_strncmp(line + i, "WE", 2))
 			|| (!ft_strncmp(line + i, "EA", 2)))
-			return (check_texture_path(line + i + 2, i));
+			return (i);
 		else if ((!ft_strncmp(line + i, "F", 1) && !map->rgb_f)
 			|| (!ft_strncmp(line + i, "C", 1) && !map->rgb_c))
 			return (check_range_colors(line + i + 1, i));
-		else if ((line[i] == '1' || line[i] == '0') && map->north_path
-			&& map->south_path && map->east_path && map->rgb_f && map->rgb_c)
+		else if ((line[i] == '1' || line[i] == '0') && map->text_path[0]
+			&& map->text_path[1] && map->text_path[2] && map->text_path[3]
+			&& map->rgb_f && map->rgb_c)
 			return (-1);
 		else
 			error_exit("Error\nMissing info or wrong character: check input file");

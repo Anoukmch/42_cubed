@@ -79,7 +79,7 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 			t->side = X_SIDE_NO_S0;
 			t->is_negative = t->rayDirY < 0;
 		}
-		if (vars->finalmap[(int)t->mapY][(int)t->mapX] > '0')
+		if (vars->finalmap[(int)t->mapY][(int)t->mapX] == '1')
 			t->hit = 1;
 	}
 }

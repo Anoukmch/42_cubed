@@ -9,21 +9,7 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
-# define TEXTURES			13
-
-# define PLAYER				0
-# define SPACES				1
-# define CORNER_LEFT_UP		2
-# define CORNER_LEFT_DOWN 	3
-# define CORNER_RIGHT_UP 	4
-# define CORNER_RIGHT_DOWN 	5
-# define WALL_LEFT 			6
-# define WALL_RIGHT 		7
-# define WALL_DOWN 			8
-# define WALL_UP 			9
-# define COLLECTS 			10
-# define EXIT 				11
-# define BOX 				12
+# define TEXTURES			4
 
 #define NO	0
 #define EA	1
@@ -39,10 +25,7 @@ typedef struct s_map
 	int		fd;
 	char	*read_line;
 
-	char	*north_path;
-	char	*south_path;
-	char	*west_path;
-	char	*east_path;
+	char	**text_path;
 
 	char	*rgb_f;
 	char	*rgb_c;
@@ -177,8 +160,7 @@ char	*ft_free_strtrim(char *s1, char const *set);
 void	windowresize(int32_t height, int32_t width, void *param);
 
 // texture.c
-void	init_textures(t_vars *vars);
-int		check_texture_path(char *line, int indic);
+void	init_textures(t_vars *vars, t_map *map);
 
 // draw_textures.c
 void	texture_2(t_cast *t, t_vars *vars);

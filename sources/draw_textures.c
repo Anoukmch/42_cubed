@@ -54,18 +54,18 @@ void	texture_2(t_cast *t, t_vars *vars)
 	step = 0;
 	line_h = (t->drawEnd) - (t->drawStart);
 	t->drawStart = fmax(0, (t->h - line_h) / 2);
-	step = 1.0 * vars->textures[WALL_DOWN]->height / line_h;
+	step = 1.0 * vars->textures[NO]->height / line_h;
 	y = (t->drawStart);
 	tex_pos = (t->drawStart - (t->h + line_h) / 2) * step;
 	while (y < (t->drawEnd))
 	{
-		tex_y = (int)tex_pos & (vars->textures[WALL_DOWN]->height - 1);
+		tex_y = (int)tex_pos & (vars->textures[NO]->height - 1);
 		tex_pos += step;
 		ft_memcpy(&vars->image_3d->pixels[\
 			(y * (vars->m_width * 32) + t->x) * BPP], \
-			&vars->textures[WALL_DOWN]->pixels[\
-			(tex_y * vars->textures[WALL_DOWN]->height + \
-			texture_3(vars->textures[WALL_DOWN], t, vars)) * BPP], BPP);
+			&vars->textures[NO]->pixels[\
+			(tex_y * vars->textures[NO]->height + \
+			texture_3(vars->textures[NO], t, vars)) * BPP], BPP);
 		y++;
 	}
 }

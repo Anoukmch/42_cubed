@@ -3,7 +3,7 @@
 void	init(t_vars *vars, t_map *map)
 {
 	init_window(vars, map);
-	init_textures(vars);
+	init_textures(vars, map);
 	init_player_and_views(vars);
 }
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(vars.mlx, &dda, &vars);
 	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);
+	free_text(map);
 	return (EXIT_SUCCESS);
 }
 

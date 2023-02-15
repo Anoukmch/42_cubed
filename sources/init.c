@@ -97,10 +97,9 @@ void	initialize(char *mapfile, t_map **map)
 	(*map)->fd = open(mapfile, O_RDONLY);
 	if ((*map)->fd < 0)
 		error_exit("Error\nOpen fail");
-	(*map)->north_path = NULL;
-	(*map)->south_path = NULL;
-	(*map)->west_path = NULL;
-	(*map)->east_path = NULL;
+	(*map)->text_path = ft_calloc(5, sizeof(char*));;
+	if (!(*map)->text_path)
+		error_exit("Error\nAllocation fail");
 	(*map)->rgb_f = NULL;
 	(*map)->rgb_c = NULL;
 	(*map)->m_argv = mapfile;

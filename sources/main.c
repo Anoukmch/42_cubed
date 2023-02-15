@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(vars.mlx, &dda, &vars);
 	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);
-	free_text(map);
+	free_text(&vars);
 	return (EXIT_SUCCESS);
 }
 

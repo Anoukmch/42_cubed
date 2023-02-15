@@ -13,10 +13,10 @@ int	free_array(char **array, int ret_stat)
 	return (ret_stat);
 }
 
-int free_text(t_map	*map)
+void free_text(t_vars *vars)
 {
-	mlx_delete_texture(map->text_path[0]);
-	mlx_delete_texture(map->text_path[1]);
-	mlx_delete_texture(map->text_path[2]);
-	mlx_delete_texture(map->text_path[3]);
+	mlx_delete_texture(vars->textures[0]);
+	mlx_delete_texture(vars->textures[1]);
+	mlx_delete_texture(vars->textures[2]);
+	mlx_delete_texture(vars->textures[3]);
 }

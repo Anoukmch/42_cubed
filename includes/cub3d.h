@@ -123,6 +123,7 @@ int		check_color_comb(char *line);
 
 // utils_free.c
 int	free_array(char **array, int ret_stat);
+void free_text(t_vars *vars);
 
 // utils.parser.c
 void	check_comma(char *line);

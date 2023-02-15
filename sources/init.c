@@ -52,31 +52,49 @@ void	get_player_position(t_vars *vars)
 }
 
 // CHANGE VECTORS TO START IN ANOTHER DIRECTION
-// EAST
-// vars->dir_x = 1;
-// vars->dir_y = 0;
-// vars->camerax = 0;
-// vars->cameray = 0.66;
-// SOUTH
-// vars->dir_x = 0;
-// vars->dir_y = 1;
-// vars->camerax = 0.66;
-// vars->cameray = 0;
-// WEST
-// vars->dir_x = -1;
-// vars->dir_y = 0;
-// vars->camerax = 0;
-// vars->cameray = 0.66;
 // 1.15192; //angle of 66 degrees
-// NORTH
+void	get_player_startingview_x_dir(t_vars *vars)
+{
+	if (vars->finalmap[(int)vars->player_y][(int)vars->player_x] == 'N')
+	{
+		vars->dir_x = 0;
+		vars->dir_y = -1;
+		vars->planex = 0.66;
+		vars->planey = 0;
+	}
+	if (vars->finalmap[(int)vars->player_y][(int)vars->player_x] == 'S')
+	{
+		vars->dir_x = 0;
+		vars->dir_y = 1;
+		vars->planex = -0.66;
+		vars->planey = 0;
+	}
+}
+
+void	get_player_startingview_y_dir(t_vars *vars)
+{
+	if (vars->finalmap[(int)vars->player_y][(int)vars->player_x] == 'E')
+	{
+		vars->dir_x = 1;
+		vars->dir_y = 0;
+		vars->planex = 0;
+		vars->planey = 0.66;
+	}
+	if (vars->finalmap[(int)vars->player_y][(int)vars->player_x] == 'W')
+	{
+		vars->dir_x = -1;
+		vars->dir_y = 0;
+		vars->planex = 0;
+		vars->planey = -0.66;
+	}
+}
+
 void	init_player_and_views(t_vars *vars)
 {
 	get_player_position(vars);
 	vars->fov = 1.15192;
-	vars->dir_x = 0;
-	vars->dir_y = -1;
-	vars->planex = 0.66;
-	vars->planey = 0;
+	get_player_startingview_x_dir(vars);
+	get_player_startingview_y_dir(vars);
 	vars->image_3d = mlx_new_image(vars->mlx,
 			vars->m_width * 32, vars->m_height * 32);
 	mlx_image_to_window(vars->mlx, vars->image_3d, 0, 0);

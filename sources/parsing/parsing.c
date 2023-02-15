@@ -10,12 +10,14 @@ int	check_color_comb(char *line)
 	check_comma(line);
 	array = ft_split(line, ',');
 	if (!array)
+	{
+		free(line);
 		error_exit("Error\nAllocation fail");
+	}
 	if (size_2d_array(array) != 3)
 		return (free_array(array, 0));
 	while (array[i])
 	{
-		printf("array : %s\n", array[i]);
 		if (isdigit_string(array[i]))
 		{
 			nbr = ft_atoi(array[i]);
@@ -41,7 +43,10 @@ int	check_range_colors(char *line, int indic)
 		else if (check_color_comb(line + i))
 			break ;
 		else
+		{
+			free(line);
 			error_exit("Error\nColor code : check input file");
+		}
 	}
 	return (indic);
 }
@@ -57,11 +62,14 @@ void	fill_var(char *line, t_map *map)
 	else if (!ft_strncmp(line, "EA", 2) && !map->text_path[3])
 		map->text_path[3] = ft_strtrim((line + 2), "\t \n");
 	else if (!ft_strncmp(line, "F", 1) && !map->rgb_f)
-		map->rgb_f = ft_strtrim((line + 1), "\t "); // if I had a \n, it segfault. why?
+		map->rgb_f = ft_strtrim((line + 1), "\t ");
 	else if (!ft_strncmp(line, "C", 1) && !map->rgb_c)
 		map->rgb_c = ft_strtrim((line + 1), "\t ");
 	else
+	{
+		free(line);
 		error_exit("Error\nDuplicate info : check input file");
+	}
 }
 
 int	check_identifier(char *line, t_map *map)
@@ -86,7 +94,10 @@ int	check_identifier(char *line, t_map *map)
 			&& map->rgb_f && map->rgb_c)
 			return (-1);
 		else
+		{
+			free(line);
 			error_exit("Error\nMissing info or wrong character: check input file");
+		}
 	}
 	return (-2);
 }

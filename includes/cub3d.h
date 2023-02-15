@@ -23,13 +23,9 @@
 typedef struct s_map
 {
 	int		fd;
-	char	*read_line;
-
 	char	**text_path;
-
 	char	*rgb_f;
 	char	*rgb_c;
-
 	char	*m_argv;
 	char	**cmap;
 	int		maplines;
@@ -41,19 +37,11 @@ typedef struct s_map
 typedef struct s_vars
 {
 	mlx_t			*mlx;
-
-	mlx_image_t		*walls;
 	mlx_texture_t	*textures[TEXTURES];
-	mlx_image_t		*map_img;
-	char			**map;
 	int				m_width;
 	int				m_height;
-
-	mlx_image_t		*player_img;
 	double				player_x;
 	double				player_y;
-
-	mlx_image_t		*view_img;
 	double				dir_x;
 	double				dir_y;
 	double				rotation;
@@ -112,7 +100,7 @@ typedef struct s_cast
 // init.c
 void	init_window(t_vars *vars, t_map *map);
 void	init_player_and_views(t_vars *vars);
-void	initialize(char *mapfile, t_map **map);
+void	initialize(char *mapfile, t_map *map);
 
 // parsing.c
 char	*texture_and_colors_pars(t_map *map);
@@ -123,7 +111,8 @@ int		check_color_comb(char *line);
 
 // utils_free.c
 int	free_array(char **array, int ret_stat);
-void free_text(t_vars *vars);
+void free_text_img(t_vars *vars);
+void free_struct(t_map *map);
 
 // utils.parser.c
 void	check_comma(char *line);
@@ -131,7 +120,7 @@ int	size_2d_array(char **array);
 int	isdigit_string(char	*str);
 
 // error_exit.c
-int error_exit(char *s);
+int	error_exit(char *s);
 
 // read_map.c
 void	get_finalmap(t_map *map, char *lastline);

@@ -107,19 +107,18 @@ void	init_player_and_views(t_vars *vars)
 // YELLOW: 0xFFFF007F;
 // PINK: 0xFF006699;
 
-void	initialize(char *mapfile, t_map **map)
+void	initialize(char *mapfile, t_map *map)
 {
-	*map = ft_calloc(1, sizeof(t_map));
-	if (!*map)
-		error_exit("Error\nAllocation fail");
-	(*map)->fd = open(mapfile, O_RDONLY);
-	if ((*map)->fd < 0)
+	map->rgb_f = NULL;
+	map->rgb_c = NULL; // test, try to remove that to see error msg
+	map->cmap = NULL;
+	map->text_path = NULL;
+	map->fd = open(mapfile, O_RDONLY);
+	if (map->fd < 0)
 		error_exit("Error\nOpen fail");
-	(*map)->text_path = ft_calloc(5, sizeof(char*));;
-	if (!(*map)->text_path)
+	map->text_path = ft_calloc(5, sizeof(char*));;
+	if (!map->text_path)
 		error_exit("Error\nAllocation fail");
-	(*map)->rgb_f = NULL;
-	(*map)->rgb_c = NULL;
-	(*map)->m_argv = mapfile;
-	(*map)->player = 0;
+	map->m_argv = mapfile;
+	map->player = 0;
 }

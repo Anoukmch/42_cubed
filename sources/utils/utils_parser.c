@@ -42,5 +42,8 @@ void	check_comma(char *line)
 		i++;
 	}
 	if (comma_nbr != 2)
+	{
+		free(line);
 		error_exit("Error\nColor code : check input file");
+	}
 }

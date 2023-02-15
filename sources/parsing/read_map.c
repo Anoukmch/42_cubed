@@ -86,7 +86,7 @@ void	getmap_content(t_map *map)
 	char	*tmp;
 
 	count = 0;
-	map->cmap = malloc((map->maplines + 2) * sizeof(char *));
+	map->cmap = ft_calloc((map->maplines + 2), sizeof(char *));
 	if (!map->cmap)
 		exit (printf("allocation error\n"));
 	read = open(map->m_argv, O_RDONLY);

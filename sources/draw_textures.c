@@ -15,6 +15,7 @@
 void	drawing_floor_and_ceiling(t_cast *t, t_vars *vars)
 {
 	t->k = 0;
+	vars = (t_vars *)vars;
 	while (t->k < t->h)
 	{
 		if (t->k <= t->drawStart)

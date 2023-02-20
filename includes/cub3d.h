@@ -66,6 +66,8 @@ typedef struct s_vars
 	double			planey;
 	char			**finalmap;
 
+	double			tmp_x;
+	double			tmp_y;
 	mlx_image_t		*image_3d;
 	int				linesofmap;
 
@@ -144,6 +146,7 @@ int	check_extension(char *mapfile);
 // movement.c
 void	windowresize(int32_t width, int32_t height, void *param);
 void	key_hook(mlx_key_data_t keydata, void *param);
+bool	movement_hit_wall(t_vars *vars, int direction);
 
 void	dda(void *param);
 void	dda_overwriting(t_vars *vars);

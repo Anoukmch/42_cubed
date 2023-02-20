@@ -49,11 +49,11 @@ void	fill_var(char *line, t_map *map)
 {
 	if (!ft_strncmp(line, "NO", 2) && !map->text_path[0])
 		map->text_path[0] = ft_strtrim((line + 2), "\t \n");
-	else if (!ft_strncmp(line, "SO", 2) && !map->text_path[1])
+	else if (!ft_strncmp(line, "EA", 2) && !map->text_path[1])
 		map->text_path[1] = ft_strtrim((line + 2), "\t \n");
-	else if (!ft_strncmp(line, "WE", 2) && !map->text_path[2])
+	else if (!ft_strncmp(line, "SO", 2) && !map->text_path[2])
 		map->text_path[2] = ft_strtrim((line + 2), "\t \n");
-	else if (!ft_strncmp(line, "EA", 2) && !map->text_path[3])
+	else if (!ft_strncmp(line, "WE", 2) && !map->text_path[3])
 		map->text_path[3] = ft_strtrim((line + 2), "\t \n");
 	else if (!ft_strncmp(line, "F", 1) && !map->rgb_f)
 		map->rgb_f = ft_strtrim((line + 1), "\t ");

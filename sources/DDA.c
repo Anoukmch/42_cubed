@@ -84,23 +84,21 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 	}
 }
 
-// void	find_side_of_hitted_wall(t_cast *t)
-// {
-// 	if (t->side)
-// 	{
-// 		if (t->is_negative)
-// 			t->side_2 = NO;
-// 		else
-// 			t->side_2 = SO;
-// 	}
-// 	else
-// 	{
-// 		if (t->is_negative)
-// 			t->side_2 = EA;
-// 		else
-// 			t->side_2 = WE;
-// 	}
-// }
+void	find_side_of_hitted_wall(t_cast *t)
+{
+	if (t->side == X_SIDE_NO_S0)
+	{
+		t->side_2 = SO;
+		if (t->is_negative)
+			t->side_2 = NO;
+	}
+	else if (t->side == Y_SIDE_EA_WE)
+	{
+		t->side_2 = EA;
+		if (t->is_negative)
+			t->side_2 = WE;
+	}
+}
 
 //Calculate height of line to draw on screen
 //calculate lowest and highest pixel to fill in current stripe
@@ -136,6 +134,7 @@ void	dda(void *param)
 		starting_values(&t, vars);
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
+		find_side_of_hitted_wall(&t);
 		calc_perp_wall_drawthings(&t, vars);
 		texture_2(&t, vars);
 		drawing_floor_and_ceiling(&t, vars);
@@ -143,7 +142,7 @@ void	dda(void *param)
 	}
 }
 
-// find_side_of_hitted_wall(&t);
+//	 find_side_of_hitted_wall(&t);
 // void	dda_overwriting(t_vars *vars)
 // {
 // 	t_cast	t;

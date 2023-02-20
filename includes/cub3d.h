@@ -9,7 +9,7 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
-# define TEXTURES			4
+# define TEXTURES		4
 
 #define NO	0
 #define EA	1

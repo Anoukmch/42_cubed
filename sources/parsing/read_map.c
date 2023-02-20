@@ -108,7 +108,7 @@ void	getmap_content(t_map *map)
 	count = 0;
 	while (count <= map->maplines)
 	{
-		map->cmap[count] = ft_strtrim(get_next_line(read), "\n");
+		map->cmap[count] = ft_free_strtrim(get_next_line(read), "\n");
 		count++;
 	}
 	map->cmap[count] = NULL;

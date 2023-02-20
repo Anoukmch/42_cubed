@@ -1,8 +1,8 @@
 
-NO ../42_cubed/pngfiles/color.png
-SO pngfiles/color.png
-WE pngfiles/spaces.png
-EA pngfiles/walls.png
+NO ../42_cubed/pngfiles/living.png
+SO pngfiles/south.png
+WE pngfiles/west.png
+EA pngfiles/east.png
 
 F 255,100,      200
 C 254,255,255
@@ -10,7 +10,7 @@ C 254,255,255
         11111 1111111111111111111
         10001 1000110000000000001
         1011010001110000000000001
-        10010000000000000E0000001
+        10010000000000000N0000001
 111111111011000001110000000000001
 100000000011000001110111111111111
 11110111111111011100000010001

@@ -39,6 +39,8 @@ typedef struct s_vars
 {
 	mlx_t			*mlx;
 	mlx_texture_t	*textures[TEXTURES];
+	int				w_width;
+	int				w_height;
 	int				m_width;
 	int				m_height;
 	double				player_x;
@@ -104,7 +106,7 @@ void	init_player_and_views(t_vars *vars);
 void	initialize(char *mapfile, t_map *map);
 
 // parsing.c
-char	*texture_and_colors_pars(t_map *map);
+void	texture_and_colors_pars(t_map *map);
 int		check_identifier(t_map *map);
 void	fill_var(char *line, t_map *map);
 int		check_range_colors(char *line, int indic);
@@ -148,7 +150,7 @@ uint32_t	get_colour(char *s);
 char	*ft_free_strtrim(char *s1, char const *set);
 
 // windowresize.c
-void	windowresize(int32_t height, int32_t width, void *param);
+void	windowresize(int32_t width, int32_t height, void *param);
 
 // texture.c
 void	init_textures(t_vars *vars, t_map *map);

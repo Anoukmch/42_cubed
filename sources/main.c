@@ -29,7 +29,7 @@ int	main(int argc, char **argv)
 		error_exit("Error\nmissing or too much arg\n");
 	transform_colors(&vars, &map);
 	init(&vars, &map);
-	// mlx_resize_hook(vars.mlx, &windowresize, &vars);
+	mlx_resize_hook(vars.mlx, &windowresize, &vars);
 	mlx_loop_hook(vars.mlx, &dda, &vars);
 	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);

@@ -17,10 +17,10 @@ int	find_longest_mapline(t_map *map)
 
 void	init_window(t_vars *vars, t_map *map)
 {
-	vars->m_width = find_longest_mapline(map);
-	vars->m_height = map->maplines + 1;
-	vars->mlx = mlx_init(vars->m_width * 32,
-			vars->m_height * 32, "Cub3D", false);
+	vars->w_width = (find_longest_mapline(map)) * 32;
+	vars->w_height = (map->maplines + 1) * 32;
+	vars->mlx = mlx_init(vars->w_width,
+			vars->w_height, "Cub3D", true);
 	if (!vars->mlx)
 		exit(EXIT_FAILURE);
 }
@@ -92,11 +92,13 @@ void	get_player_startingview_y_dir(t_vars *vars)
 void	init_player_and_views(t_vars *vars)
 {
 	get_player_position(vars);
+	vars->m_width = vars->w_width;
+	vars->m_height = vars->w_height;
 	vars->fov = 1.15192;
 	get_player_startingview_x_dir(vars);
 	get_player_startingview_y_dir(vars);
 	vars->image_3d = mlx_new_image(vars->mlx,
-			vars->m_width * 32, vars->m_height * 32);
+			vars->m_width, vars->m_height);
 	mlx_image_to_window(vars->mlx, vars->image_3d, 0, 0);
 }
 

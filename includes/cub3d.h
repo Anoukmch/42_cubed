@@ -119,8 +119,9 @@ void free_struct(t_map *map);
 
 // utils.parser.c
 void	check_comma(char *line);
-int	size_2d_array(char **array);
-int	isdigit_string(char	*str);
+int		size_2d_array(char **array);
+int		isdigit_string(char	*str);
+void	check_first_and_last(char *str);
 
 // error_exit.c
 int	error_exit(char *s);

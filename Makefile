@@ -13,7 +13,7 @@ M_SRC		= main.c \
 				parsing/read_map.c \
 				parsing/parsing.c \
 				DDA.c \
-				windowresize.c \
+				event_handling.c \
 				textures.c \
 				utils/utils_free.c \
 				utils/utils_parser.c \

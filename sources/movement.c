@@ -82,30 +82,3 @@ bool	movement_hit_wall(t_vars *vars, int direction)
 	return (0);
 }
 
-void	walking_directions(t_vars *vars)
-{
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
-		&& !movement_hit_wall(vars, NO))
-	{
-		vars->player_x += vars->dir_x * 0.1;
-		vars->player_y += vars->dir_y * 0.1;
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
-		&& !movement_hit_wall(vars, SO))
-	{
-		vars->player_x -= vars->dir_x * 0.1;
-		vars->player_y -= vars->dir_y * 0.1;
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
-		&& !movement_hit_wall(vars, EA))
-	{
-		vars->player_x -= vars->dir_y * 0.1;
-		vars->player_y += vars->dir_x * 0.1;
-	}
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
-		&& !movement_hit_wall(vars, WE))
-	{
-		vars->player_x += vars->dir_y * 0.1;
-		vars->player_y -= vars->dir_x * 0.1;
-	}
-}

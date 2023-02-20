@@ -26,6 +26,7 @@ void free_struct(t_map *map)
 {
 	free_array(map->text_path, 0);
 	free_array(map->cmap, 0);
+	free(map->line);
 	free(map->rgb_f);
 	free(map->rgb_c);
 	close(map->fd); // can we close a fd < 0 ?

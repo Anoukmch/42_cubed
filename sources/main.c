@@ -11,7 +11,6 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_map	map;
-	char	*line;
 
 	if (argc == 2)
 	{
@@ -21,8 +20,8 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		initialize(argv[1], &map);
-		line = texture_and_colors_pars(&map);
-		get_finalmap(&map, line);
+		texture_and_colors_pars(&map);
+		get_finalmap(&map);
 		vars.finalmap = map.cmap;
 		vars.linesofmap = map.maplines;
 	}
@@ -37,6 +36,7 @@ int	main(int argc, char **argv)
 	mlx_terminate(vars.mlx);
 	free_text_img(&vars);
 	free_struct(&map);
+	system("leaks cub3d");
 	return (EXIT_SUCCESS);
 }
 

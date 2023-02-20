@@ -25,6 +25,5 @@ uint32_t	get_colour(char *s)
 void	transform_colors(t_vars *vars, t_map *map)
 {
 	vars->ceilingcolor = get_colour(map->rgb_c);
-	printf("ceiling: %d\n", vars->ceilingcolor);
 	vars->floorcolor = get_colour(map->rgb_f);
 }

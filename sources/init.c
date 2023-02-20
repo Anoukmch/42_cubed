@@ -20,7 +20,7 @@ void	init_window(t_vars *vars, t_map *map)
 	vars->m_width = find_longest_mapline(map);
 	vars->m_height = map->maplines + 1;
 	vars->mlx = mlx_init(vars->m_width * 32,
-			vars->m_height * 32, "Cub3D", true);
+			vars->m_height * 32, "Cub3D", false);
 	if (!vars->mlx)
 		exit(EXIT_FAILURE);
 }
@@ -41,8 +41,8 @@ void	get_player_position(t_vars *vars)
 				|| vars->finalmap[height][width] == 'S'
 				|| vars->finalmap[height][width] == 'W')
 			{
-				vars->player_x = width;
-				vars->player_y = height;
+				vars->player_x = width + 0.5;
+				vars->player_y = height + 0.5;
 			}
 			width++;
 		}
@@ -121,4 +121,6 @@ void	initialize(char *mapfile, t_map *map)
 		error_exit("Error\nAllocation fail");
 	map->m_argv = mapfile;
 	map->player = 0;
+	map->maplines = 0;
+	map->mapstart = 0;
 }

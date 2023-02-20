@@ -16,15 +16,17 @@ void	starting_values(t_cast *t, t_vars *vars)
 	t->i = 0;
 	t->hit = 0;
 	t->side = 0;
-	t->cameraX = 2 * t->x / t->w - 1;
-	t->rayDirX = vars->dir_x + vars->planex * t->cameraX;
-	t->rayDirY = vars->dir_y + vars->planey * t->cameraX;
+	t->lineHeight = 0;
+	t->h = vars->m_height;
 	t->mapX = (int)vars->player_x;
 	t->mapY = (int)vars->player_y;
+	t->cameraX = 2 * t->x / t->w - 1;
+	t->rayDirX = vars->dir_x + vars->planex * t->cameraX;
 	if (!t->rayDirX)
 		t->deltaDistX = INFINITY;
 	else
 		t->deltaDistX = fabs(1 / t->rayDirX);
+	t->rayDirY = vars->dir_y + vars->planey * t->cameraX;
 	if (!t->rayDirY)
 		t->deltaDistY = INFINITY;
 	else
@@ -34,26 +36,22 @@ void	starting_values(t_cast *t, t_vars *vars)
 //calculate step and initial sideDist
 void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 {
+	t->stepX = 1;
+	t->stepY = 1;
 	if (t->rayDirX < 0)
 	{
-		t->stepX = -1;
+		t->stepX *= -1;
 		t->sideDistX = (vars->player_x - t->mapX) * t->deltaDistX;
 	}
 	else
-	{
-		t->stepX = 1;
 		t->sideDistX = (t->mapX + 1.0 - vars->player_x) * t->deltaDistX;
-	}
 	if (t->rayDirY < 0)
 	{
-		t->stepY = -1;
+		t->stepY *= -1;
 		t->sideDistY = (vars->player_y - t->mapY) * t->deltaDistY;
 	}
 	else
-	{
-		t->stepY = 1;
 		t->sideDistY = (t->mapY + 1.0 - vars->player_y) * t->deltaDistY;
-	}
 }
 
 // perform DDA
@@ -91,14 +89,12 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 
 //Calculate height of line to draw on screen
 //calculate lowest and highest pixel to fill in current stripe
-void	calc_perp_wall_drawthings(t_cast *t, t_vars *vars)
+void	calc_perp_wall_drawthings(t_cast *t)
 {
 	if (t->side == Y_SIDE_EA_WE)
 		t->perpWallDist = t->sideDistX - t->deltaDistX;
-	else
+	if (t->side == X_SIDE_NO_S0)
 		t->perpWallDist = t->sideDistY - t->deltaDistY;
-	t->h = vars->m_height;
-	t->lineHeight = 0;
 	if (t->perpWallDist > 0)
 		t->lineHeight = (int)(t->h / t->perpWallDist);
 	t->drawStart = (t->h - t->lineHeight) / 2;
@@ -123,7 +119,7 @@ void	dda(void *param)
 		starting_values(&t, vars);
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
-		calc_perp_wall_drawthings(&t, vars);
+		calc_perp_wall_drawthings(&t);
 		draw_everything(&t, vars);
 		t.x++;
 	}

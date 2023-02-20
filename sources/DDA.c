@@ -110,7 +110,7 @@ void	calc_perp_wall_drawthings(t_cast *t, t_vars *vars)
 		t->perpWallDist = t->sideDistX - t->deltaDistX;
 	else
 		t->perpWallDist = t->sideDistY - t->deltaDistY;
-	t->h = vars->m_height * 32;
+	t->h = vars->m_height;
 	t->lineHeight = 0;
 	if (t->perpWallDist > 0)
 		t->lineHeight = (int)(t->h / t->perpWallDist);
@@ -130,7 +130,7 @@ void	dda(void *param)
 
 	vars = param;
 	t.x = 0;
-	t.w = vars->m_width * 32;
+	t.w = vars->m_width;
 	while (t.x < t.w)
 	{
 		starting_values(&t, vars);

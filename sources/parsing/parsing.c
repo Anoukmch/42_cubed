@@ -90,7 +90,7 @@ int	check_identifier(t_map *map)
 	return (-2);
 }
 
-char	*texture_and_colors_pars(t_map *map)
+void texture_and_colors_pars(t_map *map)
 {
 	int		i;
 
@@ -105,7 +105,7 @@ char	*texture_and_colors_pars(t_map *map)
 		if (i >= 0)
 			fill_var(map->line + i, map);
 		else if (i == -1)
-			return(map->line);
+			return ;
 		free(map->line);
 		map->mapstart++;
 	}

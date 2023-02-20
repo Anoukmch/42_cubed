@@ -15,9 +15,9 @@
 // 	printf("\n");
 // }
 
-void	get_finalmap(t_map *map, char *lastline)
+void	get_finalmap(t_map *map)
 {
-	countinglines(map, lastline);
+	countinglines(map);
 	getmap_content(map);
 	map_pars(map);
 	//printmap(map);

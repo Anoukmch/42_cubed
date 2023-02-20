@@ -109,6 +109,8 @@ void	init_player_and_views(t_vars *vars)
 
 void	initialize(char *mapfile, t_map *map)
 {
+	map->maplines = 0;
+	map->line = NULL;
 	map->rgb_f = NULL;
 	map->rgb_c = NULL; // test, try to remove that to see error msg
 	map->cmap = NULL;

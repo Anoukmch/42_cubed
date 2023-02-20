@@ -21,13 +21,13 @@ char	*ft_free_strtrim(char *s1, char const *set)
 	return (final);
 }
 
-void	checkemptylines(t_map *map, char *lastline)
+void	checkemptylines(t_map *map)
 {
 	char	*gnl;
 	int		i;
 
 	i = 0;
-	gnl = lastline;
+	gnl = map->line;
 	while (1)
 	{
 		while (gnl[i] == ' ' || gnl[i] == '\t')
@@ -49,20 +49,24 @@ void	check_lines_after_map(t_map *map, char *gnl)
 
 	while (gnl)
 	{
+		free(gnl);
 		gnl = get_next_line(map->fd);
 		i = 0;
 		while (gnl && gnl[i] == ' ')
 			i++;
 		if (ft_strcmp(&gnl[i], "\n") && gnl && ft_strcmp(&gnl[i], "\0"))
-			exit(printf("ERROR BECAUSE OF OTHER THINGS AFTER MAP\n"));
+		{
+			free(gnl);
+			error_exit("ERROR BECAUSE OF OTHER THINGS AFTER MAP\n");
+		}
 	}
 }
 
-void	countinglines(t_map *map, char *lastline)
+void	countinglines(t_map *map)
 {
 	char	*gnl;
 
-	checkemptylines(map, lastline);
+	checkemptylines(map);
 	while (1)
 	{
 		gnl = get_next_line(map->fd);
@@ -76,7 +80,10 @@ void	countinglines(t_map *map, char *lastline)
 	check_lines_after_map(map, gnl);
 	close(map->fd);
 	if (!map->maplines)
-		exit (printf("Map error: No existing map!\n"));
+	{
+		free(gnl);
+		error_exit("Map error: No existing map!\n");
+	}
 }
 
 void	getmap_content(t_map *map)
@@ -88,10 +95,10 @@ void	getmap_content(t_map *map)
 	count = 0;
 	map->cmap = ft_calloc((map->maplines + 2), sizeof(char *));
 	if (!map->cmap)
-		exit (printf("allocation error\n"));
+		error_exit("allocation error\n");
 	read = open(map->m_argv, O_RDONLY);
 	if (read == -1)
-		exit (printf("reading map = impossible!\n"));
+		error_exit("reading map = impossible!\n");
 	while (count < map->mapstart)
 	{
 		tmp = get_next_line(read);

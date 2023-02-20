@@ -23,6 +23,7 @@
 typedef struct s_map
 {
 	int		fd;
+	char	*line;
 	char	**text_path;
 	char	*rgb_f;
 	char	*rgb_c;
@@ -104,7 +105,7 @@ void	initialize(char *mapfile, t_map *map);
 
 // parsing.c
 char	*texture_and_colors_pars(t_map *map);
-int		check_identifier(char *line, t_map *map);
+int		check_identifier(t_map *map);
 void	fill_var(char *line, t_map *map);
 int		check_range_colors(char *line, int indic);
 int		check_color_comb(char *line);
@@ -123,8 +124,8 @@ int	isdigit_string(char	*str);
 int	error_exit(char *s);
 
 // read_map.c
-void	get_finalmap(t_map *map, char *lastline);
-void	countinglines(t_map *map, char *lastline);
+void	get_finalmap(t_map *map);
+void	countinglines(t_map *map);
 void	getmap_content(t_map *map);
 
 // check_map.c

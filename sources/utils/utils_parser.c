@@ -10,7 +10,7 @@ int	isdigit_string(char	*str)
 	while (str[i] && str[i] != '\n')
 	{
 		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
-			return (0); // not a digit
+			return (0);
 		i++;
 	}
 	return (1);
@@ -43,4 +43,17 @@ void	check_comma(char *line)
 	}
 	if (comma_nbr != 2)
 		error_exit("Error\nColor code : check input file");
+}
+
+void	check_first_and_last(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '1')
+			error_exit("Error\nCheck first and last map line!\n");
+		i++;
+	}
 }

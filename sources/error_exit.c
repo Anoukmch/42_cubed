@@ -6,15 +6,15 @@
 /*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:17:04 by amechain          #+#    #+#             */
-/*   Updated: 2023/02/15 18:17:48 by amechain         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:29:49 by amechain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-t_map *data()
+t_map	*data(void)
 {
-	static t_map map;
+	static t_map	map;
 
 	return (&map);
 }
@@ -25,4 +25,3 @@ int	error_exit(char *s)
 	free_struct(data());
 	exit(1);
 }
-

@@ -2,7 +2,7 @@
 
 void	delete_txt(t_vars *vars, int alloc_txt)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < alloc_txt)
@@ -12,8 +12,8 @@ void	delete_txt(t_vars *vars, int alloc_txt)
 void	init_textures(t_vars *vars, t_map *map)
 {
 	int	i;
+	
 	i = 0;
-
 	while (i < TEXTURES)
 	{
 		vars->textures[i] = mlx_load_png(map->text_path[i]);

@@ -22,8 +22,6 @@ void	check_invalid_characters(t_map *map, char *str)
 	}
 }
 
-// 1 == open
-// 0 == closed
 void	check_vertical_characters(char *str, int j, bool *open)
 {
 	if (*open == true)
@@ -40,7 +38,7 @@ void	check_vertical_characters(char *str, int j, bool *open)
 			*open = true;
 		else if (str[j] != '1' && str[j] != ' ')
 			error_exit("Error\nPlease check map characters!\n");
-	}	
+	}
 }
 
 void	check_vertical_rendering(char *str)
@@ -77,19 +75,6 @@ void	check_horizontal_spaces(char **str, int i)
 				error_exit("Error\nMap is not surrounded by walls!\n");
 		}
 		j++;
-	}
-}
-
-void	check_first_and_last(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '1')
-			error_exit("Error\nCheck first and last map line!\n");
-		i++;
 	}
 }
 

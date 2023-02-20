@@ -16,8 +16,6 @@ void	rotate_calculation(t_vars *vars)
 		+ vars->planey * cos(vars->rotation);
 }
 
-// SKALARPRODUKT
-// 0.0872665 --> 5 degrees
 void	rotation(t_vars *vars, char *str)
 {
 	if (!ft_strcmp(str, "right"))
@@ -27,7 +25,7 @@ void	rotation(t_vars *vars, char *str)
 	rotate_calculation(vars);
 }
 
-int		check_corners(t_vars *vars, double x, double y)
+int	check_corners(t_vars *vars, double x, double y)
 {
 	if (vars->finalmap[(int)y][(int)x] == '0'
 		&& ((int)vars->player_x != (int)x
@@ -36,19 +34,19 @@ int		check_corners(t_vars *vars, double x, double y)
 		if (vars->player_x < x && vars->player_y < y
 			&& vars->finalmap[(int)y][(int)x - 1] == '1'
 			&& vars->finalmap[(int)y - 1][(int)x] == '1')
-				return (1);
+			return (1);
 		else if (vars->player_x > x && vars->player_y > y
 			&& vars->finalmap[(int)y][(int)x + 1] == '1'
 			&& vars->finalmap[(int)y + 1][(int)x] == '1')
-				return (1);
+			return (1);
 		else if (vars->player_x < x && vars->player_y > y
 			&& vars->finalmap[(int)y][(int)x - 1] == '1'
 			&& vars->finalmap[(int)y + 1][(int)x] == '1')
-				return (1);
+			return (1);
 		else if (vars->player_x > x && vars->player_y < y
 			&& vars->finalmap[(int)y][(int)x + 1] == '1'
 			&& vars->finalmap[(int)y - 1][(int)x] == '1')
-				return (1);
+			return (1);
 	}
 	return (0);
 }
@@ -110,18 +108,4 @@ void	walking_directions(t_vars *vars)
 		vars->player_x += vars->dir_y * 0.1;
 		vars->player_y -= vars->dir_x * 0.1;
 	}
-}
-
-void	key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_vars	*vars;
-
-	vars = param;
-	if (keydata.key == MLX_KEY_ESCAPE)
-		mlx_close_window(vars->mlx);
-	walking_directions(vars);
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
-		rotation(vars, "right");
-	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
-		rotation(vars, "left");
 }

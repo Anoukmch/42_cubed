@@ -57,7 +57,7 @@ void	check_lines_after_map(t_map *map, char *gnl)
 		if (ft_strcmp(&gnl[i], "\n") && gnl && ft_strcmp(&gnl[i], "\0"))
 		{
 			free(gnl);
-			error_exit("ERROR BECAUSE OF OTHER THINGS AFTER MAP\n");
+			error_exit("Error\nDelete lines after map!\n");
 		}
 	}
 }
@@ -82,7 +82,7 @@ void	countinglines(t_map *map)
 	if (!map->maplines)
 	{
 		free(gnl);
-		error_exit("Map error: No existing map!\n");
+		error_exit("Error\nNo existing map!\n");
 	}
 }
 
@@ -95,10 +95,10 @@ void	getmap_content(t_map *map)
 	count = 0;
 	map->cmap = ft_calloc((map->maplines + 2), sizeof(char *));
 	if (!map->cmap)
-		error_exit("allocation error\n");
+		error_exit("Error\nAllocation error\n");
 	read = open(map->m_argv, O_RDONLY);
 	if (read == -1)
-		error_exit("reading map = impossible!\n");
+		error_exit("Error\nReading map is impossible!\n");
 	while (count < map->mapstart)
 	{
 		tmp = get_next_line(read);

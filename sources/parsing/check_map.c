@@ -32,20 +32,14 @@ void	check_vertical_characters(char *str, int j, bool *open)
 			*open = false;
 		else if (str[j] != '0' && str[j] != '1' && str[j] != 'N'
 			&& str[j] != 'E' && str[j] != 'S' && str[j] != 'W')
-		{
-			printf("BOOL: %d\n", *open);
-			exit(printf("ERROR\n"));
-		}
+			error_exit("Error\nPlease check map characters!\n");
 	}
 	else if (*open == false)
 	{
 		if (str[j] == '1' && (!str[j - 1] || str[j - 1] == ' '))
 			*open = true;
 		else if (str[j] != '1' && str[j] != ' ')
-		{
-			printf("BOOL: %d\n", *open);
-			exit(printf("ERROR\n"));
-		}
+			error_exit("Error\nPlease check map characters!\n");
 	}	
 }
 
@@ -59,7 +53,7 @@ void	check_vertical_rendering(char *str)
 	while (str[j] == ' ')
 		j++;
 	if (str[j] != '1')
-		exit(printf("ERROR\n"));
+		error_exit("Error\nPlease check map characters!\n");
 	else
 		open = true;
 	while (str[j])
@@ -80,7 +74,7 @@ void	check_horizontal_spaces(char **str, int i)
 		{
 			if ((i > 0 && str[i - 1][j] != '1' && str[i - 1][j] != ' ')
 				|| (str[i + 1] && str[i + 1][j] != '1' && str[i + 1][j] != ' '))
-				exit(printf("ERROR horizontal\n"));
+				error_exit("Error\nMap is not surrounded by walls!\n");
 		}
 		j++;
 	}
@@ -94,7 +88,7 @@ void	check_first_and_last(char *str)
 	while (str[i])
 	{
 		if (str[i] != ' ' && str[i] != '1')
-			exit(printf("ERROR check first adn alst\n"));
+			error_exit("Error\nCheck first and last map line!\n");
 		i++;
 	}
 }
@@ -117,8 +111,5 @@ void	map_pars(t_map *map)
 		i++;
 	}
 	if (map->player != 1)
-	{
-		printf("Map error: Please check the map characters!\n");
-		exit(1);
-	}
+		error_exit("Error\nPlease check the map characters!\n");
 }

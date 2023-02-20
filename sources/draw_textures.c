@@ -63,7 +63,7 @@ void	texture_2(t_cast *t, t_vars *vars)
 		tex_y = (int)tex_pos & (vars->textures[NO]->height - 1);
 		tex_pos += step;
 		ft_memcpy(&vars->image_3d->pixels[\
-			(y * (vars->m_width * 32) + t->x) * BPP], \
+			(y * vars->m_width + t->x) * BPP], \
 			&vars->textures[t->side_2]->pixels[\
 			(tex_y * vars->textures[NO]->height + \
 			texture_3(vars->textures[NO], t, vars)) * BPP], BPP);

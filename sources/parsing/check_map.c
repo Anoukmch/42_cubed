@@ -78,19 +78,6 @@ void	check_horizontal_spaces(char **str, int i)
 	}
 }
 
-void	check_first_and_last(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '1')
-			error_exit("Error\nCheck first and last map line!\n");
-		i++;
-	}
-}
-
 void	map_pars(t_map *map)
 {
 	int	i;

@@ -1,5 +1,25 @@
 #include "../includes/cub3d.h"
 
+void	initialize(char *mapfile, t_map *map)
+{
+	map->maplines = 0;
+	map->line = NULL;
+	map->rgb_f = NULL;
+	map->rgb_c = NULL; // test, try to remove that to see error msg
+	map->cmap = NULL;
+	map->text_path = NULL;
+	map->fd = open(mapfile, O_RDONLY);
+	if (map->fd < 0)
+		error_exit("Error\nOpen fail");
+	map->text_path = ft_calloc(5, sizeof(char*));;
+	if (!map->text_path)
+		error_exit("Error\nAllocation fail");
+	map->m_argv = mapfile;
+	map->player = 0;
+	map->maplines = 0;
+	map->mapstart = 0;
+}
+
 void	init(t_vars *vars, t_map *map)
 {
 	init_window(vars, map);

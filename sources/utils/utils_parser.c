@@ -44,3 +44,16 @@ void	check_comma(char *line)
 	if (comma_nbr != 2)
 		error_exit("Error\nColor code : check input file");
 }
+
+void	check_first_and_last(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '1')
+			error_exit("Error\nCheck first and last map line!\n");
+		i++;
+	}
+}

@@ -10,7 +10,7 @@ int	isdigit_string(char	*str)
 	while (str[i] && str[i] != '\n')
 	{
 		if ((str[i] < '0' || str[i] > '9') && str[i] != ' ')
-			return (0); // not a digit
+			return (0);
 		i++;
 	}
 	return (1);

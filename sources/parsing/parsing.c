@@ -70,7 +70,8 @@ int	check_identifier(t_map *map)
 	i = 0;
 	while (map->line[i] != '\n')
 	{
-		if ((map->line[i] >= '\t' && map->line[i] <= '\r') || (map->line[i] == ' '))
+		if ((map->line[i] >= '\t' && map->line[i] <= '\r')
+			|| (map->line[i] == ' '))
 			i++;
 		else if ((!ft_strncmp(map->line + i, "NO", 2))
 			|| (!ft_strncmp(map->line + i, "SO", 2))
@@ -90,7 +91,7 @@ int	check_identifier(t_map *map)
 	return (-2);
 }
 
-void texture_and_colors_pars(t_map *map)
+void	texture_and_colors_pars(t_map *map)
 {
 	int		i;
 

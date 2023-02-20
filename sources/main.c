@@ -36,7 +36,6 @@ int	main(int argc, char **argv)
 	mlx_terminate(vars.mlx);
 	free_text_img(&vars);
 	free_struct(&map);
-	// system("leaks cub3d");
 	return (EXIT_SUCCESS);
 }
 

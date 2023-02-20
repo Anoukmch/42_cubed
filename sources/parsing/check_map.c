@@ -22,8 +22,6 @@ void	check_invalid_characters(t_map *map, char *str)
 	}
 }
 
-// 1 == open
-// 0 == closed
 void	check_vertical_characters(char *str, int j, bool *open)
 {
 	if (*open == true)
@@ -46,7 +44,7 @@ void	check_vertical_characters(char *str, int j, bool *open)
 			printf("BOOL: %d\n", *open);
 			exit(printf("ERROR\n"));
 		}
-	}	
+	}
 }
 
 void	check_vertical_rendering(char *str)

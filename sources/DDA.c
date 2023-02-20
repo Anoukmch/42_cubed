@@ -12,25 +12,23 @@
 //length of ray from one x or y-side to next x or y-side
 void	starting_values(t_cast *t, t_vars *vars)
 {
-	t->k = 0;
-	t->i = 0;
+	t->iter = 0;
 	t->hit = 0;
-	t->side = 0;
-	t->lineHeight = 0;
-	t->h = vars->m_height;
-	t->mapX = (int)vars->player_x;
-	t->mapY = (int)vars->player_y;
-	t->cameraX = 2 * t->x / t->w - 1;
-	t->rayDirX = vars->dir_x + vars->planex * t->cameraX;
-	if (!t->rayDirX)
-		t->deltaDistX = INFINITY;
+	t->is_ea_we = 0;
+	t->wall_line = 0;
+	t->map_x = (int)vars->player_x;
+	t->map_y = (int)vars->player_y;
+	t->camera_x = 2 * t->x / vars->m_width - 1;
+	t->raydir_x = vars->dir_x + vars->plane_x * t->camera_x;
+	if (!t->raydir_x)
+		t->deltadist_x = INFINITY;
 	else
-		t->deltaDistX = fabs(1 / t->rayDirX);
-	t->rayDirY = vars->dir_y + vars->planey * t->cameraX;
-	if (!t->rayDirY)
-		t->deltaDistY = INFINITY;
+		t->deltadist_x = fabs(1 / t->raydir_x);
+	t->raydir_y = vars->dir_y + vars->plane_y * t->camera_x;
+	if (!t->raydir_y)
+		t->deltadist_y = INFINITY;
 	else
-		t->deltaDistY = fabs(1 / t->rayDirY);
+		t->deltadist_y = fabs(1 / t->raydir_y);
 }
 
 // sideDistance = distance from starting pos
@@ -39,22 +37,22 @@ void	starting_values(t_cast *t, t_vars *vars)
 // to next x- or y line
 void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 {
-	t->stepX = 1;
-	t->stepY = 1;
-	if (t->rayDirX < 0)
+	t->step_x = 1;
+	t->step_y = 1;
+	if (t->raydir_x < 0)
 	{
-		t->stepX *= -1;
-		t->sideDistX = (vars->player_x - t->mapX) * t->deltaDistX;
+		t->step_x *= -1;
+		t->sidedist_x = (vars->player_x - t->map_x) * t->deltadist_x;
 	}
 	else
-		t->sideDistX = (t->mapX + 1 - vars->player_x) * t->deltaDistX;
-	if (t->rayDirY < 0)
+		t->sidedist_x = (t->map_x + 1 - vars->player_x) * t->deltadist_x;
+	if (t->raydir_y < 0)
 	{
-		t->stepY *= -1;
-		t->sideDistY = (vars->player_y - t->mapY) * t->deltaDistY;
+		t->step_y *= -1;
+		t->sidedist_y = (vars->player_y - t->map_y) * t->deltadist_y;
 	}
 	else
-		t->sideDistY = (t->mapY + 1 - vars->player_y) * t->deltaDistY;
+		t->sidedist_y = (t->map_y + 1 - vars->player_y) * t->deltadist_y;
 }
 
 //jump to next map square, either in x-direction, or in y-direction
@@ -63,25 +61,25 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 {
 	while (!t->hit)
 	{
-		if (t->sideDistX < t->sideDistY)
+		if (t->sidedist_x < t->sidedist_y)
 		{
-			t->sideDistX += t->deltaDistX;
-			t->mapX += t->stepX;
-			t->side = Y_SIDE_EA_WE;
-			t->side_2 = EA;
-			if (t->rayDirX < 0)
-				t->side_2 = WE;
+			t->sidedist_x += t->deltadist_x;
+			t->map_x += t->step_x;
+			t->is_ea_we = Y_SIDE_EA_WE;
+			t->which_card_pt = EA;
+			if (t->raydir_x < 0)
+				t->which_card_pt = WE;
 		}
 		else
 		{
-			t->sideDistY += t->deltaDistY;
-			t->mapY += t->stepY;
-			t->side = X_SIDE_NO_S0;
-			t->side_2 = SO;
-			if (t->rayDirY < 0)
-				t->side_2 = NO;
+			t->sidedist_y += t->deltadist_y;
+			t->map_y += t->step_y;
+			t->is_ea_we = X_SIDE_NO_S0;
+			t->which_card_pt = SO;
+			if (t->raydir_y < 0)
+				t->which_card_pt = NO;
 		}
-		if (vars->finalmap[(int)t->mapY][(int)t->mapX] == '1')
+		if (vars->finalmap[(int)t->map_y][(int)t->map_x] == '1')
 			t->hit = 1;
 	}
 }
@@ -89,21 +87,21 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 //calculate lowest and highest pixel to fill in current stripe
 // perpendicularWallDistance = ray from cameraplane to wall hit
 // to avoid fish-eye effect
-// length of rays (drawstart & drawend)
-void	calc_perp_wall_drawthings(t_cast *t)
+// length of rays (draw_start & draw_end)
+void	calc_perp_wall_drawthings(t_cast *t, t_vars	*vars)
 {
-	if (t->side == Y_SIDE_EA_WE)
-		t->perpWallDist = t->sideDistX - t->deltaDistX;
-	if (t->side == X_SIDE_NO_S0)
-		t->perpWallDist = t->sideDistY - t->deltaDistY;
-	if (t->perpWallDist > 0)
-		t->lineHeight = (int)(t->h / t->perpWallDist);
-	t->drawStart = (t->h - t->lineHeight) / 2;
-	if (t->drawStart < 0)
-		t->drawStart = 0;
-	t->drawEnd = (t->h + t->lineHeight) / 2;
-	if (t->drawEnd >= t->h)
-		t->drawEnd = t->h - 1;
+	if (t->is_ea_we == Y_SIDE_EA_WE)
+		t->perp_wall_dist = t->sidedist_x - t->deltadist_x;
+	if (t->is_ea_we == X_SIDE_NO_S0)
+		t->perp_wall_dist = t->sidedist_y - t->deltadist_y;
+	if (t->perp_wall_dist > 0)
+		t->wall_line = (int)(vars->m_height / t->perp_wall_dist);
+	t->draw_start = (vars->m_height - t->wall_line) / 2;
+	if (t->draw_start < 0)
+		t->draw_start = 0;
+	t->draw_end = (vars->m_height + t->wall_line) / 2;
+	if (t->draw_end >= vars->m_height)
+		t->draw_end = vars->m_height - 1;
 }
 
 // for every ray that is shooted
@@ -114,13 +112,12 @@ void	dda(void *param)
 
 	vars = param;
 	t.x = 0;
-	t.w = vars->m_width;
-	while (t.x < t.w)
+	while (t.x < vars->m_width)
 	{
 		starting_values(&t, vars);
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
-		calc_perp_wall_drawthings(&t);
+		calc_perp_wall_drawthings(&t, vars);
 		draw_everything(&t, vars);
 		t.x++;
 	}

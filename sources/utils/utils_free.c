@@ -13,6 +13,15 @@ int	free_array(char **array, int ret_stat)
 	return (ret_stat);
 }
 
+void	delete_txt(t_vars *vars, int alloc_txt)
+{
+	int	i;
+
+	i = 0;
+	while (i < alloc_txt)
+		mlx_delete_texture(vars->textures[i]);
+}
+
 void	free_text_img(t_vars *vars)
 {
 	mlx_delete_texture(vars->textures[0]);

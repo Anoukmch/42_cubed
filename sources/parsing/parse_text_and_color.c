@@ -10,7 +10,7 @@ int	check_color_comb(char *line)
 	check_comma(line);
 	array = ft_split(line, ',');
 	if (!array)
-		error_exit("Error\nAllocation fail");
+		error_exit("Error\nAllocation fail\n");
 	if (size_2d_array(array) != 3)
 		return (free_array(array, 0));
 	while (array[i])
@@ -40,7 +40,7 @@ int	check_range_colors(char *line, int indic)
 		else if (check_color_comb(line + i))
 			break ;
 		else
-			error_exit("Error\nColor code : check input file");
+			error_exit("Error\nColor code : check input file\n");
 	}
 	return (indic);
 }
@@ -60,7 +60,7 @@ void	fill_var(char *line, t_map *map)
 	else if (!ft_strncmp(line, "C", 1) && !map->rgb_c)
 		map->rgb_c = ft_strtrim((line + 1), "\t ");
 	else
-		error_exit("Error\nDuplicate info : check input file");
+		error_exit("Error\nDuplicate info : check input file\n");
 }
 
 int	check_identifier(t_map *map)
@@ -81,17 +81,18 @@ int	check_identifier(t_map *map)
 		else if ((!ft_strncmp(map->line + i, "F", 1) && !map->rgb_f)
 			|| (!ft_strncmp(map->line + i, "C", 1) && !map->rgb_c))
 			return (check_range_colors(map->line + i + 1, i));
-		else if ((map->line[i] == '1' || map->line[i] == '0') && map->text_path[0]
-			&& map->text_path[1] && map->text_path[2] && map->text_path[3]
+		else if ((map->line[i] == '1' || map->line[i] == '0')
+			&& map->text_path[0] && map->text_path[1]
+			&& map->text_path[2] && map->text_path[3]
 			&& map->rgb_f && map->rgb_c)
 			return (-1);
 		else
-			error_exit("Error\nMissing info or wrong character: check input file");
+			error_exit("Error\nMissing/wrong info in input file\n");
 	}
 	return (-2);
 }
 
-void	texture_and_colors_pars(t_map *map)
+void	parse_text_and_color(t_map *map)
 {
 	int		i;
 
@@ -101,7 +102,7 @@ void	texture_and_colors_pars(t_map *map)
 	{
 		map->line = get_next_line(map->fd);
 		if (!map->line)
-			error_exit("Error\nInfos missing : check input file");
+			error_exit("Error\nInfos missing : check input file\n");
 		i = check_identifier(map);
 		if (i >= 0)
 			fill_var(map->line + i, map);

@@ -3,22 +3,22 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra #-fsanitize=address
 MLX			= $(LIBS_NAME) ./includes/libs/libmlx/libmlx42.a ./includes/libs/libmlx/libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit
 M_SRC		= main.c \
-				init.c \
-				movement.c \
+				init_vars.c \
+				check_move.c \
 				check_extension.c \
 				colors.c \
-				error_exit.c \
 				parsing/get_map.c \
 				parsing/check_map.c \
 				parsing/read_map.c \
-				parsing/parsing.c \
+				parsing/parse_text_and_color.c \
+				parsing/init_map.c \
 				DDA.c \
 				event_handling.c \
-				textures.c \
 				utils/utils_free.c \
 				utils/utils_parser.c \
+				utils/error_exit.c \
 				draw_textures.c \
-				event_handling.c
+				player.c
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 

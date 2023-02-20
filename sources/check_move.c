@@ -9,11 +9,11 @@ void	rotate_calculation(t_vars *vars)
 		- vars->dir_y * sin(vars->rotation);
 	vars->dir_y = old * sin(vars->rotation)
 		+ vars->dir_y * cos(vars->rotation);
-	old = vars->planex;
-	vars->planex = vars->planex * cos(vars->rotation)
-		- vars->planey * sin(vars->rotation);
-	vars->planey = old * sin(vars->rotation)
-		+ vars->planey * cos(vars->rotation);
+	old = vars->plane_x;
+	vars->plane_x = vars->plane_x * cos(vars->rotation)
+		- vars->plane_y * sin(vars->rotation);
+	vars->plane_y = old * sin(vars->rotation)
+		+ vars->plane_y * cos(vars->rotation);
 }
 
 void	rotation(t_vars *vars, char *str)

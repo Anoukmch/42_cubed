@@ -63,15 +63,18 @@ void	check_vertical_rendering(char *str)
 
 void	check_horizontal_spaces(char **str, int i)
 {
+	int	z;
 	int	j;
 
+	z = 0;
 	j = 0;
 	while (str[i][j])
 	{
 		if (str[i][j] == ' ')
 		{
 			if ((i > 0 && str[i - 1][j] != '1' && str[i - 1][j] != ' ')
-				|| (str[i + 1] && str[i + 1][j] != '1' && str[i + 1][j] != ' '))
+				|| (str[i + 1] && str[i + 1][j] && str[i + 1][j] != '1'
+				&& str[i + 1][j] != ' '))
 				error_exit("Error\nMap is not surrounded by walls!\n");
 		}
 		j++;

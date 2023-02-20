@@ -1,6 +1,5 @@
 #include "../includes/cub3d.h"
 
-
 int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 {
 	double	wall_x;
@@ -43,8 +42,8 @@ void	draw_everything(t_cast *t, t_vars *vars)
 			tex_pos += step;
 			ft_memcpy(&vars->image_3d->pixels[(t->k * vars->m_width + t->x) \
 				* BPP], &vars->textures[t->side_2]->pixels[\
-				(tex_y * 32 +
-				texture_x_value(vars->textures[NO], t, vars)) * BPP], BPP);
+				(tex_y * 32 + texture_x_value(vars->textures[t->side_2], t, \
+				vars)) * BPP], BPP);
 		}
 		t->k++;
 	}

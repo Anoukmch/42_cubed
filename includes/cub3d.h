@@ -16,6 +16,11 @@
 #define SO	2
 #define WE	3
 
+#define W	0
+#define D	1
+#define S	2
+#define A	3
+
 #define BPP				4
 #define X_SIDE_NO_S0	0
 #define Y_SIDE_EA_WE	1
@@ -84,7 +89,6 @@ typedef struct s_cast
 	int hit;
 	int side;
 	int i;
-	int	is_negative;
 
 	double perpWallDist;
 	int side_2;
@@ -138,6 +142,7 @@ void	map_pars(t_map *map);
 int	check_extension(char *mapfile);
 
 // movement.c
+void	windowresize(int32_t width, int32_t height, void *param);
 void	key_hook(mlx_key_data_t keydata, void *param);
 
 void	dda(void *param);
@@ -157,11 +162,13 @@ void	windowresize(int32_t width, int32_t height, void *param);
 void	init_textures(t_vars *vars, t_map *map);
 
 // draw_textures.c
-void	texture_2(t_cast *t, t_vars *vars);
-int		texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars);
-void	drawing_floor_and_ceiling(t_cast *t, t_vars *vars);
+void	draw_everything(t_cast *t, t_vars *vars);
+int		texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars);
 
 // trying_rendering.c
 void print_textures(t_cast *t, t_vars *vars, int color);
+
+void	walking_directions(t_vars *vars);
+void	rotation(t_vars *vars, char *str);
 
 #endif

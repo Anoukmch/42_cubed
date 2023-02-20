@@ -56,22 +56,22 @@ bool	movement_hit_wall(t_vars *vars, int direction)
 	double	x;
 	double	y;
 
-	if (direction == NO)
+	if (direction == W)
 	{
 		x = vars->player_x + vars->dir_x * 0.2;
 		y = vars->player_y + vars->dir_y * 0.2;
 	}
-	if (direction == SO)
+	if (direction == S)
 	{
 		x = vars->player_x - vars->dir_x * 0.2;
 		y = vars->player_y - vars->dir_y * 0.2;
 	}
-	if (direction == EA)
+	if (direction == D)
 	{
 		x = vars->player_x - vars->dir_y * 0.2;
 		y = vars->player_y + vars->dir_x * 0.2;
 	}
-	if (direction == WE)
+	if (direction == A)
 	{
 		x = vars->player_x + vars->dir_y * 0.2;
 		y = vars->player_y - vars->dir_x * 0.2;
@@ -82,3 +82,30 @@ bool	movement_hit_wall(t_vars *vars, int direction)
 	return (0);
 }
 
+void	walking_directions(t_vars *vars)
+{
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
+		&& !movement_hit_wall(vars, W))
+	{
+		vars->player_x += vars->dir_x * 0.1;
+		vars->player_y += vars->dir_y * 0.1;
+	}
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
+		&& !movement_hit_wall(vars, S))
+	{
+		vars->player_x -= vars->dir_x * 0.1;
+		vars->player_y -= vars->dir_y * 0.1;
+	}
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
+		&& !movement_hit_wall(vars, D))
+	{
+		vars->player_x -= vars->dir_y * 0.1;
+		vars->player_y += vars->dir_x * 0.1;
+	}
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
+		&& !movement_hit_wall(vars, A))
+	{
+		vars->player_x += vars->dir_y * 0.1;
+		vars->player_y -= vars->dir_x * 0.1;
+	}
+}

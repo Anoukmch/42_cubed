@@ -24,8 +24,7 @@ void	draw_everything(t_cast *t, t_vars *vars)
 	double			step;
 	int				tex_y;
 
-	if ((t->h - (t->drawEnd - t->drawStart)) / 2 > 0)
-		t->drawStart = (t->h - (t->drawEnd - t->drawStart)) / 2;
+	t->drawStart = fmax(0, (t->h - (t->drawEnd - t->drawStart)) / 2);
 	step = 1.0 * vars->textures[NO]->height / (t->drawEnd - t->drawStart);
 	tex_pos = (t->drawStart - (t->h + (t->drawEnd - t->drawStart)) / 2) * step;
 	while (t->k < t->h)

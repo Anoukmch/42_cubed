@@ -84,7 +84,6 @@ typedef struct s_cast
 	int hit;
 	int side;
 	int i;
-	int	is_negative;
 
 	double perpWallDist;
 	int side_2;
@@ -121,6 +120,7 @@ void free_struct(t_map *map);
 void	check_comma(char *line);
 int	size_2d_array(char **array);
 int	isdigit_string(char	*str);
+void	check_first_and_last(char *str);
 
 // error_exit.c
 int	error_exit(char *s);
@@ -137,6 +137,7 @@ void	map_pars(t_map *map);
 int	check_extension(char *mapfile);
 
 // movement.c
+void	windowresize(int32_t width, int32_t height, void *param);
 void	key_hook(mlx_key_data_t keydata, void *param);
 
 void	dda(void *param);
@@ -161,5 +162,8 @@ int		texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars);
 
 // trying_rendering.c
 void print_textures(t_cast *t, t_vars *vars, int color);
+
+void	walking_directions(t_vars *vars);
+void	rotation(t_vars *vars, char *str);
 
 #endif

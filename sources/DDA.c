@@ -16,7 +16,6 @@ void	starting_values(t_cast *t, t_vars *vars)
 	t->i = 0;
 	t->hit = 0;
 	t->side = 0;
-	t->drawStart = 0;
 	t->cameraX = 2 * t->x / t->w - 1;
 	t->rayDirX = vars->dir_x + vars->planex * t->cameraX;
 	t->rayDirY = vars->dir_y + vars->planey * t->cameraX;

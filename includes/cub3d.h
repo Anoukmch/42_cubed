@@ -156,9 +156,8 @@ void	windowresize(int32_t width, int32_t height, void *param);
 void	init_textures(t_vars *vars, t_map *map);
 
 // draw_textures.c
-void	texture_2(t_cast *t, t_vars *vars);
-int		texture_3(mlx_texture_t *tex, t_cast *t, t_vars *vars);
-void	drawing_floor_and_ceiling(t_cast *t, t_vars *vars);
+void	draw_everything(t_cast *t, t_vars *vars);
+int		texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars);
 
 // trying_rendering.c
 void print_textures(t_cast *t, t_vars *vars, int color);

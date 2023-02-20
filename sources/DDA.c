@@ -12,19 +12,21 @@
 //length of ray from one x or y-side to next x or y-side
 void	starting_values(t_cast *t, t_vars *vars)
 {
+	t->k = 0;
 	t->i = 0;
 	t->hit = 0;
 	t->side = 0;
+	t->drawStart = 0;
 	t->cameraX = 2 * t->x / t->w - 1;
 	t->rayDirX = vars->dir_x + vars->planex * t->cameraX;
 	t->rayDirY = vars->dir_y + vars->planey * t->cameraX;
 	t->mapX = (int)vars->player_x;
 	t->mapY = (int)vars->player_y;
-	if (t->rayDirX == 0)
+	if (!t->rayDirX)
 		t->deltaDistX = INFINITY;
 	else
 		t->deltaDistX = fabs(1 / t->rayDirX);
-	if (t->rayDirY == 0)
+	if (!t->rayDirY)
 		t->deltaDistY = INFINITY;
 	else
 		t->deltaDistY = fabs(1 / t->rayDirY);
@@ -63,40 +65,28 @@ void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 //Check if ray has hit a wall
 void	find_hitted_wall(t_cast *t, t_vars *vars)
 {
-	while (t->hit == 0)
+	while (!t->hit)
 	{
 		if (t->sideDistX < t->sideDistY)
 		{
 			t->sideDistX += t->deltaDistX;
 			t->mapX += t->stepX;
 			t->side = Y_SIDE_EA_WE;
-			t->is_negative = t->rayDirX < 0;
+			t->side_2 = EA;
+			if (t->rayDirX < 0)
+				t->side_2 = WE;
 		}
 		else
 		{
 			t->sideDistY += t->deltaDistY;
 			t->mapY += t->stepY;
 			t->side = X_SIDE_NO_S0;
-			t->is_negative = t->rayDirY < 0;
+			t->side_2 = SO;
+			if (t->rayDirY < 0)
+				t->side_2 = NO;
 		}
 		if (vars->finalmap[(int)t->mapY][(int)t->mapX] == '1')
 			t->hit = 1;
-	}
-}
-
-void	find_side_of_hitted_wall(t_cast *t)
-{
-	if (t->side == X_SIDE_NO_S0)
-	{
-		t->side_2 = SO;
-		if (t->is_negative)
-			t->side_2 = NO;
-	}
-	else if (t->side == Y_SIDE_EA_WE)
-	{
-		t->side_2 = EA;
-		if (t->is_negative)
-			t->side_2 = WE;
 	}
 }
 
@@ -134,33 +124,8 @@ void	dda(void *param)
 		starting_values(&t, vars);
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
-		find_side_of_hitted_wall(&t);
 		calc_perp_wall_drawthings(&t, vars);
-		texture_2(&t, vars);
-		drawing_floor_and_ceiling(&t, vars);
+		draw_everything(&t, vars);
 		t.x++;
 	}
 }
-
-//	 find_side_of_hitted_wall(&t);
-// void	dda_overwriting(t_vars *vars)
-// {
-// 	t_cast	t;
-
-// 	t.x = 0;
-// 	t.w = vars->m_width * 32;
-// 	while (t.x < t.w)
-// 	{
-// 		starting_values(&t, vars);
-// 		calc_step_and_sidedist(&t, vars);
-// 		find_hitted_wall(&t, vars);
-// 		calc_perp_wall_drawthings(&t, vars);
-// 		t.k = 0;
-// 		while (t.k < t.h)
-// 		{
-// 			mlx_put_pixel(vars->image_3d, t.x, t.k, 0);
-// 			t.k++;
-// 		}
-// 	t.x++;
-// 	}
-// }

@@ -33,7 +33,10 @@ void	starting_values(t_cast *t, t_vars *vars)
 		t->deltaDistY = fabs(1 / t->rayDirY);
 }
 
-//calculate step and initial sideDist
+// sideDistance = distance from starting pos
+// to the wall hitted on x- or y-side
+// deltaDistance = distance from x- or y-line
+// to next x- or y line
 void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 {
 	t->stepX = 1;
@@ -44,22 +47,18 @@ void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 		t->sideDistX = (vars->player_x - t->mapX) * t->deltaDistX;
 	}
 	else
-		t->sideDistX = (t->mapX + 1.0 - vars->player_x) * t->deltaDistX;
+		t->sideDistX = (t->mapX + 1 - vars->player_x) * t->deltaDistX;
 	if (t->rayDirY < 0)
 	{
 		t->stepY *= -1;
 		t->sideDistY = (vars->player_y - t->mapY) * t->deltaDistY;
 	}
 	else
-		t->sideDistY = (t->mapY + 1.0 - vars->player_y) * t->deltaDistY;
+		t->sideDistY = (t->mapY + 1 - vars->player_y) * t->deltaDistY;
 }
 
-// perform DDA
 //jump to next map square, either in x-direction, or in y-direction
-// t->side = 1--> EA or WE
-// t->side = 0--> NO or SO
-// t->hit : if wall was hit --> 1
-//Check if ray has hit a wall
+// until it hits a wall
 void	find_hitted_wall(t_cast *t, t_vars *vars)
 {
 	while (!t->hit)
@@ -87,8 +86,10 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 	}
 }
 
-//Calculate height of line to draw on screen
 //calculate lowest and highest pixel to fill in current stripe
+// perpendicularWallDistance = ray from cameraplane to wall hit
+// to avoid fish-eye effect
+// length of rays (drawstart & drawend)
 void	calc_perp_wall_drawthings(t_cast *t)
 {
 	if (t->side == Y_SIDE_EA_WE)
@@ -105,7 +106,7 @@ void	calc_perp_wall_drawthings(t_cast *t)
 		t->drawEnd = t->h - 1;
 }
 
-// find_side_of_hitted_wall(&t);
+// for every ray that is shooted
 void	dda(void *param)
 {
 	t_vars	*vars;

@@ -1,5 +1,6 @@
 #include "../includes/cub3d.h"
 
+
 int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 {
 	double	wall_x;
@@ -18,6 +19,9 @@ int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 	return (tex_x);
 }
 
+// draw floor & ceiling 
+// (from 0 to draw start, from draw end to window end)
+// inbetween = walls
 void	draw_everything(t_cast *t, t_vars *vars)
 {
 	double			tex_pos;
@@ -25,7 +29,7 @@ void	draw_everything(t_cast *t, t_vars *vars)
 	int				tex_y;
 
 	t->drawStart = fmax(0, (t->h - (t->drawEnd - t->drawStart)) / 2);
-	step = 1.0 * vars->textures[NO]->height / (t->drawEnd - t->drawStart);
+	step = 1.0 * 32 / (t->drawEnd - t->drawStart);
 	tex_pos = (t->drawStart - (t->h + (t->drawEnd - t->drawStart)) / 2) * step;
 	while (t->k < t->h)
 	{
@@ -35,11 +39,11 @@ void	draw_everything(t_cast *t, t_vars *vars)
 			mlx_put_pixel(vars->image_3d, t->x, t->k, vars->floorcolor);
 		if (t->k < t->drawEnd && t->k >= t->drawStart)
 		{
-			tex_y = (int)tex_pos & (vars->textures[NO]->height - 1);
+			tex_y = (int)tex_pos & (32 - 1);
 			tex_pos += step;
 			ft_memcpy(&vars->image_3d->pixels[(t->k * vars->m_width + t->x) \
 				* BPP], &vars->textures[t->side_2]->pixels[\
-				(tex_y * vars->textures[NO]->height + \
+				(tex_y * 32 +
 				texture_x_value(vars->textures[NO], t, vars)) * BPP], BPP);
 		}
 		t->k++;

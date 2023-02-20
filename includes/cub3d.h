@@ -16,6 +16,11 @@
 #define SO	2
 #define WE	3
 
+#define W	0
+#define D	1
+#define S	2
+#define A	3
+
 #define BPP				4
 #define X_SIDE_NO_S0	0
 #define Y_SIDE_EA_WE	1

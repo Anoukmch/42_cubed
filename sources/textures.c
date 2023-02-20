@@ -12,7 +12,7 @@ void	delete_txt(t_vars *vars, int alloc_txt)
 void	init_textures(t_vars *vars, t_map *map)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < TEXTURES)
 	{

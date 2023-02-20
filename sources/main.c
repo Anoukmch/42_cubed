@@ -11,7 +11,7 @@ void	initialize(char *mapfile, t_map *map)
 	map->fd = open(mapfile, O_RDONLY);
 	if (map->fd < 0)
 		error_exit("Error\nOpen fail");
-	map->text_path = ft_calloc(5, sizeof(char*));;
+	map->text_path = ft_calloc(5, sizeof (char *));
 	if (!map->text_path)
 		error_exit("Error\nAllocation fail");
 	map->m_argv = mapfile;

@@ -10,17 +10,21 @@ void	character_found(t_vars *vars, char **map, int width, int height)
 {
 	int	i;
 	int	j;
+	uint32_t color;
 
 	i = 0;
 	j = 0;
-	if (map[height][width] == '1')
+	color = RGB_GREEN;
+	if (map[height][width] == '1' || map[height][width] == '2')
 	{
+		if (map[height][width] == '2')
+			color = RGB_YELLOW;
 		while (i < vars->mini_cube_w)
 		{
 			while (j < vars->mini_cube_h)
 			{
 				mlx_put_pixel(vars->image_2d, (width * vars->mini_cube_w + i),
-					(height * vars->mini_cube_h + j), RGB_GREEN);
+					(height * vars->mini_cube_h + j), color);
 				j++;
 			}
 			j = 0;

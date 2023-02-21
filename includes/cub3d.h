@@ -17,7 +17,7 @@
 # define WE	3
 # define DOOR	4
 
-# define DOOR_TEXT_PATH	"/Users/amechain/source/projects/rank04/42_cubed/pngfiles/living.png"
+# define DOOR_TEXT_PATH	"../pngfiles/blue_flare.png"
 
 # define W	0
 # define D	1

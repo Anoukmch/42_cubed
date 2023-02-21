@@ -1,10 +1,10 @@
 
-NO ../42_cubed/pngfiles/blue_flare.png
-SO pngfiles/stonewall.png
-WE pngfiles/west.png
-EA pngfiles/east.png
+NO ../42_cubed/pngfiles/brownbrickwall.png
+SO pngfiles/brickwall.png
+WE pngfiles/metalwall.png
+EA pngfiles/reliefwall.png
 
-F 255,100,      200
+F 255,240,      200
 C 254,255,255
 
         11111 1111111111111111111

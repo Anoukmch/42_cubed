@@ -28,13 +28,13 @@
 # define X_SIDE_NO_S0	0
 # define Y_SIDE_EA_WE	1
 
-#define MINIPIX 8
+# define MINIPIX 8
 
-#define RGB_BLUE	0xA6C0
-#define RGB_WHITE	0xFFFFFFFF
-#define RGB_GREEN	0x00996699
-#define RGB_YELLOW	0xFFFF007F
-#define RGB_PINK	0xFF006699
+# define RGB_BLUE	0xA6C0
+# define RGB_WHITE	0xFFFFFFFF
+# define RGB_GREEN	0x00996699
+# define RGB_YELLOW	0xFFFF007F
+# define RGB_PINK	0xFF006699
 
 typedef struct s_map
 {
@@ -74,10 +74,7 @@ typedef struct s_vars
 	double			tmp_y;
 	mlx_image_t		*image_3d;
 	int				linesofmap;
-	int				door_x;
-	int				door_y;
 	double			perp_wall_dist_2;
-	// FOR MINIMAP
 	int				longestline;
 	double			mini_w_width;
 	double			mini_w_height;
@@ -113,18 +110,14 @@ typedef struct s_cast
 
 }	t_cast;
 
-// init.c
+// init_vars.c
 void		init_vars(t_vars *vars, t_map *map);
-void		init_window(t_vars *vars, t_map *map);
-void		init_player_and_views(t_vars *vars);
+
+// init_map.c
 void		init_map(char *mapfile, t_map *map);
 
-// parsing.c
+// parse_text_and_color.c
 void		parse_text_and_color(t_map *map);
-int			check_identifier(t_map *map);
-void		fill_var(char *line, t_map *map);
-int			check_range_colors(char *line, int indic);
-int			check_color_comb(char *line);
 
 // utils_free.c
 int			free_array(char **array, int ret_stat);
@@ -132,67 +125,61 @@ void		delete_txt(t_vars *vars, int alloc_txt);
 void		free_text_img(t_vars *vars);
 void		free_struct(t_map *map);
 
-// utils.parser.c
+// utils_parser.c
 void		check_comma(char *line);
 int			size_2d_array(char **array);
 int			isdigit_string(char	*str);
 void		check_first_and_last(char *str);
 
+// utils_dda.c
+int			one_two(char c);
+
 // error_exit.c
 int			error_exit(char *s);
 
 // read_map.c
-void		get_map(t_map *map);
 void		countinglines(t_map *map);
 void		getmap_content(t_map *map);
 
-// check_map.c
+// check_map.c & check_map_2.c
 void		map_pars(t_map *map);
+void		check_doors(char **map, int i);
 
 // check_extension.c
 int			check_extension(char *mapfile);
 
-// movement.c
-void		windowresize(int32_t width, int32_t height, void *param);
-void		key_hook(void *param);
+// check_move.c
 bool		movement_hit_wall(t_vars *vars, int direction);
+void		rotation(t_vars *vars, char *str);
 
 // dda.c
 void		dda(void *param);
 
 // colors.c
 void		transform_colors(t_vars *vars, t_map *map);
-uint32_t	get_colour(char *s);
 
 // get_map.c
-char		*ft_free_strtrim(char *s1, char const *set);
+void		get_map(t_map *map);
 
-// windowresize.c
+// event_handling.c
 void		windowresize(int32_t width, int32_t height, void *param);
+void		key_hook(void *param);
 
 // texture.c
 void		init_textures(t_vars *vars, t_map *map);
 
 // draw_textures.c
 void		draw_everything(t_cast *t, t_vars *vars);
-int			texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars);
-
-// trying_rendering.c
-void		print_textures(t_cast *t, t_vars *vars, int color);
-void		walking_directions(t_vars *vars);
-void		rotation(t_vars *vars, char *str);
 
 // player.c
 void		get_player_position(t_vars *vars);
 void		get_player_startingview_x_dir(t_vars *vars);
 void		get_player_startingview_y_dir(t_vars *vars);
 
-
 // minimap.c
-void	init_minimap(t_vars *vars);
-void	draw_rays_minimap(t_cast *t, t_vars *vars, uint32_t color);
-void	draw_minimap(t_vars *vars, char **map);
-void	paintingmap(t_vars *vars, char **map);
-
+void		init_minimap(t_vars *vars);
+void		draw_rays_minimap(t_cast *t, t_vars *vars, uint32_t color);
+void		draw_minimap(t_vars *vars, char **map);
+void		paintingmap(t_vars *vars, char **map);
 
 #endif

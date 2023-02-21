@@ -31,7 +31,6 @@ int	pick_txt(t_cast *t)
 // (from 0 to draw start, from draw end to window end)
 // inbetween = walls
 
-
 void	draw_everything(t_cast *t, t_vars *vars)
 {
 	double			tex_pos;
@@ -41,8 +40,8 @@ void	draw_everything(t_cast *t, t_vars *vars)
 
 	t->draw_start = fmax(0, (vars->m_height - (t->draw_end - t->draw_start)) / 2);
 	step = 1.0 * 32 / (t->draw_end - t->draw_start);
-	tex_pos = (t->draw_start - (vars->m_height + (t->draw_end - t->draw_start)) / 2)
-		* step;
+	tex_pos = (t->draw_start - (vars->m_height
+			+ (t->draw_end - t->draw_start)) / 2) * step;
 	tex_x = texture_x_value(vars->textures[t->which_card_pt], t, vars);
 	while (t->iter < vars->m_height)
 	{

@@ -77,11 +77,7 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 		if (vars->finalmap[(int)t->map_y][(int)t->map_x] == '1')
 			t->hit = 1;
 		else if (vars->finalmap[(int)t->map_y][(int)t->map_x] == '2')
-		{
 			t->door = 1;
-			vars->door_x = (int)t->map_x;
-			vars->door_y = (int)t->map_y;
-		}
 	}
 }
 

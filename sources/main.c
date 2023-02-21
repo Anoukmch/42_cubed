@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 	vars.linesofmap = map.maplines + 1;
 	transform_colors(&vars, &map);
 	init_vars(&vars, &map);
-	init_minimap(&vars); //MINIMAP
+	init_minimap(&vars);
 	mlx_resize_hook(vars.mlx, &windowresize, &vars);
 	mlx_loop_hook(vars.mlx, &dda, &vars);
 	mlx_loop(vars.mlx);

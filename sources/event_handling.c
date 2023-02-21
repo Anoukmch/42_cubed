@@ -15,7 +15,6 @@ void	windowresize(int32_t width, int32_t height, void *param)
 	vars->mini_cube_w = vars->mini_w_width / vars->longestline;
 }
 
-
 void	walking_directions(t_vars *vars)
 {
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
@@ -46,8 +45,8 @@ void	walking_directions(t_vars *vars)
 
 void	open_door(t_vars *vars)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = (int)(vars->player_x + vars->dir_x);
 	y = (int)(vars->player_y + vars->dir_y);

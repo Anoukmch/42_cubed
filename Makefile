@@ -9,6 +9,7 @@ M_SRC		= main.c \
 				colors.c \
 				parsing/get_map.c \
 				parsing/check_map.c \
+				parsing/check_map_2.c \
 				parsing/read_map.c \
 				parsing/parse_text_and_color.c \
 				parsing/init_map.c \
@@ -17,6 +18,7 @@ M_SRC		= main.c \
 				utils/utils_free.c \
 				utils/utils_parser.c \
 				utils/error_exit.c \
+				utils/utils_dda.c \
 				draw_textures.c \
 				player.c \
 				minimap.c

@@ -25,13 +25,6 @@ void	rotation(t_vars *vars, char *str)
 	rotate_calculation(vars);
 }
 
-int one_two(char c)
-{
-	if (c == '1' || c == '2')
-		return (0);
-	return (1);
-}
-
 int	check_corners(t_vars *vars, double x, double y)
 {
 	if (vars->finalmap[(int)y][(int)x] == '0'

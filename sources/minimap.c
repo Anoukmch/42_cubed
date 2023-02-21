@@ -8,9 +8,9 @@
 
 void	character_found(t_vars *vars, char **map, int width, int height)
 {
-	int	i;
-	int	j;
-	uint32_t color;
+	int			i;
+	int			j;
+	uint32_t	color;
 
 	i = 0;
 	j = 0;

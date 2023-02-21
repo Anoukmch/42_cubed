@@ -62,23 +62,23 @@ void	possible_new_position(t_vars *vars, int direction)
 {
 	if (direction == W)
 	{
-		vars->tmp_x = vars->player_x + vars->dir_x * 0.2;
-		vars->tmp_y = vars->player_y + vars->dir_y * 0.2;
+		vars->tmp_x = vars->player_x + vars->dir_x * 0.3;
+		vars->tmp_y = vars->player_y + vars->dir_y * 0.3;
 	}
 	if (direction == S)
 	{
-		vars->tmp_x = vars->player_x - vars->dir_x * 0.2;
-		vars->tmp_y = vars->player_y - vars->dir_y * 0.2;
+		vars->tmp_x = vars->player_x - vars->dir_x * 0.3;
+		vars->tmp_y = vars->player_y - vars->dir_y * 0.3;
 	}
 	if (direction == D)
 	{
-		vars->tmp_x = vars->player_x - vars->dir_y * 0.2;
-		vars->tmp_y = vars->player_y + vars->dir_x * 0.2;
+		vars->tmp_x = vars->player_x - vars->dir_y * 0.3;
+		vars->tmp_y = vars->player_y + vars->dir_x * 0.3;
 	}
 	if (direction == A)
 	{
-		vars->tmp_x = vars->player_x + vars->dir_y * 0.2;
-		vars->tmp_y = vars->player_y - vars->dir_x * 0.2;
+		vars->tmp_x = vars->player_x + vars->dir_y * 0.3;
+		vars->tmp_y = vars->player_y - vars->dir_x * 0.3;
 	}
 }
 

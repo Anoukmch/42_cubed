@@ -30,6 +30,12 @@
 
 #define MINIPIX 8
 
+#define RGB_BLUE	0xA6C0
+#define RGB_WHITE	0xFFFFFFFF
+#define RGB_GREEN	0x00996699
+#define RGB_YELLOW	0xFFFF007F
+#define RGB_PINK	0xFF006699
+
 typedef struct s_map
 {
 	int		fd;

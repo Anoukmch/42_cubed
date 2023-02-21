@@ -76,6 +76,20 @@ void	check_horizontal_spaces(char **str, int i)
 	}
 }
 
+void	check_doors(char **map, int i)
+{
+	int	j;
+
+	j = 0;
+	while (map[i][j])
+	{
+		if (map[i][j] == '2' && (map[i][j - 1] != '1' || map[i][j + 1] != '1')
+			&& (map[i - 1][j] != '1' || map[i + 1][j] != '1'))
+			error_exit("Error\nDoors must be surrounded by walls\n");
+		j++;
+	}
+}
+
 void	map_pars(t_map *map)
 {
 	int	i;
@@ -87,10 +101,9 @@ void	map_pars(t_map *map)
 		if (i == 0 || i == map->maplines)
 			check_first_and_last(map->cmap[i]);
 		else
-		{
 			check_vertical_rendering(map->cmap[i]);
-		}
 		check_horizontal_spaces(map->cmap, i);
+		check_doors(map->cmap, i);
 		i++;
 	}
 	if (map->player != 1)

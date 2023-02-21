@@ -21,26 +21,26 @@ void	walking_directions(t_vars *vars)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
 		&& !movement_hit_wall(vars, W))
 	{
-		vars->player_x += vars->dir_x * 0.1;
-		vars->player_y += vars->dir_y * 0.1;
+		vars->player_x += vars->dir_x * 0.2;
+		vars->player_y += vars->dir_y * 0.2;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
 		&& !movement_hit_wall(vars, S))
 	{
-		vars->player_x -= vars->dir_x * 0.1;
-		vars->player_y -= vars->dir_y * 0.1;
+		vars->player_x -= vars->dir_x * 0.2;
+		vars->player_y -= vars->dir_y * 0.2;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
 		&& !movement_hit_wall(vars, D))
 	{
-		vars->player_x -= vars->dir_y * 0.1;
-		vars->player_y += vars->dir_x * 0.1;
+		vars->player_x -= vars->dir_y * 0.2;
+		vars->player_y += vars->dir_x * 0.2;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
 		&& !movement_hit_wall(vars, A))
 	{
-		vars->player_x += vars->dir_y * 0.1;
-		vars->player_y -= vars->dir_x * 0.1;
+		vars->player_x += vars->dir_y * 0.2;
+		vars->player_y -= vars->dir_x * 0.2;
 	}
 }
 

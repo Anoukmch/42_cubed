@@ -17,7 +17,7 @@
 # define WE	3
 # define DOOR	4
 
-# define DOOR_TEXT_PATH	"../pngfiles/blue_flare.png"
+# define DOOR_TEXT_PATH	"pngfiles/blue_flare.png"
 
 # define W	0
 # define D	1

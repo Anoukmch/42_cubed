@@ -1,12 +1,6 @@
 #include <math.h>
 #include "../includes/cub3d.h"
 
-#define RGB_BLUE	0xA6C0
-#define RGB_WHITE	0xFFFFFFFF
-#define RGB_GREEN	0x00996699
-#define RGB_YELLOW	0xFFFF007F
-#define RGB_PINK	0xFF006699
-
 //calculate ray position and direction
 //which box of the map we're in
 //length of ray from one x or y-side to next x or y-side

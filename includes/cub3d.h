@@ -17,7 +17,7 @@
 # define WE	3
 # define DOOR	4
 
-# define DOOR_TEXT_PATH	"/Users/amechain/source/projects/rank04/42_cubedbis/pngfiles/living.png"
+# define DOOR_TEXT_PATH	"/Users/amechain/source/projects/rank04/42_cubed/pngfiles/living.png"
 
 # define W	0
 # define D	1
@@ -77,7 +77,7 @@ typedef struct s_vars
 	double			mini_w_height;
 	double			mini_cube_w;
 	double			mini_cube_h;
-	mlx_image_t		*image_2d
+	mlx_image_t		*image_2d;
 
 }				t_vars;
 

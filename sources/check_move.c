@@ -25,6 +25,13 @@ void	rotation(t_vars *vars, char *str)
 	rotate_calculation(vars);
 }
 
+int one_two(char c)
+{
+	if (c == '1' || c == '2')
+		return (0);
+	return (1);
+}
+
 int	check_corners(t_vars *vars, double x, double y)
 {
 	if (vars->finalmap[(int)y][(int)x] == '0'
@@ -32,20 +39,20 @@ int	check_corners(t_vars *vars, double x, double y)
 			|| (int)vars->player_y != (int)y))
 	{
 		if (vars->player_x < x && vars->player_y < y
-			&& vars->finalmap[(int)y][(int)x - 1] == '1'
-			&& vars->finalmap[(int)y - 1][(int)x] == '1')
+			&& !one_two(vars->finalmap[(int)y][(int)x - 1])
+			&& !one_two(vars->finalmap[(int)y - 1][(int)x]))
 			return (1);
 		else if (vars->player_x > x && vars->player_y > y
-			&& vars->finalmap[(int)y][(int)x + 1] == '1'
-			&& vars->finalmap[(int)y + 1][(int)x] == '1')
+			&& !one_two(vars->finalmap[(int)y][(int)x + 1])
+			&& !one_two(vars->finalmap[(int)y + 1][(int)x]))
 			return (1);
 		else if (vars->player_x < x && vars->player_y > y
-			&& vars->finalmap[(int)y][(int)x - 1] == '1'
-			&& vars->finalmap[(int)y + 1][(int)x] == '1')
+			&& !one_two(vars->finalmap[(int)y][(int)x - 1])
+			&& !one_two(vars->finalmap[(int)y + 1][(int)x]))
 			return (1);
 		else if (vars->player_x > x && vars->player_y < y
-			&& vars->finalmap[(int)y][(int)x + 1] == '1'
-			&& vars->finalmap[(int)y - 1][(int)x] == '1')
+			&& !one_two(vars->finalmap[(int)y][(int)x + 1])
+			&& !one_two(vars->finalmap[(int)y - 1][(int)x]))
 			return (1);
 	}
 	return (0);
@@ -79,6 +86,7 @@ bool	movement_hit_wall(t_vars *vars, int direction)
 {
 	possible_new_position(vars, direction);
 	if (vars->finalmap[(int)vars->tmp_y][(int)vars->tmp_x] == '1'
+		|| vars->finalmap[(int)vars->tmp_y][(int)vars->tmp_x] == '2'
 		|| check_corners(vars, vars->tmp_x, vars->tmp_y))
 		return (1);
 	return (0);

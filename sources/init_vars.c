@@ -30,7 +30,7 @@ void	init_textures(t_vars *vars, t_map *map)
 	int	i;
 
 	i = 0;
-	while (i < TEXTURES)
+	while (i < (TEXTURES - 1))
 	{
 		vars->textures[i] = mlx_load_png(map->text_path[i]);
 		if (vars->textures[i] == NULL)
@@ -40,6 +40,9 @@ void	init_textures(t_vars *vars, t_map *map)
 		}
 		i++;
 	}
+	vars->textures[i] = mlx_load_png(DOOR_TEXT_PATH);
+	if (vars->textures[i] == NULL)
+		error_exit("Please check the initialization of your textures!YO\n");
 }
 
 void	init_player_and_views(t_vars *vars)

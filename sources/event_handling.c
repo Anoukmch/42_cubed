@@ -38,16 +38,29 @@ void	walking_directions(t_vars *vars)
 	}
 }
 
-void	key_hook(mlx_key_data_t keydata, void *param)
+void	open_door(t_vars *vars)
+{
+	int x;
+	int y;
+
+	x = (int)(vars->player_x + vars->dir_x);
+	y = (int)(vars->player_y + vars->dir_y);
+	if (vars->finalmap[y][x] == '2')
+		vars->finalmap[y][x] = '0';
+}
+
+void	key_hook(void *param)
 {
 	t_vars	*vars;
 
 	vars = param;
-	if (keydata.key == MLX_KEY_ESCAPE)
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	walking_directions(vars);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_RIGHT))
 		rotation(vars, "right");
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 		rotation(vars, "left");
+	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
+		open_door(vars);
 }

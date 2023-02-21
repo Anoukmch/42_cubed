@@ -18,7 +18,6 @@ int	main(int argc, char **argv)
 	init_vars(&vars, &map);
 	mlx_resize_hook(vars.mlx, &windowresize, &vars);
 	mlx_loop_hook(vars.mlx, &dda, &vars);
-	mlx_key_hook(vars.mlx, &key_hook, &vars);
 	mlx_loop(vars.mlx);
 	mlx_terminate(vars.mlx);
 	free_text_img(&vars);

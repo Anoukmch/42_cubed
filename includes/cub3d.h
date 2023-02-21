@@ -9,12 +9,15 @@
 # include "./libs/libs.h"
 # include "./libs/libmlx/include/MLX42/MLX42.h"
 
-# define TEXTURES		4
+# define TEXTURES		5
 
 # define NO	0
 # define EA	1
 # define SO	2
 # define WE	3
+# define DOOR	4
+
+# define DOOR_TEXT_PATH	"/Users/amechain/source/projects/rank04/42_cubedbis/pngfiles/living.png"
 
 # define W	0
 # define D	1
@@ -63,6 +66,9 @@ typedef struct s_vars
 	double			tmp_y;
 	mlx_image_t		*image_3d;
 	int				linesofmap;
+	int				door_x;
+	int				door_y;
+	double			perp_wall_dist_2;
 
 }				t_vars;
 
@@ -81,6 +87,7 @@ typedef struct s_cast
 	double		step_x;
 	double		step_y;
 	int			hit;
+	int			door;
 	int			is_ea_we;
 	double		perp_wall_dist;
 	int			which_card_pt;
@@ -132,7 +139,7 @@ int			check_extension(char *mapfile);
 
 // movement.c
 void		windowresize(int32_t width, int32_t height, void *param);
-void		key_hook(mlx_key_data_t keydata, void *param);
+void		key_hook(void *param);
 bool		movement_hit_wall(t_vars *vars, int direction);
 
 // dda.c

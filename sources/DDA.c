@@ -14,6 +14,7 @@ void	starting_values(t_cast *t, t_vars *vars)
 {
 	t->iter = 0;
 	t->hit = 0;
+	t->door = 0;
 	t->is_ea_we = 0;
 	t->wall_line = 0;
 	t->map_x = (int)vars->player_x;
@@ -59,7 +60,7 @@ void	calc_step_and_sidedist(t_cast *t, t_vars *vars)
 // until it hits a wall
 void	find_hitted_wall(t_cast *t, t_vars *vars)
 {
-	while (!t->hit)
+	while (!t->hit && !t->door)
 	{
 		if (t->sidedist_x < t->sidedist_y)
 		{
@@ -81,6 +82,12 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 		}
 		if (vars->finalmap[(int)t->map_y][(int)t->map_x] == '1')
 			t->hit = 1;
+		else if (vars->finalmap[(int)t->map_y][(int)t->map_x] == '2')
+		{
+			t->door = 1;
+			vars->door_x = (int)t->map_x;
+			vars->door_y = (int)t->map_y;
+		}
 	}
 }
 
@@ -96,6 +103,7 @@ void	calc_perp_wall_drawthings(t_cast *t, t_vars	*vars)
 		t->perp_wall_dist = t->sidedist_y - t->deltadist_y;
 	if (t->perp_wall_dist > 0)
 		t->wall_line = (int)(vars->m_height / t->perp_wall_dist);
+	vars->perp_wall_dist_2 = t->perp_wall_dist;
 	t->draw_start = (vars->m_height - t->wall_line) / 2;
 	if (t->draw_start < 0)
 		t->draw_start = 0;
@@ -112,6 +120,7 @@ void	dda(void *param)
 
 	vars = param;
 	t.x = 0;
+	key_hook(vars);
 	while (t.x < vars->m_width)
 	{
 		starting_values(&t, vars);

@@ -21,6 +21,16 @@ int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 // draw floor & ceiling
 // (from 0 to draw start, from draw end to window end)
 // inbetween = walls
+
+int	pick_texture(t_cast *t)
+{
+	if (t->hit == 1)
+		return (t->which_card_pt);
+	else if (t->door == 1)
+		return (DOOR);
+	return (0);
+}
+
 void	draw_everything(t_cast *t, t_vars *vars)
 {
 	double			tex_pos;
@@ -42,7 +52,7 @@ void	draw_everything(t_cast *t, t_vars *vars)
 			tex_y = (int)tex_pos & (32 - 1);
 			tex_pos += step;
 			ft_memcpy(&vars->image_3d->pixels[(t->iter * (int)vars->m_width + t->x) \
-				* BPP], &vars->textures[t->which_card_pt]->pixels[\
+				* BPP], &vars->textures[pick_texture(t)]->pixels[\
 				(tex_y * 32 + texture_x_value(vars->textures[t->which_card_pt], t, vars))
 				* BPP], BPP);
 		}

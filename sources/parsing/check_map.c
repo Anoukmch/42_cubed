@@ -9,15 +9,10 @@ void	check_invalid_characters(t_map *map, char *str)
 	{
 		if (str[j] != '0' && str[j] != '1' && str[j] != 'N'
 			&& str[j] != 'E' && str[j] != 'S' && str[j] != 'W'
-			&& str[j] != ' ')
-		{
-			printf("Map error: Please check the map characters!\n");
-			exit(1);
-		}
-		if (str[j] != '0' && str[j] != '1' && str[j] != ' ')
-		{
+			&& str[j] != ' ' && str[j] != '2')
+			error_exit("Error\nPlease check the map characters!\n");
+		if (str[j] != '0' && str[j] != '1' && str[j] != ' ' && str[j] != '2')
 			map->player++;
-		}
 		j++;
 	}
 }
@@ -29,7 +24,7 @@ void	check_vertical_characters(char *str, int j, bool *open)
 		if (str[j] == '1' && (str[j + 1] == ' ' || !str[j + 1]))
 			*open = false;
 		else if (str[j] != '0' && str[j] != '1' && str[j] != 'N'
-			&& str[j] != 'E' && str[j] != 'S' && str[j] != 'W')
+			&& str[j] != 'E' && str[j] != 'S' && str[j] != 'W' && str[j] != '2')
 			error_exit("Error\nPlease check map characters!\n");
 	}
 	else if (*open == false)

@@ -66,18 +66,18 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 			t->sidedist_x += t->deltadist_x;
 			t->map_x += t->step_x;
 			t->is_ea_we = Y_SIDE_EA_WE;
-			t->which_card_pt = EA;
+			t->which_card_pt = WE;
 			if (t->raydir_x < 0)
-				t->which_card_pt = WE;
+				t->which_card_pt = EA;
 		}
 		else
 		{
 			t->sidedist_y += t->deltadist_y;
 			t->map_y += t->step_y;
 			t->is_ea_we = X_SIDE_NO_S0;
-			t->which_card_pt = SO;
+			t->which_card_pt = NO;
 			if (t->raydir_y < 0)
-				t->which_card_pt = NO;
+				t->which_card_pt = SO;
 		}
 		if (vars->finalmap[(int)t->map_y][(int)t->map_x] == '1')
 			t->hit = 1;
@@ -112,6 +112,10 @@ void	dda(void *param)
 
 	vars = param;
 	t.x = 0;
+	if (vars->image_2d)
+		mlx_delete_image(vars->mlx, vars->image_2d);
+	vars->image_2d = mlx_new_image(vars->mlx,
+			vars->m_width / 4, vars->m_height / 4);
 	while (t.x < vars->m_width)
 	{
 		starting_values(&t, vars);
@@ -119,6 +123,9 @@ void	dda(void *param)
 		find_hitted_wall(&t, vars);
 		calc_perp_wall_drawthings(&t, vars);
 		draw_everything(&t, vars);
+		draw_rays_minimap(&t, vars, RGB_PINK);
 		t.x++;
 	}
+	draw_minimap(vars, vars->finalmap);
+	mlx_image_to_window(vars->mlx, vars->image_2d, 0, 0);
 }

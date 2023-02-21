@@ -8,7 +8,13 @@ void	windowresize(int32_t width, int32_t height, void *param)
 	vars->m_height = height;
 	vars->m_width = width;
 	mlx_resize_image(vars->image_3d, vars->m_width, vars->m_height);
+	vars->mini_w_height = height / 4;
+	vars->mini_w_width = width / 4;
+	mlx_resize_image(vars->image_2d, vars->mini_w_width, vars->mini_w_height);
+	vars->mini_cube_h = vars->mini_w_height / vars->linesofmap;
+	vars->mini_cube_w = vars->mini_w_width / vars->longestline;
 }
+
 
 void	walking_directions(t_vars *vars)
 {

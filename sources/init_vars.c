@@ -17,7 +17,8 @@ int	find_longest_mapline(t_map *map)
 
 void	init_window(t_vars *vars, t_map *map)
 {
-	vars->w_width = (find_longest_mapline(map)) * 32;
+	vars->longestline = find_longest_mapline(map);
+	vars->w_width = (vars->longestline) * 32;
 	vars->w_height = (map->maplines + 1) * 32;
 	vars->mlx = mlx_init(vars->w_width,
 			vars->w_height, "Cub3D", true);

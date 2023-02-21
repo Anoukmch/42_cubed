@@ -28,6 +28,8 @@
 # define X_SIDE_NO_S0	0
 # define Y_SIDE_EA_WE	1
 
+#define MINIPIX 8
+
 typedef struct s_map
 {
 	int		fd;
@@ -69,6 +71,13 @@ typedef struct s_vars
 	int				door_x;
 	int				door_y;
 	double			perp_wall_dist_2;
+	// FOR MINIMAP
+	int				longestline;
+	double			mini_w_width;
+	double			mini_w_height;
+	double			mini_cube_w;
+	double			mini_cube_h;
+	mlx_image_t		*image_2d
 
 }				t_vars;
 
@@ -171,5 +180,13 @@ void		rotation(t_vars *vars, char *str);
 void		get_player_position(t_vars *vars);
 void		get_player_startingview_x_dir(t_vars *vars);
 void		get_player_startingview_y_dir(t_vars *vars);
+
+
+// minimap.c
+void	init_minimap(t_vars *vars);
+void	draw_rays_minimap(t_cast *t, t_vars *vars, uint32_t color);
+void	draw_minimap(t_vars *vars, char **map);
+void	paintingmap(t_vars *vars, char **map);
+
 
 #endif

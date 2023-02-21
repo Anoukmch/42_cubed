@@ -18,7 +18,9 @@ M_SRC		= main.c \
 				utils/utils_parser.c \
 				utils/error_exit.c \
 				draw_textures.c \
-				player.c
+				player.c \
+				minimap.c
+
 
 M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 
@@ -45,6 +47,8 @@ $(LIBS_NAME):
 
 $(MLX_NAME):
 	$(MAKE) -C includes/libs/libmlx/
+
+bonus: $(NAME)
 
 clean:
 	make clean -C includes/libs/

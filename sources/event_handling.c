@@ -54,8 +54,8 @@ void	open_door(t_vars *vars)
 	{
 		if (vars->finalmap[y][x] == '2')
 			vars->finalmap[y][x] = 'K';
-		else if (vars->finalmap[y][x] == 'K')
-			vars->finalmap[y][x] = '2';
+		// else if (vars->finalmap[y][x] == 'K')
+		// 	vars->finalmap[y][x] = '2';
 	}
 }
 
@@ -78,8 +78,6 @@ void	key_hook(void *param)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
 		open_door(vars);
 }
-<<<<<<< HEAD
-=======
 
 // mlx_hook(cub->win.mlx_win, 4, 0, register_mouseclick, cub);
 // mlx_hook(cub->win.mlx_win, 5, 0, unregister_mouseclick, cub);
@@ -88,4 +86,3 @@ void	key_hook(void *param)
 // 			modifier_key_t mods, void* param);
 // int	unregister_mouseclick(int button, int x, int y, t_cub *cub)
 // int	register_mouseclick(int button, int x, int y, t_cub *cub)
->>>>>>> 71342e2d16b97edf4d393f6f8aba22b817f92c3f

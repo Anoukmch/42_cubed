@@ -1,5 +1,14 @@
 #include "../includes/cub3d.h"
 
+void door(mlx_key_data_t keydata, void *param)
+{
+	t_vars *vars;
+
+	vars = param;
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+		open_door(vars);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
@@ -19,6 +28,7 @@ int	main(int argc, char **argv)
 	init_minimap(&vars);
 	mlx_resize_hook(vars.mlx, &windowresize, &vars);
 	mlx_loop_hook(vars.mlx, &dda, &vars);
+	mlx_key_hook(vars.mlx, &door, &vars);
 	mlx_loop(vars.mlx);
 	mlx_terminate(vars.mlx);
 	free_text_img(&vars);

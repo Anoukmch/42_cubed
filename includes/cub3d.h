@@ -164,6 +164,7 @@ void		get_map(t_map *map);
 // event_handling.c
 void		windowresize(int32_t width, int32_t height, void *param);
 void		key_hook(void *param);
+void		open_door(t_vars *vars);
 
 // texture.c
 void		init_textures(t_vars *vars, t_map *map);

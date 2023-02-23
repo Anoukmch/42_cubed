@@ -54,8 +54,8 @@ void	open_door(t_vars *vars)
 	{
 		if (vars->finalmap[y][x] == '2')
 			vars->finalmap[y][x] = 'K';
-		else if (vars->finalmap[y][x] == 'K')
-			vars->finalmap[y][x] = '2';
+		// else if (vars->finalmap[y][x] == 'K')
+		// 	vars->finalmap[y][x] = '2';
 	}
 }
 

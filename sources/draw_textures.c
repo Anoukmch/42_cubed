@@ -38,6 +38,7 @@ void	draw_everything(t_cast *t, t_vars *vars)
 	int				tex_y;
 	int				tex_x;
 
+	tex_y = 0;
 	t->draw_start = fmax(0, (vars->m_height - (t->draw_end - t->draw_start)) / 2);
 	step = 1.0 * 32 / (t->draw_end - t->draw_start);
 	tex_pos = (t->draw_start - (vars->m_height

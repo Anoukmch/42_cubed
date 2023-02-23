@@ -1,10 +1,6 @@
 NAME 		= cub3D
 CC			= cc
-<<<<<<< HEAD
 CFLAGS		= -Wall -Werror -Wextra -g -fsanitize=address
-=======
-CFLAGS		= -Wall -Werror -Wextra -fsanitize=address
->>>>>>> 71342e2d16b97edf4d393f6f8aba22b817f92c3f
 MLX			= $(LIBS_NAME) ./includes/libs/libmlx/libmlx42.a ./includes/libs/libmlx/libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit
 M_SRC		= main.c \
 				init_vars.c \

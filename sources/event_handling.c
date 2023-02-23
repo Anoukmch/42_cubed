@@ -50,20 +50,17 @@ void	open_door(t_vars *vars)
 
 	x = (int)(vars->player_x + vars->dir_x);
 	y = (int)(vars->player_y + vars->dir_y);
-	if (x != (int)vars->player_x || y != (int)vars->player_y)
-	{
-		if (vars->finalmap[y][x] == '2')
-			vars->finalmap[y][x] = 'K';
+	if (vars->finalmap[y][x] == '2')
+		vars->finalmap[y][x] = 'K';
 		// else if (vars->finalmap[y][x] == 'K')
 		// 	vars->finalmap[y][x] = '2';
-	}
 }
 
 void	key_hook(void *param)
 {
 	t_vars	*vars;
 
-	vars = param;
+	vars = param; 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	walking_directions(vars);

@@ -93,10 +93,7 @@ void	calc_perp_wall_drawthings(t_cast *t, t_vars	*vars)
 		t->perp_wall_dist = t->sidedist_y - t->deltadist_y;
 	if (t->perp_wall_dist > 0)
 		t->wall_line = (int)(vars->m_height / t->perp_wall_dist);
-	vars->perp_wall_dist_2 = t->perp_wall_dist;
 	t->draw_start = (vars->m_height - t->wall_line) / 2;
-	if (t->draw_start < 0)
-		t->draw_start = 0;
 	t->draw_end = (vars->m_height + t->wall_line) / 2;
 	if (t->draw_end >= vars->m_height)
 		t->draw_end = vars->m_height - 1;
@@ -121,6 +118,7 @@ void	dda(void *param)
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
 		calc_perp_wall_drawthings(&t, vars);
+		draw_wall_and_ceiling(&t, vars);
 		draw_everything(&t, vars);
 		draw_rays_minimap(&t, vars, RGB_PINK);
 		t.x++;

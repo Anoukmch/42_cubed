@@ -8,14 +8,10 @@ char	*ft_free_strtrim(char *s1, char const *set)
 	if (set == 0 || s1 == 0)
 		return (0);
 	while (*s1 && ft_strchr(set, *s1))
-	{
 		s1++;
-	}
 	len = ft_strlen(s1);
 	while (*s1 && ft_strchr(set, s1[len]))
-	{
 		len--;
-	}
 	final = ft_substr(s1, 0, len + 1);
 	free (s1);
 	return (final);
@@ -106,7 +102,7 @@ void	getmap_content(t_map *map)
 		count++;
 	}
 	count = 0;
-	while (count <= map->maplines)
+	while (count < map->maplines + 1)
 	{
 		map->cmap[count] = ft_free_strtrim(get_next_line(read), "\n");
 		count++;

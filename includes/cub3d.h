@@ -75,7 +75,6 @@ typedef struct s_vars
 	double			tmp_y;
 	mlx_image_t		*image_3d;
 	int				linesofmap;
-	double			perp_wall_dist_2;
 	int				longestline;
 	double			mini_w_width;
 	double			mini_w_height;

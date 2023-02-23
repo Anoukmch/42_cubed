@@ -1,7 +1,7 @@
 #include "../includes/cub3d.h"
 
 // wall_x = exact pos where ray hits wall
-// tex_x = 
+// tex_x =
 int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 {
 	double	wall_x;

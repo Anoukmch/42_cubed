@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   event_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 17:03:35 by jmatheis          #+#    #+#             */
+/*   Updated: 2023/02/23 17:04:03 by jmatheis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 void	windowresize(int32_t width, int32_t height, void *param)
@@ -56,11 +68,20 @@ void	open_door(t_vars *vars)
 		vars->finalmap[y][x] = '2';
 }
 
+void	door(mlx_key_data_t keydata, void *param)
+{
+	t_vars	*vars;
+
+	vars = param;
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+		open_door(vars);
+}
+
 void	key_hook(void *param)
 {
 	t_vars	*vars;
 
-	vars = param; 
+	vars = param;
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	walking_directions(vars);
@@ -72,10 +93,4 @@ void	key_hook(void *param)
 		rotation(vars, "left");
 	if (mlx_is_mouse_down(vars->mlx, MLX_MOUSE_BUTTON_RIGHT))
 		rotation(vars, "right");
-	// if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
-	// {
-	// 	open_door(vars);
-	// 	usleep(200000);
-	// 	mlx_
-	// }
 }

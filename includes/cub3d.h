@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
+/*   Updated: 2023/02/23 17:02:20 by jmatheis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -164,7 +176,7 @@ void		get_map(t_map *map);
 // event_handling.c
 void		windowresize(int32_t width, int32_t height, void *param);
 void		key_hook(void *param);
-void		open_door(t_vars *vars);
+void		door(mlx_key_data_t keydata, void *param);
 
 // texture.c
 void		init_textures(t_vars *vars, t_map *map);

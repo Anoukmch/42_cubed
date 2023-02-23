@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
+/*   Updated: 2023/02/23 17:02:59 by jmatheis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
 void	check_invalid_characters(t_map *map, char *str)
@@ -23,9 +35,9 @@ void	check_vertical_characters(char *str, int j, bool *open)
 	{
 		if (str[j] == '1' && (str[j + 1] == ' ' || !str[j + 1]))
 			*open = false;
-		else if ((str[j] != '0' && str[j] != '1' && str[j] != 'N'
+		else if ((str[j] != '0' && str[j] != '1' && str[j] != 'N'\
 			&& str[j] != 'E' && str[j] != 'S' && str[j] != 'W' && str[j] != '2')
-			|| (!str[j + 1] && (str[j] == '0' || str[j] == 'N' || str[j] == 'E'
+			|| (!str[j + 1] && (str[j] == '0' || str[j] == 'N' || str[j] == 'E'\
 			|| str[j] == 'S' || str[j] == 'W' || str[j] == '2')))
 			error_exit("Error\nPlease check map characters!\n");
 	}
@@ -70,8 +82,9 @@ void	check_horizontal_spaces(char **str, int i)
 		if (str[i][j] == ' ')
 		{
 			if ((i > 0 && str[i - 1][j] != '1' && str[i - 1][j] != ' ')
-				|| (str[i + 1] && ft_strcmp(str[i + 1], "\0") && str[i + 1][j] && str[i + 1][j] != '1'
-				&& str[i + 1][j] != ' '))
+				|| (str[i + 1] && ft_strcmp(str[i + 1], "\0")
+					&& str[i + 1][j] && str[i + 1][j] != '1'
+					&& str[i + 1][j] != ' '))
 				error_exit("Error\nMap is not surrounded by walls!\n");
 		}
 		j++;

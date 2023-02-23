@@ -1,13 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 17:03:35 by jmatheis          #+#    #+#             */
+/*   Updated: 2023/02/23 17:04:12 by jmatheis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-
-void door(mlx_key_data_t keydata, void *param)
-{
-	t_vars *vars;
-
-	vars = param;
-	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
-		open_door(vars);
-}
 
 int	main(int argc, char **argv)
 {

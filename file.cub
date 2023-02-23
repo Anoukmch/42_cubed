@@ -4,8 +4,8 @@ SO pngfiles/facewall.png
 WE pngfiles/metalwall.png
 EA pngfiles/brickwall.png
 
-F 255,240,      200
-C 254,255,255
+F 200,200,      200
+C 0,0,200
 
 111111111111  111111111111
 10000000000111100000000001

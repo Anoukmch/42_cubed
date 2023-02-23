@@ -170,7 +170,7 @@ void		init_textures(t_vars *vars, t_map *map);
 
 // draw_textures.c
 void		draw_everything(t_cast *t, t_vars *vars);
-
+void		draw_wall_and_ceiling(t_cast *t, t_vars *vars);
 // player.c
 void		get_player_position(t_vars *vars);
 void		get_player_startingview_x_dir(t_vars *vars);

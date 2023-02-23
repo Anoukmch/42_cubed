@@ -63,8 +63,7 @@ void	draw_everything(t_cast *t, t_vars *vars)
 	double			step;
 	int				tex_y;
 	int				tex_x;
-
-	int lineh;
+	int				lineh;
 
 	lineh = t->draw_end - t->draw_start;
 	step = 1.0 * 32 / lineh;

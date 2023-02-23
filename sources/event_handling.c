@@ -20,26 +20,26 @@ void	walking_directions(t_vars *vars)
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_W)
 		&& !movement_hit_wall(vars, W))
 	{
-		vars->player_x += vars->dir_x * 0.2;
-		vars->player_y += vars->dir_y * 0.2;
+		vars->player_x += vars->dir_x * 0.1;
+		vars->player_y += vars->dir_y * 0.1;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_S)
 		&& !movement_hit_wall(vars, S))
 	{
-		vars->player_x -= vars->dir_x * 0.2;
-		vars->player_y -= vars->dir_y * 0.2;
+		vars->player_x -= vars->dir_x * 0.1;
+		vars->player_y -= vars->dir_y * 0.1;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_D)
 		&& !movement_hit_wall(vars, D))
 	{
-		vars->player_x -= vars->dir_y * 0.2;
-		vars->player_y += vars->dir_x * 0.2;
+		vars->player_x -= vars->dir_y * 0.1;
+		vars->player_y += vars->dir_x * 0.1;
 	}
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_A)
 		&& !movement_hit_wall(vars, A))
 	{
-		vars->player_x += vars->dir_y * 0.2;
-		vars->player_y -= vars->dir_x * 0.2;
+		vars->player_x += vars->dir_y * 0.1;
+		vars->player_y -= vars->dir_x * 0.1;
 	}
 }
 
@@ -50,19 +50,13 @@ void	open_door(t_vars *vars)
 
 	x = (int)(vars->player_x + vars->dir_x);
 	y = (int)(vars->player_y + vars->dir_y);
-	if (vars->finalmap[y][x] == '2')
-		vars->finalmap[y][x] = '0';
-}
-
-// Or we can use the mlx_get_mouse_pos
-
-void	hey(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
-{
-	(void)button;
-	(void)action;
-	(void)mods;
-	(void)param;
-	printf("test\n");
+	if (x != (int)vars->player_x || y != (int)vars->player_y)
+	{
+		if (vars->finalmap[y][x] == '2')
+			vars->finalmap[y][x] = 'K';
+		else if (vars->finalmap[y][x] == 'K')
+			vars->finalmap[y][x] = '2';
+	}
 }
 
 void	key_hook(void *param)
@@ -81,14 +75,6 @@ void	key_hook(void *param)
 		rotation(vars, "left");
 	if (mlx_is_mouse_down(vars->mlx, MLX_MOUSE_BUTTON_RIGHT))
 		rotation(vars, "right");
-	mlx_mouse_hook(vars->mlx, &hey, &vars);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
 		open_door(vars);
 }
-
-// mlx_hook(cub->win.mlx_win, 4, 0, register_mouseclick, cub);
-// mlx_hook(cub->win.mlx_win, 5, 0, unregister_mouseclick, cub);
-
-// typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
-// int	unregister_mouseclick(int button, int x, int y, t_cub *cub)
-// int	register_mouseclick(int button, int x, int y, t_cub *cub)

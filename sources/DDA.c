@@ -93,14 +93,12 @@ void	calc_perp_wall_drawthings(t_cast *t, t_vars	*vars)
 		t->perp_wall_dist = t->sidedist_y - t->deltadist_y;
 	if (t->perp_wall_dist > 0)
 		t->wall_line = (int)(vars->m_height / t->perp_wall_dist);
-	vars->perp_wall_dist_2 = t->perp_wall_dist;
 	t->draw_start = (vars->m_height - t->wall_line) / 2;
 	if (t->draw_start < 0)
 		t->draw_start = 0;
 	t->draw_end = (vars->m_height + t->wall_line) / 2;
 	if (t->draw_end >= vars->m_height)
 		t->draw_end = vars->m_height - 1;
-	printf("wall line : %d for x : %d\n", t->wall_line, t->x);
 }
 
 // for every ray that is shooted

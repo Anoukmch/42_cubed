@@ -54,6 +54,17 @@ void	open_door(t_vars *vars)
 		vars->finalmap[y][x] = '0';
 }
 
+// Or we can use the mlx_get_mouse_pos
+
+void	hey(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+{
+	(void)button;
+	(void)action;
+	(void)mods;
+	(void)param;
+	printf("test\n");
+}
+
 void	key_hook(void *param)
 {
 	t_vars	*vars;
@@ -66,6 +77,18 @@ void	key_hook(void *param)
 		rotation(vars, "right");
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_LEFT))
 		rotation(vars, "left");
+	if (mlx_is_mouse_down(vars->mlx, MLX_MOUSE_BUTTON_LEFT))
+		rotation(vars, "left");
+	if (mlx_is_mouse_down(vars->mlx, MLX_MOUSE_BUTTON_RIGHT))
+		rotation(vars, "right");
+	mlx_mouse_hook(vars->mlx, &hey, &vars);
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_SPACE))
 		open_door(vars);
 }
+
+// mlx_hook(cub->win.mlx_win, 4, 0, register_mouseclick, cub);
+// mlx_hook(cub->win.mlx_win, 5, 0, unregister_mouseclick, cub);
+
+// typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+// int	unregister_mouseclick(int button, int x, int y, t_cub *cub)
+// int	register_mouseclick(int button, int x, int y, t_cub *cub)

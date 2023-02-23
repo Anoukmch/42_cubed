@@ -2,7 +2,7 @@
 NO ../42_cubed/pngfiles/crystalwall.png
 SO pngfiles/facewall.png
 WE pngfiles/metalwall.png
-EA pngfiles/facewall.png
+EA pngfiles/brickwall.png
 
 F 255,240,      200
 C 254,255,255

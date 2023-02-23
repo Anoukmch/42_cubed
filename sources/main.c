@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:03:35 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:04:12 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:18:45 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	t_map	map;
 
-	if (argc != 2 && check_extension(argv[1]))
+	if (argc != 2)
 	{
 		ft_putstr_fd("Error\ncheck arg input\n", 2);
 		return (0);
 	}
+	check_extension(argv[1]);
 	init_map(argv[1], &map);
 	get_map(&map);
 	vars.finalmap = map.cmap;

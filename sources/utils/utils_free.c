@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:22 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:30:21 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ void	delete_txt(t_vars *vars, int alloc_txt)
 
 	i = 0;
 	while (i < alloc_txt)
+	{
 		mlx_delete_texture(vars->textures[i]);
+		i++;
+	}
 }
 
 void	free_text_img(t_vars *vars)

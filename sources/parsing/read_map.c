@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:11 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/23 18:10:36 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,40 @@ void	check_lines_after_map(t_map *map, char *gnl)
 
 	while (gnl)
 	{
-		free(gnl);
-		gnl = get_next_line(map->fd);
 		i = 0;
 		while (gnl && gnl[i] == ' ')
 			i++;
-		if (ft_strcmp(&gnl[i], "\n") && gnl && ft_strcmp(&gnl[i], "\0"))
+		// if (ft_strcmp(&gnl[i], "\n") && gnl && ft_strcmp(&gnl[i], "\0"))
+		// {
+		// 	free(gnl);
+		// 	error_exit("Error\nDelete lines after map!\n");
+		// }
+		printf("GNL: %s\n", gnl);
+		if (gnl[i] == '\n' && gnl[i + 1] == '\0')
 		{
 			free(gnl);
 			error_exit("Error\nDelete lines after map!\n");
 		}
+		free(gnl);
+		gnl = get_next_line(map->fd);
 	}
 }
 
 void	countinglines(t_map *map)
 {
 	char	*gnl;
+	int		i;
 
 	checkemptylines(map);
 	while (1)
 	{
+		i = 0;
 		gnl = get_next_line(map->fd);
-		if (!ft_strcmp(gnl, "\n"))
+		while (gnl[i] == ' ' || gnl[i] == '\t')
+			i++;
+		if (gnl[i] == '\n' || gnl[i] == '\0')
 			break ;
-		if (gnl == NULL)
+		else if (gnl == NULL)
 			break ;
 		free (gnl);
 		map->maplines++;
@@ -116,7 +126,8 @@ void	getmap_content(t_map *map)
 	count = 0;
 	while (count < map->maplines + 1)
 	{
-		map->cmap[count] = ft_free_strtrim(get_next_line(read), "\n");
+		map->cmap[count] = get_next_line(read);
+		map->cmap[count] = ft_free_strtrim(map->cmap[count], "\n");
 		count++;
 	}
 	map->cmap[count] = NULL;

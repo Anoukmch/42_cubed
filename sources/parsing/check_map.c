@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:02:59 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/23 17:50:50 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,16 @@ void	check_vertical_rendering(char *str)
 
 void	check_horizontal_spaces(char **str, int i)
 {
-	int	z;
 	int	j;
 
-	z = 0;
 	j = 0;
-	while (str[i][j])
+	while (str[i] && str[i][j])
 	{
 		if (str[i][j] == ' ')
 		{
+			// printf("line: %d, ")
 			if ((i > 0 && str[i - 1][j] != '1' && str[i - 1][j] != ' ')
-				|| (str[i + 1] && ft_strcmp(str[i + 1], "\0")
-					&& str[i + 1][j] && str[i + 1][j] != '1'
+				|| (str[i + 1] && str[i + 1][j] && str[i + 1][j] != '1'
 					&& str[i + 1][j] != ' '))
 				error_exit("Error\nMap is not surrounded by walls!\n");
 		}

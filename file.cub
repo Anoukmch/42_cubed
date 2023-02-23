@@ -1,8 +1,8 @@
 
-NO ../42_cubed/pngfiles/brownbrickwall.png
-SO pngfiles/brickwall.png
+NO ../42_cubed/pngfiles/crystalwall.png
+SO pngfiles/facewall.png
 WE pngfiles/metalwall.png
-EA pngfiles/reliefwall.png
+EA pngfiles/4square.png
 
 F 255,240,      200
 C 254,255,255

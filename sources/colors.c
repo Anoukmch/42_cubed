@@ -22,32 +22,44 @@
 // 	return ((uint32_t)(rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255));
 // }
 
-uint32_t get_colour(char *s)
+// convert floor & ceiling color to a 32-bit ARGB color
+// << 24 --> red value shifted to left by 24 bits
+// << 24 = multiplying no. with * 256 * 256
+// << 16 --> green value shifted to left by 16 bits
+// << 16 = multiplying no. with * 256
+// << 8 --> blue value shifted to left by 8 bits
+// << 8 = multiplying with nothing
+// << 255 represents value of 0xFF (max val for the alpha component needed)
+// AARRGGBB (AA = alpha component value)
+uint32_t	get_color(char *s)
 {
-	uint32_t finalcolor;
-    int rgb[3];
-    int i = 0;
-    int j = 0;
+	uint32_t	finalcolor;
+	int			rgb[3];
+	int			iter;
+	int			col;
 
+	iter = 0;
+	col = 0;
 	ft_memset(rgb, 0, sizeof(rgb));
-    while (s && s[i])
-    {
-        if (ft_isdigit(s[i]))
-        {
-            rgb[j] = ft_atoi(&s[i]);
-			j++;
-            while (s[i] && ft_isdigit(s[i]))
-				i++;
-        }
-        i++;
-    }
-	finalcolor = rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2] + 0xff000000;
-    return (finalcolor);
+	while (s && s[iter])
+	{
+		if (ft_isdigit(s[iter]))
+		{
+			rgb[col] = ft_atoi(&s[iter]);
+			col++;
+			while (s[iter] && ft_isdigit(s[iter]))
+				iter++;
+		}
+		iter++;
+	}
+	finalcolor = (uint32_t)((rgb[0] << 24) + (rgb[1] << 16) \
+		+ (rgb[2] << 8) + 255);
+	return (finalcolor);
 }
-
+// finalcolor = rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2] + 0xff000000;
 
 void	transform_colors(t_vars *vars, t_map *map)
 {
-	vars->ceilingcolor = get_colour(map->rgb_c);
-	vars->floorcolor = get_colour(map->rgb_f);
+	vars->ceilingcolor = get_color(map->rgb_c);
+	vars->floorcolor = get_color(map->rgb_f);
 }

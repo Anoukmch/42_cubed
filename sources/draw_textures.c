@@ -1,5 +1,7 @@
 #include "../includes/cub3d.h"
 
+// wall_x = exact pos where ray hits wall
+// tex_x = 
 int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 {
 	double	wall_x;
@@ -12,8 +14,7 @@ int	texture_x_value(mlx_texture_t *tex, t_cast *t, t_vars *vars)
 		wall_x = vars->player_x + t->perp_wall_dist * t->raydir_x;
 	wall_x -= (int)wall_x;
 	tex_x = wall_x * tex->width;
-	if ((t->is_ea_we == Y_SIDE_EA_WE && t->raydir_x > 0)
-		|| (t->is_ea_we == X_SIDE_NO_S0 && t->raydir_y < 0))
+	if (t->which_card_pt == NO || t->which_card_pt == WE)
 		tex_x = tex->width - tex_x - 1;
 	return (tex_x);
 }
@@ -40,7 +41,7 @@ void	draw_everything(t_cast *t, t_vars *vars)
 
 	t->draw_start = fmax(0, (vars->m_height - (t->draw_end - t->draw_start)) / 2);
 	step = 1.0 * 32 / (t->draw_end - t->draw_start);
-	tex_pos = (t->draw_start - (vars->m_height
+	tex_pos = (t->draw_start - (vars->m_height \
 			+ (t->draw_end - t->draw_start)) / 2) * step;
 	tex_x = texture_x_value(vars->textures[t->which_card_pt], t, vars);
 	while (t->iter < vars->m_height)
@@ -53,8 +54,9 @@ void	draw_everything(t_cast *t, t_vars *vars)
 		{
 			tex_y = (int)tex_pos & (32 - 1);
 			tex_pos += step;
-			ft_memcpy(&vars->image_3d->pixels[(t->iter * (int)vars->m_width + t->x) \
-				* BPP], &vars->textures[pick_txt(t)]->pixels[(tex_y * 32 + tex_x) * BPP], BPP);
+			ft_memcpy(&vars->image_3d->pixels[(t->iter * \
+			(int)vars->m_width + t->x) * BPP], &vars->textures[\
+			pick_txt(t)]->pixels[(tex_y * 32 + tex_x) * BPP], BPP);
 		}
 		t->iter++;
 	}

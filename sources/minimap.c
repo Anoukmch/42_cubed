@@ -1,11 +1,5 @@
 #include "../includes/cub3d.h"
 
-#define RGB_BLUE	0xA6C0
-#define RGB_WHITE	0xFFFFFFFF
-#define RGB_GREEN	0x00996699
-#define RGB_YELLOW	0xFFFF007F
-#define RGB_PINK	0xFF006699
-
 void	character_found(t_vars *vars, char **map, int width, int height)
 {
 	int			i;
@@ -18,7 +12,7 @@ void	character_found(t_vars *vars, char **map, int width, int height)
 	if (map[height][width] == '1' || map[height][width] == '2')
 	{
 		if (map[height][width] == '2')
-			color = RGB_YELLOW;
+			color = RGB_BROWN;
 		while (i < vars->mini_cube_w)
 		{
 			while (j < vars->mini_cube_h)

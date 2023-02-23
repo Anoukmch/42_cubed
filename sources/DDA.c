@@ -85,6 +85,7 @@ void	find_hitted_wall(t_cast *t, t_vars *vars)
 // perpendicularWallDistance = ray from cameraplane to wall hit
 // to avoid fish-eye effect
 // length of rays (draw_start & draw_end)
+
 void	calc_perp_wall_drawthings(t_cast *t, t_vars	*vars)
 {
 	if (t->is_ea_we == Y_SIDE_EA_WE)
@@ -118,8 +119,8 @@ void	dda(void *param)
 		calc_step_and_sidedist(&t, vars);
 		find_hitted_wall(&t, vars);
 		calc_perp_wall_drawthings(&t, vars);
-		draw_wall_and_ceiling(&t, vars);
-		draw_everything(&t, vars);
+		draw_floor_and_ceiling(&t, vars);
+		draw_walls(&t, vars);
 		draw_rays_minimap(&t, vars, RGB_PINK);
 		t.x++;
 	}

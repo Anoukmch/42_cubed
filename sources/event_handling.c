@@ -56,7 +56,8 @@ void	open_door(t_vars *vars)
 
 // Or we can use the mlx_get_mouse_pos
 
-void	hey(mouse_key_t button, action_t action, modifier_key_t mods, void* param)
+void	hey(mouse_key_t button, action_t action, \
+modifier_key_t mods, void *param)
 {
 	(void)button;
 	(void)action;
@@ -89,6 +90,7 @@ void	key_hook(void *param)
 // mlx_hook(cub->win.mlx_win, 4, 0, register_mouseclick, cub);
 // mlx_hook(cub->win.mlx_win, 5, 0, unregister_mouseclick, cub);
 
-// typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+// typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action,
+// 			modifier_key_t mods, void* param);
 // int	unregister_mouseclick(int button, int x, int y, t_cub *cub)
 // int	register_mouseclick(int button, int x, int y, t_cub *cub)

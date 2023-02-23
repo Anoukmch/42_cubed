@@ -60,7 +60,7 @@ void	key_hook(void *param)
 {
 	t_vars	*vars;
 
-	vars = param;
+	vars = param; 
 	if (mlx_is_key_down(vars->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(vars->mlx);
 	walking_directions(vars);
@@ -79,11 +79,3 @@ void	key_hook(void *param)
 	// 	mlx_
 	// }
 }
-
-// mlx_hook(cub->win.mlx_win, 4, 0, register_mouseclick, cub);
-// mlx_hook(cub->win.mlx_win, 5, 0, unregister_mouseclick, cub);
-
-// typedef void (*mlx_mousefunc)(mouse_key_t button, action_t action,
-// 			modifier_key_t mods, void* param);
-// int	unregister_mouseclick(int button, int x, int y, t_cub *cub)
-// int	register_mouseclick(int button, int x, int y, t_cub *cub)

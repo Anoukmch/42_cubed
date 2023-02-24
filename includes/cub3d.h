@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:26:42 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:48:59 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,8 @@ int			error_exit(char *s);
 // read_map.c
 void		countinglines(t_map *map);
 void		getmap_content(t_map *map);
+void		checktransitionlines(t_map *map)
+;
 
 // check_map.c & check_map_2.c
 void		map_pars(t_map *map);

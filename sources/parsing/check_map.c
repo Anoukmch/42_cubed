@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:50:50 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:52:42 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	check_horizontal_spaces(char **str, int i)
 	{
 		if (str[i][j] == ' ')
 		{
-			// printf("line: %d, ")
-			if ((i > 0 && str[i - 1][j] != '1' && str[i - 1][j] != ' ')
-				|| (str[i + 1] && str[i + 1][j] && str[i + 1][j] != '1'
-					&& str[i + 1][j] != ' '))
+			if ((i > 0 && ft_strlen(str[i - 1]) >= ft_strlen(str[i])
+					&& str[i - 1][j] != '1' && str[i - 1][j] != ' ')
+				|| (str[i + 1] && ft_strlen(str[i + 1]) >= ft_strlen(str[i])
+					&& str[i + 1][j] != '1' && str[i + 1][j] != ' '))
 				error_exit("Error\nMap is not surrounded by walls!\n");
 		}
 		j++;
@@ -100,7 +100,9 @@ void	map_pars(t_map *map)
 		if (i == 0 || i == map->maplines)
 			check_first_and_last(map->cmap[i]);
 		else
+		{
 			check_vertical_rendering(map->cmap[i]);
+		}
 		check_horizontal_spaces(map->cmap, i);
 		check_doors(map->cmap, i);
 		i++;

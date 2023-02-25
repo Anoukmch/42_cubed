@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/24 16:02:05 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:05:29 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	getmap_content(t_map *map)
 	while (count <= map->maplines)
 	{
 		tmp = get_next_line(read);
-		printf("Strlen: %lu\n", ft_strlen(tmp));
+		// printf("Strlen: %lu\n", ft_strlen(tmp));
 		map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp) - 1);
-		printf("MAP: %s\n", map->cmap[count]);
-		printf("test\n");
+		// printf("MAP: %s\n", map->cmap[count]);
+		// printf("test\n");
 		free (tmp);
 		count++;
 	}

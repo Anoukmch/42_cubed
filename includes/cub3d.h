@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/24 15:48:59 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/25 14:17:03 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void		free_struct(t_map *map);
 void		check_comma(char *line);
 int			size_2d_array(char **array);
 int			isdigit_string(char	*str);
-void		check_first_and_last(char *str);
 
 // utils_dda.c
 int			one_two(char c);

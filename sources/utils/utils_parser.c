@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:25 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/25 14:16:35 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,4 @@ void	check_comma(char *line)
 	}
 	if (comma_nbr != 2)
 		error_exit("Error\nColor code : check input file");
-}
-
-void	check_first_and_last(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '1')
-			error_exit("Error\nCheck first and last map line!\n");
-		i++;
-	}
 }

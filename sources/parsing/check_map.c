@@ -6,11 +6,24 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/24 15:52:42 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/25 14:16:54 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	check_first_and_lastline(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '1')
+			error_exit("Error\nCheck first and last map line!\n");
+		i++;
+	}
+}
 
 void	check_invalid_characters(t_map *map, char *str)
 {
@@ -29,48 +42,29 @@ void	check_invalid_characters(t_map *map, char *str)
 	}
 }
 
-void	check_vertical_characters(char *str, int j, bool *open)
-{
-	if (*open == true)
-	{
-		if (str[j] == '1' && (str[j + 1] == ' ' || !str[j + 1]))
-			*open = false;
-		else if ((str[j] != '0' && str[j] != '1' && str[j] != 'N'\
-			&& str[j] != 'E' && str[j] != 'S' && str[j] != 'W' && str[j] != '2')
-			|| (!str[j + 1] && (str[j] == '0' || str[j] == 'N' || str[j] == 'E'\
-			|| str[j] == 'S' || str[j] == 'W' || str[j] == '2')))
-			error_exit("Error\nPlease check map characters!\n");
-	}
-	else if (*open == false)
-	{
-		if (str[j] == '1' && (!str[j - 1] || str[j - 1] == ' '))
-			*open = true;
-		else if (str[j] != '1' && str[j] != ' ')
-			error_exit("Error\nPlease check map characters!\n");
-	}
-}
-
 void	check_vertical_rendering(char *str)
 {
 	int		j;
-	bool	open;
 
 	j = 0;
-	open = false;
 	while (str[j] == ' ')
 		j++;
 	if (str[j] != '1')
-		error_exit("Error\nPlease check map characters!\n");
-	else
-		open = true;
+		error_exit("Error\n first char not a wall!\n");
 	while (str[j])
 	{
-		check_vertical_characters(str, j, &open);
+		if ((str[j] == '0' || str[j] == '2' || str[j] == 'W'
+			|| str[j] == 'N' || str[j] == 'S' || str[j] == 'E')
+			&& (!str[j + 1] || (str[j + 1] && str[j + 1] == ' ')))
+			error_exit("Error\nvertical mistake!\n");
+		else if (str[j] == ' ' && str[j + 1]
+			&& str[j + 1] != ' ' && str[j + 1] != '1')
+			error_exit("Error\nvertical mistake!\n");
 		j++;
 	}
 }
 
-void	check_horizontal_spaces(char **str, int i)
+void	check_horizontal_rendering(char **str, int i)
 {
 	int	j;
 
@@ -79,12 +73,16 @@ void	check_horizontal_spaces(char **str, int i)
 	{
 		if (str[i][j] == ' ')
 		{
-			if ((i > 0 && ft_strlen(str[i - 1]) >= ft_strlen(str[i])
+			if ((i > 0 && (int)ft_strlen(str[i - 1]) > j
 					&& str[i - 1][j] != '1' && str[i - 1][j] != ' ')
-				|| (str[i + 1] && ft_strlen(str[i + 1]) >= ft_strlen(str[i])
+				|| (str[i + 1] && (int)ft_strlen(str[i + 1]) > j
 					&& str[i + 1][j] != '1' && str[i + 1][j] != ' '))
-				error_exit("Error\nMap is not surrounded by walls!\n");
+				error_exit("Error\nHORIZONTAL CHECK!\n");
 		}
+		if (((i > 0 && (int)ft_strlen(str[i - 1]) <= j)
+			|| (str[i + 1] && (int)ft_strlen(str[i + 1]) <= j))
+			&& str[i][j] != '1' && str[i][j] != ' ')
+			error_exit("Error\nHORIZONTAL CHECK!\n");
 		j++;
 	}
 }
@@ -98,12 +96,10 @@ void	map_pars(t_map *map)
 	{
 		check_invalid_characters(map, map->cmap[i]);
 		if (i == 0 || i == map->maplines)
-			check_first_and_last(map->cmap[i]);
+			check_first_and_lastline(map->cmap[i]);
 		else
-		{
 			check_vertical_rendering(map->cmap[i]);
-		}
-		check_horizontal_spaces(map->cmap, i);
+		check_horizontal_rendering(map->cmap, i);
 		check_doors(map->cmap, i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/25 13:05:29 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/26 18:33:01 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	countinglines(t_map *map)
 	}
 	if (gnl)
 		check_lines_after_map(map, gnl);
-	// free (gnl);
+	free (gnl);
 	close(map->fd);
 	if (!map->maplines)
 		error_exit("Error\nNo existing map!\n");
@@ -82,10 +82,10 @@ void	getmap_content(t_map *map)
 	while (count <= map->maplines)
 	{
 		tmp = get_next_line(read);
-		// printf("Strlen: %lu\n", ft_strlen(tmp));
-		map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp) - 1);
-		// printf("MAP: %s\n", map->cmap[count]);
-		// printf("test\n");
+		if (ft_strchr(tmp, '\n'))
+			map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp) - 1);
+		else
+			map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp));
 		free (tmp);
 		count++;
 	}

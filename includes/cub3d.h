@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:53:44 by amechain          #+#    #+#             */
 /*   Updated: 2023/02/27 15:53:46 by amechain         ###   ########.fr       */
+=======
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
+/*   Updated: 2023/02/25 14:17:03 by jmatheis         ###   ########.fr       */
+>>>>>>> 7236834657974fb3992486403caec84f98ad259c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +148,6 @@ void		free_struct(t_map *map);
 void		check_comma(char *line);
 int			size_2d_array(char **array);
 int			isdigit_string(char	*str);
-void		check_first_and_last(char *str);
 
 // utils_dda.c
 int			one_two(char c);
@@ -152,6 +158,8 @@ int			error_exit(char *s);
 // read_map.c
 void		countinglines(t_map *map);
 void		getmap_content(t_map *map);
+void		checktransitionlines(t_map *map)
+;
 
 // check_map.c & check_map_2.c
 void		map_pars(t_map *map);
@@ -176,6 +184,7 @@ void		get_map(t_map *map);
 // event_handling.c
 void		windowresize(int32_t width, int32_t height, void *param);
 void		key_hook(void *param);
+void		door(mlx_key_data_t keydata, void *param);
 
 // texture.c
 void		init_textures(t_vars *vars, t_map *map);

@@ -1,26 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/23 17:03:35 by jmatheis          #+#    #+#             */
+/*   Updated: 2023/02/23 17:09:09 by jmatheis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-
-// uint32_t	get_colour(char *s)
-// {
-// 	int			i;
-// 	int			j;
-// 	int			rgb[3];
-
-// 	j = 0;
-// 	i = 0;
-// 	ft_bzero(rgb, 3);
-// 	while (s[i])
-// 	{
-// 		if (ft_isdigit(s[i]))
-// 		{
-// 			rgb[j++] = ft_atoi(s + i);
-// 			while (s[i] && ft_isdigit(s[i]))
-// 				i++;
-// 		}
-// 		i++;
-// 	}
-// 	return ((uint32_t)(rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 255));
-// }
 
 // convert floor & ceiling color to a 32-bit ARGB color
 // << 24 --> red value shifted to left by 24 bits
@@ -56,7 +46,6 @@ uint32_t	get_color(char *s)
 		+ (rgb[2] << 8) + 255);
 	return (finalcolor);
 }
-// finalcolor = rgb[0] * 256 * 256 + rgb[1] * 256 + rgb[2] + 0xff000000;
 
 void	transform_colors(t_vars *vars, t_map *map)
 {

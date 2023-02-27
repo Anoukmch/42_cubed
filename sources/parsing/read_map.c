@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/26 18:33:01 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/27 13:22:27 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	countinglines(t_map *map)
 			break ;
 		if (gnl[i] != '0' && gnl[i] != '1' && gnl[i] != 'N' && gnl[i] != 'E'
 			&& gnl[i] != 'S' && gnl[i] != 'W' && gnl[i] != '2')
+		{
+			free(gnl);
 			error_exit("Error\nInvalid map characters!\n");
+		}
 		free (gnl);
 		map->maplines++;
 	}
 	if (gnl)
 		check_lines_after_map(map, gnl);
-	free (gnl);
 	close(map->fd);
-	if (!map->maplines)
-		error_exit("Error\nNo existing map!\n");
 }
 
 void	getmap_content(t_map *map)
@@ -82,13 +82,15 @@ void	getmap_content(t_map *map)
 	while (count <= map->maplines)
 	{
 		tmp = get_next_line(read);
-		if (ft_strchr(tmp, '\n'))
-			map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp) - 1);
-		else
-			map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp));
+		map->cmap[count] = ft_strtrim(tmp, "\n");
 		free (tmp);
 		count++;
 	}
 	close (read);
 	map->cmap[count] = NULL;
 }
+
+		// if (ft_strchr(tmp, '\n'))
+		// 	map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp) - 1);
+		// else
+		// 	map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp));

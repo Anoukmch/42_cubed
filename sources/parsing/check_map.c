@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/26 18:32:32 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/27 13:13:33 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_vertical_rendering(char *str)
 	while (str[j])
 	{
 		if ((str[j] == '0' || str[j] == '2' || str[j] == 'W'
-			|| str[j] == 'N' || str[j] == 'S' || str[j] == 'E')
+				|| str[j] == 'N' || str[j] == 'S' || str[j] == 'E')
 			&& (!str[j + 1] || (str[j + 1] && str[j + 1] == ' ')))
 			error_exit("Error\nvertical mistake!\n");
 		else if (str[j] == ' ' && str[j + 1]
@@ -80,7 +80,7 @@ void	check_horizontal_rendering(char **str, int i)
 				error_exit("Error\nHORIZONTAL CHECK!\n");
 		}
 		if (((i > 0 && (int)ft_strlen(str[i - 1]) <= j)
-			|| (str[i + 1] && (int)ft_strlen(str[i + 1]) <= j))
+				|| (str[i + 1] && (int)ft_strlen(str[i + 1]) <= j))
 			&& str[i][j] != '1' && str[i][j] != ' ')
 			error_exit("Error\nHORIZONTAL CHECK!\n");
 		j++;

@@ -28,15 +28,11 @@ M_SRCS		= $(addprefix ./sources/, $(M_SRC))
 
 M_OBJS		= $(M_SRCS:.c=.o)
 
-#INCLUDES = ./includes/cub3d.h
-
 LIBS_NAME = ./includes/libs/libs.a
 
 MLX_NAME = includes/libs/libmlx/libmlx42.a
 
-#RULES
 all: $(NAME)
-#bonus ?
 
 $(NAME): $(M_OBJS) $(LIBS_NAME) $(MLX_NAME)
 	$(CC) $(CFLAGS) -o $(NAME) $(M_OBJS) $(MLX)

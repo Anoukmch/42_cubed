@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/27 13:22:27 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:06:03 by amechain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,3 @@ void	getmap_content(t_map *map)
 	close (read);
 	map->cmap[count] = NULL;
 }
-
-		// if (ft_strchr(tmp, '\n'))
-		// 	map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp) - 1);
-		// else
-		// 	map->cmap[count] = ft_substr(tmp, 0, ft_strlen(tmp));

@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 15:53:44 by amechain          #+#    #+#             */
-/*   Updated: 2023/02/27 15:53:46 by amechain         ###   ########.fr       */
-=======
-/*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/25 14:17:03 by jmatheis         ###   ########.fr       */
->>>>>>> 7236834657974fb3992486403caec84f98ad259c
+/*   Updated: 2023/02/27 16:03:38 by amechain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +151,7 @@ int			error_exit(char *s);
 // read_map.c
 void		countinglines(t_map *map);
 void		getmap_content(t_map *map);
-void		checktransitionlines(t_map *map)
-;
+void		checktransitionlines(t_map *map);
 
 // check_map.c & check_map_2.c
 void		map_pars(t_map *map);

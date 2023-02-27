@@ -6,7 +6,7 @@
 /*   By: amechain <amechain@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:02:18 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/27 15:58:32 by amechain         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:18:15 by amechain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	check_vertical_rendering(char *str)
 	while (str[j] == ' ')
 		j++;
 	if (str[j] != '1')
-		error_exit("Error\n first char not a wall!\n");
+		error_exit("Error\nCheck map\n");
 	while (str[j])
 	{
 		if ((str[j] == '0' || str[j] == '2' || str[j] == 'W'
 				|| str[j] == 'N' || str[j] == 'S' || str[j] == 'E')
 			&& (!str[j + 1] || (str[j + 1] && str[j + 1] == ' ')))
-			error_exit("Error\nvertical mistake!\n");
+			error_exit("Error\nCheck map\n");
 		else if (str[j] == ' ' && str[j + 1]
 			&& str[j + 1] != ' ' && str[j + 1] != '1')
-			error_exit("Error\nvertical mistake!\n");
+			error_exit("Error\nCheck map\n");
 		j++;
 	}
 }
@@ -77,12 +77,12 @@ void	check_horizontal_rendering(char **str, int i)
 					&& str[i - 1][j] != '1' && str[i - 1][j] != ' ')
 				|| (str[i + 1] && (int)ft_strlen(str[i + 1]) > j
 					&& str[i + 1][j] != '1' && str[i + 1][j] != ' '))
-				error_exit("Error\nHORIZONTAL CHECK!\n");
+				error_exit("Error\nCheck map\n");
 		}
 		if (((i > 0 && (int)ft_strlen(str[i - 1]) <= j)
 				|| (str[i + 1] && (int)ft_strlen(str[i + 1]) <= j))
 			&& str[i][j] != '1' && str[i][j] != ' ')
-			error_exit("Error\nHORIZONTAL CHECK!\n");
+			error_exit("Error\nCheck map\n");
 		j++;
 	}
 }
@@ -104,5 +104,5 @@ void	map_pars(t_map *map)
 		i++;
 	}
 	if (map->player != 1)
-		error_exit("Error\nPlease check the map characters!\n");
+		error_exit("Error\nCheck map : no or multiple player\n");
 }

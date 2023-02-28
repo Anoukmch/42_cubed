@@ -6,7 +6,7 @@
 /*   By: jmatheis <jmatheis@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:03:35 by jmatheis          #+#    #+#             */
-/*   Updated: 2023/02/23 17:03:42 by jmatheis         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:43:34 by jmatheis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	rotation(t_vars *vars, char *str)
 
 int	check_corners(t_vars *vars, double x, double y)
 {
-	if (vars->finalmap[(int)y][(int)x] == '0'
+	if ((vars->finalmap[(int)y][(int)x] != '1'
+		|| !vars->finalmap[(int)y][(int)x])
 		&& ((int)vars->player_x != (int)x
 			|| (int)vars->player_y != (int)y))
 	{
